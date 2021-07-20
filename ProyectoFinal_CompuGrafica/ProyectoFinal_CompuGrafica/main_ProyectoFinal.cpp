@@ -44,7 +44,7 @@ Alumno: Sandoval Juárez Luis Arturo 3
 
 
 /////---------------------------------------------- VARIABLES PARA MUSICA----------------------------------------------------------------------////
-bool musicFondo = true;
+//bool musicFondo = true;
 using namespace irrklang;
 
 /////---------------------------------------------- DIMENSIONES DE WINDOW----------------------------------------------------------------------////
@@ -75,7 +75,8 @@ Model Alberca1_M;
 Model Silla_M;
 Model Maceta_M;
 Model Palmera_M;
-//Model Casa1_M;
+Model Casas_M;
+Model Esce_M;
 
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
@@ -361,12 +362,12 @@ void CreateShaders()
 int main()
 {
 	/////---------------------------------------------- LLAMAR CANCION --------------------------------------------------------------------------////
-	
+	/*
 	ISoundEngine* engine = createIrrKlangDevice();
 	if (!engine)
 		return 0;
 	ISound* ambiental = engine->play2D("canciones/Stellar Wind - Unicorn Heads.mp3", true);
-	
+	*/
 	/////---------------------------------------------- INICIAR WINDOW --------------------------------------------------------------------------////
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
@@ -445,9 +446,13 @@ int main()
 	Palmera_M = Model();
 	Palmera_M.LoadModel("Models/palmera.obj");
 
-	//Modelo Casa1
-	//Casa1_M = Model();
-	//Casa1_M.LoadModel("Models/House.obj");
+	//Modelo Casas
+	Casas_M = Model();
+	Casas_M.LoadModel("Models/casas.obj");
+
+	//Modelo Casas
+	Esce_M = Model();
+	Esce_M.LoadModel("Models/escenario.obj");
 
 
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
@@ -1684,18 +1689,43 @@ int main()
 		glDisable(GL_BLEND);
 
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
-		/*
-		//Modelo de Casa1//
+		//Modelo de Casas
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::translate(model, glm::vec3(35.0f, 0.11f, 110.0f));
-		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		model = glm::translate(model, glm::vec3(75.0f, 3.5f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Casa1_M.RenderModel();
-		*/
+		Casas_M.RenderModel();
+		glDisable(GL_BLEND);
 
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Casas
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(75.0f, 3.5f, -50.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Casas_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Modelo de Escenario
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, -1.2f, -190.0f));
+		model = glm::rotate(model, 180* toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Esce_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		/*
 		//Modelo de Agave
-
 		//Agave¿Que sycede si lo renderizan antes del coche y de la pista?
 		//HARA QUE NO SE VEAN LAS DEMAS COSAS, por eso todo lo que tenga blend se debe dibujar hasta el final.
 		model = glm::mat4(1.0);
@@ -1710,8 +1740,8 @@ int main()
 		meshList[3]->RenderMesh();
 		glDisable(GL_BLEND);
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+		*/
+		/*
 		//Modelo de Agave 2
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -10.0f));
@@ -1724,7 +1754,7 @@ int main()
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[3]->RenderMesh();
 		glDisable(GL_BLEND);
-
+		*/
 		
 
 		glUseProgram(0);
