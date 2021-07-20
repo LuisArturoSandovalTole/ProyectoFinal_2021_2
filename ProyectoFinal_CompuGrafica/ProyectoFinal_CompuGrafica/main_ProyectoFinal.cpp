@@ -62,8 +62,12 @@ Model Kitt_M;
 Model Llanta_M;
 Model Camino_M;
 Model Blackhawk_M;
-Model Dado_M;
 Model Cabeza_M;
+Model Alberca_M;
+Model Alberca1_M;
+Model Silla_M;
+Model Maceta_M;
+Model Palmera_M;
 
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
@@ -380,7 +384,7 @@ int main()
 	Tagave = Texture("Textures/Agave.tga");
 	Tagave.LoadTextureA();
 	//Textura Pasto
-	pastoTexture=Texture("Textures/pasto1.jpg");
+	pastoTexture=Texture("Textures/arena.jpg");
 	pastoTexture.LoadTextureA();
 
 	/////---------------------------------------------- CARGA DE MODELOS --------------------------------------------------------------------------////
@@ -405,6 +409,27 @@ int main()
 	//Modelo Cabeza
 	Cabeza_M = Model();
 	Cabeza_M.LoadModel("Models/cabeza.obj");
+
+	//Modelo Alberca
+	Alberca_M = Model();
+	Alberca_M.LoadModel("Models/1alb.obj");
+
+	//Modelo Alberc1
+	Alberca1_M = Model();
+	Alberca1_M.LoadModel("Models/alberca1.obj");
+
+	//Modelo SIlla
+	Silla_M = Model();
+	Silla_M.LoadModel("Models/silla.obj");
+
+	//Modelo Maceta
+	Maceta_M = Model();
+	Maceta_M.LoadModel("Models/maceta.obj");
+
+	//Modelo Palmera
+	Palmera_M = Model();
+	Palmera_M.LoadModel("Models/palmera.obj");
+
 
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
 
@@ -1305,15 +1330,6 @@ int main()
 		Llanta_M.RenderModel();
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 
-		//Modelo del camino//
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-50.0f, -2.8f, 0.0f));
-		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Camino_M.RenderModel();
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
 
 		//Modelo de cabeza//
 
@@ -1325,14 +1341,329 @@ int main()
 		Cabeza_M.RenderModel();
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 
-		//Modelo del dado//
-
+		//Modelo de Alberca//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.11f, -25.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Dado_M.RenderModel();
+		Alberca_M.RenderModel();
+		glDisable(GL_BLEND);
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Alberca1//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.11f, -25.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Alberca1_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla--L//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, 25.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, -25.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, -50.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+				//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, -75.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, -100.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla--R//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, 25.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, 50.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, 75.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+				//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, 100.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Silla//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.11f, -25.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Silla_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+
+		//Modelo de Maceta//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(6.0f, 0.11f, -1.8f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Maceta_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Maceta//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-6.0f, 0.11f, -1.8f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Maceta_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Maceta//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(6.0f, 0.11f, 46.8f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Maceta_M.RenderModel();
+		glDisable(GL_BLEND);
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Maceta//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-6.0f, 0.11f, 46.8f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Maceta_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera-L//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-35.0f, 0.11f, -30.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-35.0f, 0.11f, 5.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-35.0f, 0.11f, 40.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-35.0f, 0.11f, 75.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-35.0f, 0.11f, 110.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera-R//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(35.0f, 0.11f, -30.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(35.0f, 0.11f, 5.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(35.0f, 0.11f, 40.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(35.0f, 0.11f, 75.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Palmera//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(35.0f, 0.11f, 110.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Palmera_M.RenderModel();
+		glDisable(GL_BLEND);
+
 
 
 		//Modelo de Agave
