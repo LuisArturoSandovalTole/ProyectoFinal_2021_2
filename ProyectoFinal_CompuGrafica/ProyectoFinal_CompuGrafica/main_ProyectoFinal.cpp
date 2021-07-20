@@ -33,7 +33,7 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include "Skybox.h"
 
 //Librería para música
-//#include "irrKlang.h"
+#include "irrKlang.h"
 
 
 /////---------------------------------------------- PARA LA ILUMINACION----------------------------------------------------------------------////
@@ -44,8 +44,8 @@ Alumno: Sandoval Juárez Luis Arturo 3
 
 
 /////---------------------------------------------- VARIABLES PARA MUSICA----------------------------------------------------------------------////
-//bool musicFondo = true;
-//using namespace irrklang;
+bool musicFondo = true;
+using namespace irrklang;
 
 /////---------------------------------------------- DIMENSIONES DE WINDOW----------------------------------------------------------------------////
 
@@ -361,12 +361,12 @@ void CreateShaders()
 int main()
 {
 	/////---------------------------------------------- LLAMAR CANCION --------------------------------------------------------------------------////
-	/*
+	
 	ISoundEngine* engine = createIrrKlangDevice();
 	if (!engine)
 		return 0;
-	ISound* ambiental = engine->play2D("canciones/tobu-candyland-ncs-release.mp3", true);
-	*/
+	ISound* ambiental = engine->play2D("canciones/Stellar Wind - Unicorn Heads.mp3", true);
+	
 	/////---------------------------------------------- INICIAR WINDOW --------------------------------------------------------------------------////
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
