@@ -32,6 +32,9 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include"Model.h"
 #include "Skybox.h"
 
+//Librería para música
+//#include "irrKlang.h"
+
 
 /////---------------------------------------------- PARA LA ILUMINACION----------------------------------------------------------------------////
 #include "CommonValues.h"
@@ -39,6 +42,10 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include "PointLight.h"
 #include "Material.h"
 
+
+/////---------------------------------------------- VARIABLES PARA MUSICA----------------------------------------------------------------------////
+//bool musicFondo = true;
+//using namespace irrklang;
 
 /////---------------------------------------------- DIMENSIONES DE WINDOW----------------------------------------------------------------------////
 
@@ -68,6 +75,7 @@ Model Alberca1_M;
 Model Silla_M;
 Model Maceta_M;
 Model Palmera_M;
+//Model Casa1_M;
 
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
@@ -352,7 +360,14 @@ void CreateShaders()
 /////---------------------------------------------- AQUI EMPIEZA EL MAIN-----------------------------------------------------------------------------------------////
 int main()
 {
-
+	/////---------------------------------------------- LLAMAR CANCION --------------------------------------------------------------------------////
+	/*
+	ISoundEngine* engine = createIrrKlangDevice();
+	if (!engine)
+		return 0;
+	ISound* ambiental = engine->play2D("canciones/tobu-candyland-ncs-release.mp3", true);
+	*/
+	/////---------------------------------------------- INICIAR WINDOW --------------------------------------------------------------------------////
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
 
@@ -429,6 +444,10 @@ int main()
 	//Modelo Palmera
 	Palmera_M = Model();
 	Palmera_M.LoadModel("Models/palmera.obj");
+
+	//Modelo Casa1
+	//Casa1_M = Model();
+	//Casa1_M.LoadModel("Models/House.obj");
 
 
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
@@ -1664,7 +1683,16 @@ int main()
 		Palmera_M.RenderModel();
 		glDisable(GL_BLEND);
 
-
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		/*
+		//Modelo de Casa1//
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(35.0f, 0.11f, 110.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Casa1_M.RenderModel();
+		*/
 
 		//Modelo de Agave
 
