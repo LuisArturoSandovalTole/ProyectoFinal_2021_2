@@ -16,6 +16,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	muevex = 2.0f;
 	muevey = 2.0f;
 	muevez = 2.0f;
+	show = 0;
 	//ilu = 0.5f;
 	//ilu = true;
 	//muevetrue = true;
@@ -140,6 +141,21 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		theWindow->muevez -= 1.0;
 	}
+
+	if (key == GLFW_KEY_M && action == GLFW_PRESS)
+	{
+		//printf("Aprieto M y desactivo");
+		theWindow->show = 1;
+		//printf("%d", theWindow->show);
+	}
+
+	if (key == GLFW_KEY_N && action == GLFW_PRESS)
+	{
+		//printf("Aprieto N y desactivo");
+		theWindow->show = 0;
+		//printf("%d", theWindow->show);
+	}
+	
 	/*
 	if (key == GLFW_KEY_M)
 	{

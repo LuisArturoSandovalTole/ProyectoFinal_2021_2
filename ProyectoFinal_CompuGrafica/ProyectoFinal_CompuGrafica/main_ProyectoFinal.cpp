@@ -78,7 +78,7 @@ Model Palmera_M;
 Model Casas_M;
 Model Esce_M;
 Model Luz_M;
-
+Model Race_M;
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
 
@@ -380,6 +380,7 @@ int main()
 	float poSpotY = 0.0;
 	float poSpotZ = 0.0;
 	float poSpotZA = 0.0;
+	float difusa = 0.0;
 
 	int dia = 0.0;
 	int day_state=0.0;
@@ -480,6 +481,9 @@ int main()
 	Luz_M = Model();
 	Luz_M.LoadModel("Models/luz.obj");
 
+	//Modelo Race
+	Race_M = Model();
+	Race_M.LoadModel("Models/race.obj");
 
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
 
@@ -563,6 +567,8 @@ int main()
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 
 	/////------------------------------------------LOOP MIENTAS NO SE CIERRA LA VENTANA ----------------------------------------------------------------////
+	GLint activa = 1;
+	GLint desactiva = 1;
 
 	while (!mainWindow.getShouldClose())
 	{
@@ -617,17 +623,17 @@ int main()
 
 		spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f, //RGB
 			0.0f, 2.0f,//Coeficiente ambiental y difuso
-			0.0f+poSpotX, 40.0f+poSpotY, 75.0f+poSpotZ,//Posición x,y,z
+			0.0f + poSpotX, 40.0f + poSpotY, 75.0f + poSpotZ,//Posición x,y,z
 			0.0f, -1.0f, 0.0f,//Vector de cirección, apunta hacia -y//DONDE APUNTA
 			1.0f, 0.0f, 0.0f,//Valores de ecuación de segundo grado
 			5.0f);//Radio de nuestro cono invicible//RADIO DEL CONO
 		spotLightCount++;
-
+		//---------------------Luces Fiesta----------------------------------------------------------------------------------------------------------------// 
 
 		//Luz Fiesta-spotLights[1]
 		spotLights[1] = SpotLight(1.0f, 0.0f, 0.0f,//RGB-Roja
-			1.0f, 2.0f,//Coefciente ambient y difuso
-			10.4f+poSpotX, 40.5f+poSpotY, 94.5f+poSpotZ,//Posición x,y,x
+			1.0f, 1.0f,//Coefciente ambient y difuso
+			10.4f + poSpotX, 40.5f + poSpotY, 94.5f + poSpotZ,//Posición x,y,x
 			0.0f, -1.0f, -0.5f,//Vector de dirección
 			1.0f, 0.0f, 0.0f,//Valores de ecuación
 			10.0f);
@@ -635,8 +641,8 @@ int main()
 
 		//Luz Fiesta-spotLights[2]
 		spotLights[2] = SpotLight(0.0f, 0.0f, 1.0f,//RGB-Azul
-			1.0f, 2.0f,//Coeficiente ambiental y difuso
-			-4.4f+poSpotX, 40.5f+poSpotY, 94.5f+poSpotZA, //Posición x,y,z
+			1.0f, 1.0f,//Coeficiente ambiental y difuso
+			-4.4f + poSpotX, 40.5f + poSpotY, 94.5f + poSpotZA, //Posición x,y,z
 			0.0f, -1.0f, -0.5f,//Vector de dirección
 			1.0f, 0.0f, 0.0f,
 			10.0f);
@@ -646,8 +652,8 @@ int main()
 
 		//Luz Fiesta- spotLights[3]
 		spotLights[3] = SpotLight(0.0f, 1.0f, 0.0f,//luz verde
-			1.0f, 2.0f,//Coeficiente ambiental y difuso
-			-19.4f+poSpotX, 40.5f+poSpotY, 94.5f+poSpotZ, //Posición x,y,z
+			1.0f, 1.0f,//Coeficiente ambiental y difuso
+			-19.4f + poSpotX, 40.5f + poSpotY, 94.5f + poSpotZ, //Posición x,y,z
 			0.0f, -1.0f, -0.5f,//Vector de dirección
 			1.0f, 0.0f, 0.0f,
 			10.0f);
@@ -678,79 +684,107 @@ int main()
 			break;
 		}
 		//
-		if (aniShow)
+
+		
+		if (mainWindow.getshow() == 1)
 		{
+			//if (activa == 1) {
+				activa = 0;
+				desactiva = 0;
+				printf("Aprieto M y activo");
 
-			if (star1)
-			{
-				poSpotX += 0.7;
-				if (poSpotX > 20)
-				{
-					star1 = false;
-					star2 = true;
+				if (star1)
+				{	
+					poSpotX += 0.7;
+					if (poSpotX > 20)
+					{
+						star1 = false;
+						star2 = true;
+					}
 				}
-			}
-			if (star2)
-			{
-				poSpotX -= 0.7;
-				if (poSpotX < -18)
+				if (star2)
 				{
-					star2 = false;
-					star3 = true;
+					poSpotX -= 0.7;
+					if (poSpotX < -18)
+					{
+						star2 = false;
+						star3 = true;
+					}
 				}
-			}
-			if (star3)
-			{
-				poSpotX += 0.7;
-				if (poSpotX > 1)
+				if (star3)
 				{
-					star3 = false;
-					star4 = true;
+					poSpotX += 0.7;
+					if (poSpotX > 1)
+					{
+						star3 = false;
+						star4 = true;
+					}
 				}
-			}
-			if (star4)
-			{
-				poSpotZ += 0.7;
-				poSpotZA -= 0.7;
-				if (poSpotZ > 20)
+				if (star4)
 				{
-					star4 = false;
-					star5 = true;
+					poSpotZ += 0.7;
+					poSpotZA -= 0.7;
+					if (poSpotZ > 20)
+					{
+						star4 = false;
+						star5 = true;
+					}
 				}
-			}
-			if (star5)
-			{
-				poSpotZ -= 0.7;
-				poSpotZA += 0.7;
-				if (poSpotZ < -20)
+				if (star5)
 				{
-					star5 = false;
-					star6 = true;
+					poSpotZ -= 0.7;
+					poSpotZA += 0.7;
+					if (poSpotZ < -20)
+					{
+						star5 = false;
+						star6 = true;
+					}
 				}
-			}
-			if (star6)
-			{
-				poSpotZ += 0.7;
-				poSpotZA -= 0.7;
-				if (poSpotZ > 20)
+				if (star6)
 				{
-					star6 = false;
-					star7 = true;
+					poSpotZ += 0.7;
+					poSpotZA -= 0.7;
+					if (poSpotZ > 20)
+					{
+						star6 = false;
+						star7 = true;
+					}
 				}
-			}
-			if (star7)
-			{
-				poSpotZ -= 0.7;
-				poSpotZA += 0.7;
-				if (poSpotZ <0.5)
+				if (star7)
 				{
-					star7 = false;
-					//star1 = true;
+					poSpotZ -= 0.7;
+					poSpotZA += 0.7;
+					if (poSpotZ < 0.5)
+					{
+						star7 = false;
+						//star1 = true;
+
+
+					}
 				}
-			}
+			//}
 		}
+		else if (mainWindow.getshow() == 0) {
+			if (desactiva == 0) {
+				printf("Aprieto N y desactivo");
+				star1 = true;
+				star2 = false;
+				star3 = false;
+				star4 = false;
+				star5 = false;
+				star6 = false;
+				star7 = false;
+				star8 = false;
+	
+				activa = 1;
+				desactiva = 1;
+
+			}
 
 
+		}
+	
+	
 		GLfloat now = glfwGetTime();
 		
 		deltaTime = now - lastTime;
@@ -799,8 +833,13 @@ int main()
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
-		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
+		if (mainWindow.getshow()) {
+			shaderList[0].SetSpotLights(spotLights, spotLightCount);
+		}
+		else {
+			shaderList[0].SetSpotLights(spotLights, spotLightCount-3);
+		}
 		/////------------------------------------------DIBUJAR EL PISO Y DECLARAR MODEL Y AUXILIARES ----------------------------------------------------------------////
 
 		//MODEL
@@ -811,8 +850,8 @@ int main()
 
 		//----------------DIBUJAR PISO------------------------------------------------------------------------------//
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 0.1f, 25.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -50.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 0.1f, 20.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		//agregar material al plano de piso
@@ -1898,17 +1937,19 @@ int main()
 		Luz_M.RenderModel();
 		glDisable(GL_BLEND);
 
-		
-		//Modelo de cabeza//
-
+		//Modelo de Luz
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.4f, 40.5f, 94.5f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.1f, -180.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Cabeza_M.RenderModel();
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		Race_M.RenderModel();
+		glDisable(GL_BLEND);
+
 		
+
 
 
 		/*

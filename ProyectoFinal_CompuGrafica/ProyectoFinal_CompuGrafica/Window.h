@@ -17,6 +17,7 @@ public:
 	GLfloat getmuevex() { return muevex; }
 	GLfloat getmuevey() { return muevey; }
 	GLfloat getmuevez() { return muevez; }
+	GLint getshow() { return show; }
 	//GLfloat getmuevetrue() { return aniCo; }
 	
 
@@ -40,6 +41,7 @@ private:
 	GLfloat muevex;
 	GLfloat muevey;
 	GLfloat muevez;
+	GLint show;
 	//GLfloat ilu=0.0f;
 	//bool aniCo=false;
 	bool mouseFirstMoved;
