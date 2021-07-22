@@ -142,6 +142,17 @@ bool	vueltaCo13 = false;
 bool	vueltaCo14 = false;
 bool	regresoCo = false;
 bool	regreso = false;
+//Show de luces
+bool	aniShow = true;
+bool	star1 = true;
+bool	star2 = false;
+bool	star3 = false;
+bool	star4 = false;
+bool	star5 = false;
+bool	star6 = false;
+bool	star7 = false;
+bool	star8 = false;
+
 //Helicoptero
 bool	aniHe = true;
 bool	ida = true;
@@ -365,6 +376,11 @@ int main()
 	float brightness = 1.0, brightnesslights = 0.2;
 	float brillodir = 1.0;
 	float brillo = 1.0;
+	float poSpotX = 0.0;
+	float poSpotY = 0.0;
+	float poSpotZ = 0.0;
+	float poSpotZA = 0.0;
+
 	int dia = 0.0;
 	int day_state=0.0;
 	/////---------------------------------------------- LLAMAR CANCION --------------------------------------------------------------------------////
@@ -536,55 +552,7 @@ int main()
 
 
 
-	//---------------------SpotLight----------------------------------------------------------------------------------------------------------------// 
 
-	unsigned int spotLightCount = 0;// Contador Luces SpotLight
-
-
-	//Linterna-spotLights[0]
-
-	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f, //RGB
-		0.0f, 2.0f,//Coeficiente ambiental y difuso
-		0.0f, 0.0f, 0.0f,//Posición x,y,z
-		0.0f, -1.0f, 0.0f,//Vector de cirección, apunta hacia -y//DONDE APUNTA
-		1.0f, 0.0f, 0.0f,//Valores de ecuación de segundo grado
-		5.0f);//Radio de nuestro cono invicible//RADIO DEL CONO
-	spotLightCount++;
-
-
-	//Luz Fija-spotLights[1]
-
-	spotLights[1] = SpotLight(0.0f, 0.0f, 1.0f,
-		1.0f, 2.0f,
-		-4.0f, 10.0f, -10.0f,
-		0.0f, -5.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		15.0f);
-	spotLightCount++;
-
-	//Luz de Faro-spotLights[2]
-
-	
-	//luz de faro
-	spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-		2.0f, 2.0f,//Coeficiente ambiental y difuso
-		1.0f, -2.2f, -4.6f, //Posición x,y,z
-		-0.1f, 0.0f, 0.0f,//Vector de dirección
-		1.0f, 0.0f, 0.0f,
-		5.0f);
-	spotLightCount++;
-	
-
-
-	//Luz de Helicoptero-spotLights[3]
-
-	spotLights[3] = SpotLight(0.0f, 0.0f, 1.0f,//luz azul
-		1.0f, 1.0f,//Coeficiente ambiental y difuso
-		10.0f, -0.5f, 5.5f, //Posición x,y,z
-		0.0f, -0.1f, 0.0f,//Vector de dirección
-		1.0f, 0.0f, 0.0f,
-		30.0f);
-	spotLightCount++;
 
 
 	/////---------------------------------------------- LO QUE SE PODRA VISUALIZAR CON CAMARA -------------------------------------------------------------////
@@ -639,6 +607,53 @@ int main()
 			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
 		pointLightCount++;//Aumenta contador
 
+
+		//---------------------SpotLight----------------------------------------------------------------------------------------------------------------// 
+
+		unsigned int spotLightCount = 0;// Contador Luces SpotLight
+
+
+		//Luz de Camara-spotLights[0]
+
+		spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f, //RGB
+			0.0f, 2.0f,//Coeficiente ambiental y difuso
+			0.0f+poSpotX, 40.0f+poSpotY, 75.0f+poSpotZ,//Posición x,y,z
+			0.0f, -1.0f, 0.0f,//Vector de cirección, apunta hacia -y//DONDE APUNTA
+			1.0f, 0.0f, 0.0f,//Valores de ecuación de segundo grado
+			5.0f);//Radio de nuestro cono invicible//RADIO DEL CONO
+		spotLightCount++;
+
+
+		//Luz Fiesta-spotLights[1]
+		spotLights[1] = SpotLight(1.0f, 0.0f, 0.0f,//RGB-Roja
+			1.0f, 2.0f,//Coefciente ambient y difuso
+			10.4f+poSpotX, 40.5f+poSpotY, 94.5f+poSpotZ,//Posición x,y,x
+			0.0f, -1.0f, -0.5f,//Vector de dirección
+			1.0f, 0.0f, 0.0f,//Valores de ecuación
+			10.0f);
+		spotLightCount++;
+
+		//Luz Fiesta-spotLights[2]
+		spotLights[2] = SpotLight(0.0f, 0.0f, 1.0f,//RGB-Azul
+			1.0f, 2.0f,//Coeficiente ambiental y difuso
+			-4.4f+poSpotX, 40.5f+poSpotY, 94.5f+poSpotZA, //Posición x,y,z
+			0.0f, -1.0f, -0.5f,//Vector de dirección
+			1.0f, 0.0f, 0.0f,
+			10.0f);
+		spotLightCount++;
+
+
+
+		//Luz Fiesta- spotLights[3]
+		spotLights[3] = SpotLight(0.0f, 1.0f, 0.0f,//luz verde
+			1.0f, 2.0f,//Coeficiente ambiental y difuso
+			-19.4f+poSpotX, 40.5f+poSpotY, 94.5f+poSpotZ, //Posición x,y,z
+			0.0f, -1.0f, -0.5f,//Vector de dirección
+			1.0f, 0.0f, 0.0f,
+			10.0f);
+		spotLightCount++;
+
+
 		switch (dia) {
 		case 0:
 			brillodir -= 0.0009;
@@ -652,7 +667,6 @@ int main()
 			break;
 		case 1:
 			brillodir += 0.0009;
-			//brightnesslights = 10.0;
 			brightnesslights -= 0.0009;
 			brillo = 10.0;
 			skybox.r += 0.0009;
@@ -664,7 +678,77 @@ int main()
 			break;
 		}
 		//
+		if (aniShow)
+		{
 
+			if (star1)
+			{
+				poSpotX += 0.7;
+				if (poSpotX > 20)
+				{
+					star1 = false;
+					star2 = true;
+				}
+			}
+			if (star2)
+			{
+				poSpotX -= 0.7;
+				if (poSpotX < -18)
+				{
+					star2 = false;
+					star3 = true;
+				}
+			}
+			if (star3)
+			{
+				poSpotX += 0.7;
+				if (poSpotX > 1)
+				{
+					star3 = false;
+					star4 = true;
+				}
+			}
+			if (star4)
+			{
+				poSpotZ += 0.7;
+				poSpotZA -= 0.7;
+				if (poSpotZ > 20)
+				{
+					star4 = false;
+					star5 = true;
+				}
+			}
+			if (star5)
+			{
+				poSpotZ -= 0.7;
+				poSpotZA += 0.7;
+				if (poSpotZ < -20)
+				{
+					star5 = false;
+					star6 = true;
+				}
+			}
+			if (star6)
+			{
+				poSpotZ += 0.7;
+				poSpotZA -= 0.7;
+				if (poSpotZ > 20)
+				{
+					star6 = false;
+					star7 = true;
+				}
+			}
+			if (star7)
+			{
+				poSpotZ -= 0.7;
+				poSpotZA += 0.7;
+				if (poSpotZ <0.5)
+				{
+					star7 = false;
+					//star1 = true;
+				}
+			}
+		}
 
 
 		GLfloat now = glfwGetTime();
@@ -706,11 +790,11 @@ int main()
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
 		//luz ligada al faro
-		spotLights[2].SetPos(poscoche + desplazamiento);
+		//spotLights[2].SetPos(poscoche + desplazamiento);
 
 
 		//luz ligada al helicoptero
-		spotLights[3].SetPos(posblackhawk + desplazamiento2);
+		//spotLights[3].SetPos(posblackhawk + desplazamiento2);
 
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
@@ -1320,7 +1404,7 @@ int main()
 		Blackhawk_M.RenderModel();
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+		/*
 		//MODELO DEL COCHE//
 
 		model = glm::mat4(1.0);
@@ -1398,7 +1482,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta_M.RenderModel();
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
-
+		*/
 
 		//Modelo de cabeza//
 
@@ -1762,8 +1846,8 @@ int main()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -1.2f, -190.0f));
-		model = glm::rotate(model, 180* toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -1.2f, 75.0f));
+		model = glm::rotate(model, 0* toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Esce_M.RenderModel();
@@ -1813,6 +1897,18 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Luz_M.RenderModel();
 		glDisable(GL_BLEND);
+
+		
+		//Modelo de cabeza//
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.4f, 40.5f, 94.5f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Cabeza_M.RenderModel();
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		
 
 
 		/*
