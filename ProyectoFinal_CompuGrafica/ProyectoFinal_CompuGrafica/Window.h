@@ -17,7 +17,7 @@ public:
 	GLfloat getmuevex() { return muevex; }
 	GLfloat getmuevey() { return muevey; }
 	GLfloat getmuevez() { return muevez; }
-	GLfloat getmuevetrue() { return aniCo; }
+	//GLfloat getmuevetrue() { return aniCo; }
 	
 
 
@@ -40,8 +40,8 @@ private:
 	GLfloat muevex;
 	GLfloat muevey;
 	GLfloat muevez;
-	GLfloat ilu=0.0f;
-	bool aniCo=false;
+	//GLfloat ilu=0.0f;
+	//bool aniCo=false;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);

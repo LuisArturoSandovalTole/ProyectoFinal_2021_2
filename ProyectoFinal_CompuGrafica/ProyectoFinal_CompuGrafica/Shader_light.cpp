@@ -46,6 +46,10 @@ std::string Shader::ReadFile(const char* fileLocation)
 	return content;
 }
 
+GLuint Shader::getcolorskybox() {
+	return uniformcolor;
+}
+
 void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 {
 	shaderID = glCreateProgram();
@@ -90,6 +94,7 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 	uniformSpecularIntensity = glGetUniformLocation(shaderID, "material.specularIntensity");
 	uniformShininess = glGetUniformLocation(shaderID, "material.shininess");
 	uniformEyePosition = glGetUniformLocation(shaderID, "eyePosition");
+	uniformcolor = glGetUniformLocation(shaderID, "colorskybox");
 
 	uniformPointLightCount = glGetUniformLocation(shaderID, "pointLightCount");
 

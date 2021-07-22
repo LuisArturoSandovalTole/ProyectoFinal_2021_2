@@ -77,6 +77,7 @@ Model Maceta_M;
 Model Palmera_M;
 Model Casas_M;
 Model Esce_M;
+Model Luz_M;
 
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
@@ -361,6 +362,11 @@ void CreateShaders()
 /////---------------------------------------------- AQUI EMPIEZA EL MAIN-----------------------------------------------------------------------------------------////
 int main()
 {
+	float brightness = 1.0, brightnesslights = 0.2;
+	float brillodir = 1.0;
+	float brillo = 1.0;
+	int dia = 0.0;
+	int day_state=0.0;
 	/////---------------------------------------------- LLAMAR CANCION --------------------------------------------------------------------------////
 	/*
 	ISoundEngine* engine = createIrrKlangDevice();
@@ -454,13 +460,17 @@ int main()
 	Esce_M = Model();
 	Esce_M.LoadModel("Models/escenario.obj");
 
+	//Modelo Luz
+	Luz_M = Model();
+	Luz_M.LoadModel("Models/luz.obj");
+
 
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
 
 
 	int sec;
 
-	
+		/*
 		std::vector<std::string> skyboxFaces;
 		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
 		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_lf.tga");
@@ -470,18 +480,17 @@ int main()
 		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
 		skybox = Skybox(skyboxFaces);
 		printf("Hello Sky1");
-
+		*/
 	
-
-	std::vector<std::string> skyboxFaces2;
-	skyboxFaces2.push_back("Textures/Skybox/posx.jpg");//RIGHT
-	skyboxFaces2.push_back("Textures/Skybox/negx.jpg");//LEFT
-	skyboxFaces2.push_back("Textures/Skybox/negy.jpg");//DOWN
-	skyboxFaces2.push_back("Textures/Skybox/posy.jpg");//TOP
-	skyboxFaces2.push_back("Textures/Skybox/posz.jpg");//FRONT
-	skyboxFaces2.push_back("Textures/Skybox/negz.jpg");//BACK
-	skybox = Skybox(skyboxFaces2);
-	printf("Hello Sky2");
+		std::vector<std::string> skyboxFaces2;
+		skyboxFaces2.push_back("Textures/Skybox/posx1.jpg");//RIGHT
+		skyboxFaces2.push_back("Textures/Skybox/negx1.jpg");//LEFT
+		skyboxFaces2.push_back("Textures/Skybox/negy1.jpg");//DOWN
+		skyboxFaces2.push_back("Textures/Skybox/posy1.jpg");//TOP
+		skyboxFaces2.push_back("Textures/Skybox/posz1.jpg");//FRONT
+		skyboxFaces2.push_back("Textures/Skybox/negz1.jpg");//BACK
+		skybox = Skybox(skyboxFaces2);
+		printf("Hello Sky2");
 	
 	
 	/////---------------------------------------------- VALORES MATERIALES BRILLANTE Y OPACO -------------------------------------------------------------////
@@ -516,15 +525,7 @@ int main()
 	/////------------------------------------------------------ LUCES DEL MUNDO ----------------------------------------------------------------------////
 
 	
-	//---------------------DirectionalLight-----------------------------------------------------------------------------------------------------------// 
-	//Madre de todas las luces, es como el sol. Solo existe una.
-	
 
-
-
-	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f, //RGB - Color blanco- se usa este para qye se vean todos los colores
-		0.7f, 0.7f,	//Coeficiente de intensidad ambiental y difusa.
-		0.0f, 0.0f, -1.0f);//Posicion en x, y , z
 	
 
 		
@@ -532,14 +533,6 @@ int main()
 	//Luz punntual			
 
 
-	//pointLights[0]
-	unsigned int pointLightCount = 0; //Contador de luces puntuales, se tendra más de una
-
-	pointLights[0] = PointLight(1.0f, 0.0f, 0.0f, //RGB
-		0.0f, 1.0f,//Intensidad ambiental y difusa
-		2.0f, 1.5f, 1.5f,//Valor de posición
-		0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
-	pointLightCount++;//Aumenta contador
 
 
 
@@ -571,7 +564,7 @@ int main()
 
 	//Luz de Faro-spotLights[2]
 
-	/*
+	
 	//luz de faro
 	spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
 		2.0f, 2.0f,//Coeficiente ambiental y difuso
@@ -580,7 +573,7 @@ int main()
 		1.0f, 0.0f, 0.0f,
 		5.0f);
 	spotLightCount++;
-	*/
+	
 
 
 	//Luz de Helicoptero-spotLights[3]
@@ -605,6 +598,75 @@ int main()
 
 	while (!mainWindow.getShouldClose())
 	{
+		//---------------------DirectionalLight-----------------------------------------------------------------------------------------------------------// 
+		//Madre de todas las luces, es como el sol. Solo existe una.
+		mainLight = DirectionalLight(1.0f, 1.0f, 1.0f, //RGB - Color blanco- se usa este para qye se vean todos los colores
+			brillodir, brightnesslights,	//Coeficiente de intensidad ambiental y difusa.
+			0.0f, 0.0f, -1.0f);//Posicion en x, y , z
+
+		//--------------------PointlLight-----------------------------------------------------------------------------------------------------------//
+		unsigned int pointLightCount = 0; //Contador de luces puntuales, se tendra más de una
+		//pointLights[0]
+		pointLights[0] = PointLight(1.0f, 1.0f, 0.0f, //RGB
+			brillo, brillo,//Intensidad ambiental y difusa
+			30.0f, 25.0f, -93.0f,//Valor de posición 
+			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
+		pointLightCount++;//Aumenta contador
+
+
+		//pointLights[1]
+
+		pointLights[1] = PointLight(1.0f, 1.0f, 0.0f, //RGB
+			brillo, brillo,//Intensidad ambiental y difusa
+			30.0f, 25.0f, 13.0f,//Valor de posición 
+			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
+		pointLightCount++;//Aumenta contador
+
+		//pointLights[2]
+
+		pointLights[2] = PointLight(1.0f, 1.0f, 0.0f, //RGB
+			brillo, brillo,//Intensidad ambiental y difusa
+			-30.0f, 25.0f, -93.0f,//Valor de posición 
+			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
+		pointLightCount++;//Aumenta contador
+
+
+		//pointLights[3]
+
+		pointLights[3] = PointLight(1.0f, 1.0f, 0.0f, //RGB
+			brillo, brillo,//Intensidad ambiental y difusa
+			-30.0f, 25.0f, 13.0f,//Valor de posición 
+			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
+		pointLightCount++;//Aumenta contador
+
+		switch (dia) {
+		case 0:
+			brillodir -= 0.0009;
+			brillo = 0.0;
+			skybox.r -= 0.0009;
+			skybox.g -= 0.0009;
+			skybox.b -= 0.0009;
+			if (brillodir <= 0.2) {
+				dia = 1;
+			}
+			break;
+		case 1:
+			brillodir += 0.0009;
+			//brightnesslights = 10.0;
+			brightnesslights -= 0.0009;
+			brillo = 10.0;
+			skybox.r += 0.0009;
+			skybox.g += 0.0009;
+			skybox.b += 0.0009;
+			if (brillodir >= 1.0) {
+				dia = 0;
+			}
+			break;
+		}
+		//
+
+
+
 		GLfloat now = glfwGetTime();
 		
 		deltaTime = now - lastTime;
@@ -644,7 +706,7 @@ int main()
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
 		//luz ligada al faro
-		//spotLights[2].SetPos(poscoche + desplazamiento);
+		spotLights[2].SetPos(poscoche + desplazamiento);
 
 
 		//luz ligada al helicoptero
@@ -919,9 +981,9 @@ int main()
 			}
 		}posYavion = sin(offset*toRadians);
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
-		
 
 
+		/*
 		//MOVIMIENTO DE COCHE//
 
 		if (mainWindow.getmuevetrue())
@@ -1225,7 +1287,7 @@ int main()
 				}
 			}
 
-		}
+		}*/
 
 		/////----------------------------------------------------VARIABLES DE DESPLAZAMIENTO ----------------------------------------------------------------////
 
@@ -1234,23 +1296,6 @@ int main()
 
 		//Para el Helicoptero
 		desplazamiento2 = glm::vec3(posXavion, posYavion, posZavion);//HELICOPTERO se mueve en x & y 
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*
-		Reporte:
-		1.- La luz de faro se mueva junto con el coche. Ya es su modelo de coche texturizado.
-		2.-Crear luz del helicóptero, que la luz se mueva junto con el helicóptero e ilumine hacia el suelo
-		3.-Agregar movimiento del helicóptero en Y y del Coche en Z.
-		Adicional: que la llanta esté rotando constantemente.
-		*/
-
-		//¿Cómo ligas la luz al helicóptero?		
-		//Ejercicio 2. - Crear la luz del coche y posicionar a que ilumine hacia adelante
-		//Ejercicio 1. - Agregar al coche las 4 llantas con jerarquía y desplazamiento en X
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 		/////---------------------------------------------------DIBUJAR OBJETOS EN ESCENARIO ----------------------------------------------------------------////
 
@@ -1723,6 +1768,52 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Esce_M.RenderModel();
 		glDisable(GL_BLEND);
+
+
+		//Modelo de Luz
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(40.0f, 0.1f, -93.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Luz_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Modelo de Luz
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(40.0f, 0.1f, 13.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Luz_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Modelo de Luz
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-40.0f, 0.1f, -93.0f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Luz_M.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Modelo de Luz
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-40.0f, 0.1f, 13.0f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Luz_M.RenderModel();
+		glDisable(GL_BLEND);
+
 
 		/*
 		//Modelo de Agave
