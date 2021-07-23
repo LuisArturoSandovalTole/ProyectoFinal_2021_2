@@ -43,11 +43,16 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include "Material.h"
 
 
+/////---------------------------------------------- VARIABLES PARA KEYFRAME----------------------------------------------------------------------////
+
+float reproduciranimacion, habilitaranimacion, guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
+
 /////---------------------------------------------- VARIABLES PARA MUSICA----------------------------------------------------------------------////
 //bool musicFondo = true;
 using namespace irrklang;
 
-/////---------------------------------------------- DIMENSIONES DE WINDOW----------------------------------------------------------------------////
+/////---------------------------------------------- void my_input(GLFWwindow *window);----------------------------------------------------------------------////
+void inputKeyframes(bool* keys);
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -58,6 +63,8 @@ std::vector<Shader> shaderList;
 Camera camera;
 
 /////---------------------------------------------- DECLARACION DE TEXTURAS ----------------------------------------------------------------------////
+
+
 
 Texture pisoTexture;
 Texture pastoTexture;
@@ -79,6 +86,18 @@ Model Casas_M;
 Model Esce_M;
 Model Luz_M;
 Model Race_M;
+Model Tronco_M;
+Model BrazoDer_M;
+Model BrazoIzq_M;
+Model PiernaDer_M;
+Model PiernaIzq_M;
+Model Rayo_M;
+/////---------------------------------------------- Declaración Variables Personaje ----------------------------------------------------------------------////
+float muevePiernaDer = 0.0f;
+float muevePiernaIzq = 0.0f;
+bool iniPierna = true;
+bool iniPierna2 = false;
+float angulo = 0.0f;
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
 
@@ -114,14 +133,15 @@ bool skyN = false;
 const float toRadians = 3.14159265f / 180.0f;
 
 //Variables de movimiento de avion
-GLfloat posXavion = 0.0f;
-GLfloat posYavion = 0.0f;
-GLfloat posZavion = 0.0f;
+//GLfloat posXavion = 0.0f;
+//GLfloat posYavion = 0.0f;
+//GLfloat posZavion = 0.0f;
 float offset = 0.0f;
 //Variables de movimiento de coche
-GLfloat posXcoche = 0.0f;
-GLfloat posYcoche = 0.0f;
-GLfloat posZcoche = 0.0f;
+float posXcoche = 0.0f;
+float posYcoche = 0.0f;
+float posZcoche = 0.0f;
+
 //Variables booleanas para las condiciones de estados
 //Coche
 bool	aniCo = false;
@@ -140,6 +160,24 @@ bool	vueltaCo11 = false;
 bool	vueltaCo12 = false;
 bool	vueltaCo13 = false;
 bool	vueltaCo14 = false;
+bool	vueltaCo15 = false;
+bool	vueltaCo16 = false;
+bool	vueltaCo17 = false;
+bool	vueltaCo18 = false;
+bool	vueltaCo19 = false;
+bool	vueltaCo20 = false;
+bool	vueltaCo21 = false;
+bool	vueltaCo22 = false;
+bool	vueltaCo23 = false;
+bool	vueltaCo24 = false;
+bool	vueltaCo25 = false;
+bool	vueltaCo26 = false;
+bool	vueltaCo27 = false;
+bool	vueltaCo28 = false;
+bool	vueltaCo29 = false;
+bool	vueltaCo30 = false;
+bool	vueltaCo31 = false;
+bool	vueltaCo32 = false;
 bool	regresoCo = false;
 bool	regreso = false;
 //Show de luces
@@ -369,6 +407,106 @@ void CreateShaders()
 	shaderList.push_back(*shader1);
 }
 
+///////////////////////////////-------------------------------KEYFRAMES----------------------------------------------------------------/////////////////////
+
+
+bool animacion = false;
+
+
+
+//NEW// Keyframes
+float posXavion = 2.0, posYavion = 2.0, posZavion = 0;
+float	movAvion_x = 0.0f, movAvion_y = 0.0f;
+float giroAvion = 0;
+
+#define MAX_FRAMES 100
+int i_max_steps = 90;
+int i_curr_steps = 6;
+typedef struct _frame
+{
+	//Variables para GUARDAR Key Frames
+	float movAvion_x;		//Variable para PosicionX
+	float movAvion_y;		//Variable para PosicionY
+	float movAvion_xInc;		//Variable para IncrementoX
+	float movAvion_yInc;		//Variable para IncrementoY
+	float giroAvion;
+	float giroAvionInc;
+}FRAME;
+
+FRAME KeyFrame[MAX_FRAMES];
+int FrameIndex = 6;			//introducir datos
+bool play = false;
+int playIndex = 0;
+
+void saveFrame(void) //tecla L
+{
+
+	printf("frameindex %d\n", FrameIndex);
+
+
+	KeyFrame[FrameIndex].movAvion_x = movAvion_x;
+	KeyFrame[FrameIndex].movAvion_y = movAvion_y;
+	KeyFrame[FrameIndex].giroAvion;
+	//no volatil, agregar una forma de escribir a un archivo para guardar los frames
+	FrameIndex++;
+}
+
+void resetElements(void) //Tecla 0
+{
+
+	movAvion_x = KeyFrame[0].movAvion_x;
+	movAvion_y = KeyFrame[0].movAvion_y;
+	giroAvion = KeyFrame[0].giroAvion;
+}
+
+void interpolation(void)
+{
+	KeyFrame[playIndex].movAvion_xInc = (KeyFrame[playIndex + 1].movAvion_x - KeyFrame[playIndex].movAvion_x) / i_max_steps;
+	KeyFrame[playIndex].movAvion_yInc = (KeyFrame[playIndex + 1].movAvion_y - KeyFrame[playIndex].movAvion_y) / i_max_steps;
+	KeyFrame[playIndex].giroAvionInc = (KeyFrame[playIndex + 1].giroAvion - KeyFrame[playIndex].giroAvion) / i_max_steps;
+
+}
+
+
+void animate(void)
+{
+	//Movimiento del objeto // barra espaciadora
+	if (play)
+	{
+		if (i_curr_steps >= i_max_steps) //end of animation between frames?
+		{
+			playIndex++;
+			printf("playindex : %d\n", playIndex);
+			if (playIndex > FrameIndex - 2)	//end of total animation?
+			{
+				printf("Frame index= %d\n", FrameIndex);
+				printf("termina anim\n");
+				playIndex = 0;
+				play = false;
+			}
+			else //Next frame interpolations
+			{
+				//printf("entro aquí\n");
+				i_curr_steps = 0; //Reset counter
+				//Interpolation
+				interpolation();
+			}
+		}
+		else
+		{
+			//printf("se quedó aqui\n");
+			//printf("max steps: %f", i_max_steps);
+			//Draw animation
+			movAvion_x += KeyFrame[playIndex].movAvion_xInc;
+			movAvion_y += KeyFrame[playIndex].movAvion_yInc;
+			giroAvion += KeyFrame[playIndex].giroAvionInc;
+			i_curr_steps++;
+		}
+
+	}
+}
+
+///////////////* ---------------------------------------FIN KEYFRAMES*--------------------------------------------------------------------////////////////////////////
 
 /////---------------------------------------------- AQUI EMPIEZA EL MAIN-----------------------------------------------------------------------------------------////
 int main()
@@ -443,11 +581,31 @@ int main()
 	//Modelo Camino
 	Camino_M = Model();
 	Camino_M.LoadModel("Models/pista.obj");
+	//-----------------------------------------------Personaje----------------------------------------------------------------//
+	//Modelo Tronco--1
+	Tronco_M = Model();
+	Tronco_M.LoadModel("Models/tronco.obj");
 
-
-	//Modelo Cabeza
+	//Modelo Cabeza--2
 	Cabeza_M = Model();
 	Cabeza_M.LoadModel("Models/cabeza.obj");
+
+	//Modelo Mano Derecha--3
+	BrazoDer_M = Model();
+	BrazoDer_M.LoadModel("Models/manoder.obj");
+
+	//Modelo Mano Izquierda--4
+	BrazoIzq_M = Model();
+	BrazoIzq_M.LoadModel("Models/manoizq.obj");
+
+	//Modelo Pierna Izquierda--5
+	PiernaIzq_M = Model();
+	PiernaIzq_M.LoadModel("Models/piernaizq.obj");
+
+	//Modelo Pierna Derecha--6
+	PiernaDer_M = Model();
+	PiernaDer_M.LoadModel("Models/pata.fbx");
+	//-----------------------------------------------------------------------------------------------------------------------------------------//
 
 	//Modelo Alberca
 	Alberca_M = Model();
@@ -485,6 +643,11 @@ int main()
 	Race_M = Model();
 	Race_M.LoadModel("Models/race.obj");
 
+	//Modelo Rayo
+	Rayo_M = Model();
+	Rayo_M.LoadModel("Models/LightingMcqueen.obj");
+
+
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
 
 
@@ -510,7 +673,7 @@ int main()
 		skyboxFaces2.push_back("Textures/Skybox/posz1.jpg");//FRONT
 		skyboxFaces2.push_back("Textures/Skybox/negz1.jpg");//BACK
 		skybox = Skybox(skyboxFaces2);
-		printf("Hello Sky2");
+		//printf("Hello Sky2");
 	
 	
 	/////---------------------------------------------- VALORES MATERIALES BRILLANTE Y OPACO -------------------------------------------------------------////
@@ -546,15 +709,6 @@ int main()
 
 	
 
-	
-
-		
-	//---------------------PointLigh-----------------------------------------------------------------------------------------------------------------// 
-	//Luz punntual			
-
-
-
-
 
 
 
@@ -566,10 +720,47 @@ int main()
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 
-	/////------------------------------------------LOOP MIENTAS NO SE CIERRA LA VENTANA ----------------------------------------------------------------////
+	
+	//Utilizadas para cambiar la luz de escenario
 	GLint activa = 1;
 	GLint desactiva = 1;
 
+	//--------------------------------------------------KEYFRAMES DECLARADOS INICIALES--------------------------------------------------------------------//
+
+	KeyFrame[0].movAvion_x = 0.0f;
+	KeyFrame[0].movAvion_y = 0.0f;
+	KeyFrame[0].giroAvion = 0;
+
+
+	KeyFrame[1].movAvion_x = 1.0f;
+	KeyFrame[1].movAvion_y = 2.0f;
+	KeyFrame[1].giroAvion = 0;
+
+
+	KeyFrame[2].movAvion_x = 2.0f;
+	KeyFrame[2].movAvion_y = 0.0f;
+	KeyFrame[2].giroAvion = 0;
+
+
+	KeyFrame[3].movAvion_x = 3.0f;
+	KeyFrame[3].movAvion_y = -2.0f;
+	KeyFrame[3].giroAvion = 0;
+
+	/*	KeyFrame[4].movAvion_x = 3.0f;
+		KeyFrame[4].movAvion_y = -2.0f;
+		KeyFrame[4].giroAvion = 45.0f*/;
+
+		KeyFrame[4].movAvion_x = 3.0f;
+		KeyFrame[4].movAvion_y = -2.0f;
+		KeyFrame[4].giroAvion = 180.0f;
+
+		KeyFrame[5].movAvion_x = 0.0f;
+		KeyFrame[5].movAvion_y = 0.0f;
+		KeyFrame[5].giroAvion = 0;
+
+	/////------------------------------------------FIN DECLARACION DE KEYFRAMES ----------------------------------------------------------------////
+
+	/////------------------------------------------------------WHILE ----------------------------------------------------------------////
 	while (!mainWindow.getShouldClose())
 	{
 		//---------------------DirectionalLight-----------------------------------------------------------------------------------------------------------// 
@@ -795,8 +986,11 @@ int main()
 		glfwPollEvents();
 		camera.keyControl(mainWindow.getsKeys(), deltaTime);
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+		//------------------------------------------------------------para keyframes------------------------------------------------------------------------------
+		inputKeyframes(mainWindow.getsKeys());
+		animate();
 
-		// Clear the window
+		//-------------------------------------------------------------- Clear the window-------------------------------------------------------------------------
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
@@ -850,7 +1044,7 @@ int main()
 
 		//----------------DIBUJAR PISO------------------------------------------------------------------------------//
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -50.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -70.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 0.1f, 20.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
@@ -926,7 +1120,7 @@ int main()
 
 
 		//MOVIMIENTO DE HELICOPTERO//
-
+		/*
 		offset += 0.5;
 
 		if (aniHe)
@@ -1103,9 +1297,399 @@ int main()
 
 			}
 		}posYavion = sin(offset*toRadians);
+
+		*/
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 
+		//MOVIMIENTO DE COCHE//
+		if(true)
+		{
+			if (idaCo) //AVANZA
+			{
+				posXcoche += 0.5;
+				movX = 0.0f;
+				if (posXcoche > 100)
+				{
+					idaCo = false;
+					vueltaCo1 = true;
+					
+				}
+			}
+			if (vueltaCo1)// VUELTA IZQ
+			{
+				posXcoche += 0.1;
+				posZcoche -= 0.1;
+				movCoc += 0.8f;
+				if (posZcoche<  -10)
+				{
+					vueltaCo1 = false;
+					vueltaCo2 = true;
+				}
+			}
+			if (vueltaCo2)//AVANZA
+			{
 
+				posZcoche -= 0.5;
+				movCoc =90;
+				if (posZcoche < -90)
+				{
+					vueltaCo2 = false;
+					vueltaCo3 = true;
+				}
+			}
+			if (vueltaCo3)//VUELTA IZQ
+			{
+
+				posZcoche -= 0.1;
+				movCoc += 0.8f;
+				if (posZcoche < -95)
+				{
+					vueltaCo3 = false;
+					vueltaCo4 = true;
+				}
+			}
+			if (vueltaCo4)// AVANZA INCLINADO -X -Z
+			{
+
+				posZcoche -= 0.2;
+				posXcoche -= 0.2;
+				
+				if (posZcoche < -110)
+				{
+					vueltaCo4 = false;
+					vueltaCo5 = true;
+				}
+			}
+			if (vueltaCo5) //VUELTA IZQ
+			{
+				movCoc += 1.0;
+				posZcoche -= 0.1;
+				posXcoche -= 0.1;
+
+				if (posZcoche < -120)
+				{
+					vueltaCo5 = false;
+					vueltaCo6 = true;
+				}
+			}
+			if (vueltaCo6) //VUELTA IZQ -X +Z
+			{
+				movCoc += 1.0;
+				posXcoche -= 0.2;
+				posZcoche += 0.2;
+
+				if (posXcoche < 69)
+				{
+					vueltaCo6 = false;
+					vueltaCo7 = true;
+				}
+			}
+			if (vueltaCo7) //VUELTA IZQ +X +Z
+			{
+				posXcoche += 0.2;
+				posZcoche += 0.2;
+
+				if (posXcoche > 90)
+				{
+					vueltaCo7 = false;
+					vueltaCo8 = true;
+				}
+			}
+			if (vueltaCo8) //VUELTA DER-AVANZA SOBRE +Z
+			{
+				movCoc -= 0.4;
+				posZcoche += 0.2;
+
+				if (posZcoche >-40)
+				{
+					vueltaCo8 = false;
+					vueltaCo9 = true;
+				}
+			}
+			if (vueltaCo9) //AVANZA -X +Z
+			{
+				//movCoc -= 0.4;
+				posZcoche += 0.2;
+				posXcoche -= 0.2;
+
+				if (posXcoche < 70)
+				{
+					vueltaCo9 = false;
+					vueltaCo10 = true;
+				}
+			}
+			if (vueltaCo10) //VUELTA DER
+			{
+				movCoc -= 0.35;
+				posXcoche -= 0.2;
+
+				if (posXcoche < 45)
+				{
+					vueltaCo10 = false;
+					vueltaCo11 = true;
+				}
+			}
+			if (vueltaCo11) //AVANZA -X
+			{
+				posXcoche -= 0.5;
+				posZcoche += 0.01;
+
+				if (posXcoche < -80)
+				{
+					vueltaCo11 = false;
+					vueltaCo12 = true;
+				}
+			}
+
+			if (vueltaCo12) //VUELTA DER
+			{
+				movCoc -= 1.2;
+				posXcoche -= 0.2;
+				posZcoche -= 0.2;
+
+				if (posXcoche < -95)
+				{
+					vueltaCo12 = false;
+					vueltaCo13 = true;
+				}
+			}
+			if (vueltaCo13) //AVANZA -Z
+			{
+				//movCoc -= 1.2;
+				//posXcoche -= 0.2;
+				posZcoche -= 0.5;
+
+				if (posZcoche < -80)
+				{
+					vueltaCo13 = false;
+					vueltaCo14 = true;
+				}
+			}
+			if (vueltaCo14) //AVANZA  +X -Z
+			{
+				movCoc -= 1.0;
+				posXcoche += 0.2;
+				posZcoche -= 0.2;
+
+
+				if (posZcoche < -98)
+				{
+					vueltaCo14 = false;
+					vueltaCo15 = true;
+				}
+			}
+			if (vueltaCo15) // +X +Z
+			{
+				movCoc -= 1.0;
+				posXcoche += 0.2;
+				posZcoche += 0.2;
+
+
+				if (posZcoche > -80)
+				{
+					vueltaCo15 = false;
+					vueltaCo16 = true;
+				}
+			}
+			if (vueltaCo16) // +X -Z
+			{
+				movCoc += 0.5;
+				posXcoche += 0.1;
+				posZcoche += 0.3;
+
+
+				if (posZcoche > -50)
+				{
+					vueltaCo16 = false;
+					vueltaCo17 = true;
+				}
+			}
+			if (vueltaCo17) // +X -Z
+			{
+				movCoc += 0.5;
+				posXcoche += 0.2;
+				posZcoche += 0.1;
+
+
+				if (posZcoche > -35)//d
+				{
+					vueltaCo17 = false;
+					vueltaCo18 = true;
+				}
+			}
+			if (vueltaCo18) // +X -Z
+			{
+				movCoc += 0.7;
+				posXcoche += 0.1;
+				posZcoche -= 0.1;
+
+
+				if (posZcoche < -50)//d
+				{
+					vueltaCo18 = false;
+					vueltaCo19 = true;
+				}
+			}
+			if (vueltaCo19) // +X -Z
+			{
+				//movCoc += 0.7;
+				posXcoche -= 0.2;
+				posZcoche -= 0.2;
+
+
+				if (posZcoche < -85)//d
+				{
+					vueltaCo19 = false;
+					vueltaCo20 = true;
+				}
+			}
+			if (vueltaCo20) // +X -Z
+			{
+				movCoc -= 0.9;
+				posXcoche += 0.1;
+				posZcoche -= 0.1;
+
+
+				if (posZcoche < -105)//d
+				{
+					vueltaCo20 = false;
+					vueltaCo21 = true;
+				}
+			}
+			if (vueltaCo21) // +X -Z
+			{
+				posXcoche += 0.2;
+				posZcoche += 0.2;
+
+
+				if (posZcoche > -35)//d
+				{
+					vueltaCo21 = false;
+					vueltaCo22 = true;
+				}
+			}
+			if (vueltaCo22) // +X -Z
+			{
+				movCoc += 0.8;
+				posXcoche += 0.1;
+				posZcoche -= 0.1;
+
+
+				if (posZcoche < -45)//d
+				{
+					vueltaCo22 = false;
+					vueltaCo23 = true;
+				}
+			}
+			if (vueltaCo23) // +X -Z
+			{
+				movCoc += 0.8;
+				posXcoche += 0.09;
+				posZcoche -= 0.2;
+
+
+				if (posZcoche < -68)//d
+				{
+					vueltaCo23 = false;
+					vueltaCo24 = true;
+				}
+			}
+			if (vueltaCo24) // +X -Z
+			{
+				//movCoc += 0.8;
+				posXcoche -= 0.2;
+				posZcoche -= 0.2;
+
+
+				if (posZcoche < -115)//d
+				{
+					vueltaCo24 = false;
+					vueltaCo25 = true;
+				}
+			}
+			if (vueltaCo25) // +X -Z
+			{
+				movCoc += 1.8;
+				posXcoche -= 0.2;
+				posZcoche -= 0.2;
+
+
+				if (posZcoche < -120)//d
+				{
+					vueltaCo25 = false;
+					vueltaCo26 = true;
+				}
+			}
+			if (vueltaCo26) // +X -Z
+			{
+				//movCoc += 1.8;
+				posXcoche -= 0.5;
+				//posZcoche -= 0.2;
+
+
+				if (posXcoche < -100)//d
+				{
+					vueltaCo26 = false;
+					vueltaCo27 = true;
+				}
+			}
+			if (vueltaCo27) // +X -Z
+			{
+				movCoc += 0.88;
+				posZcoche += 0.2;
+				posXcoche -= 0.1;
+
+
+				if (posZcoche > -99)//d
+				{
+					vueltaCo27 = false;
+					vueltaCo28 = true;
+				}
+			}
+			if (vueltaCo28) // +X -Z
+			{
+				//movCoc += 0.88;
+				posZcoche += 0.5;
+				//posXcoche -= 0.1;
+
+
+				if (posZcoche > -26)//d
+				{
+					vueltaCo28 = false;
+					vueltaCo29 = true;
+				}
+			}
+			if (vueltaCo29) // +X -Z
+			{
+				movCoc += 0.6;
+				posZcoche += 0.18;
+				posXcoche += 0.1;
+
+
+				if (posZcoche > 2)//d
+				{
+					vueltaCo29 = false;
+					vueltaCo30 = true;
+				}
+			}
+			if (vueltaCo30) // +X -Z
+			{
+				//movCoc += 0.6;
+				posZcoche -= 0.008;
+				posXcoche += 0.5;
+
+
+				if (posXcoche > 30)//d
+				{
+					vueltaCo30 = false;
+					idaCo = true;
+				}
+			}
+
+
+
+	
+		}
 		/*
 		//MOVIMIENTO DE COCHE//
 
@@ -1422,7 +2006,7 @@ int main()
 
 		/////---------------------------------------------------DIBUJAR OBJETOS EN ESCENARIO ----------------------------------------------------------------////
 
-
+		/*
 		//MODELO DEL HELICOPTERO//
 
 		//agregar incremento en X con teclado
@@ -1441,7 +2025,19 @@ int main()
 		//agregar material al helicóptero
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Blackhawk_M.RenderModel();
+
+		model = glm::mat4(1.0);
+		posblackhawk = glm::vec3(posXavion + movAvion_x, posYavion + movAvion_y, posZavion);
+		model = glm::translate(model, posblackhawk);
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, (-90 + giroAvion) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Blackhawk_M.RenderModel();
+		spotLights[3].SetPos(posblackhawk);
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		*/
 
 		/*
 		//MODELO DEL COCHE//
@@ -1522,16 +2118,72 @@ int main()
 		Llanta_M.RenderModel();
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 		*/
-
-		//Modelo de cabeza//
-
+		//----------------------------------------------------------------------------------------------------------------------------------------------------//
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
+		/*
+		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		 
+		
+		//Modelo Tronco//
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 10.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f,0.0f,-100.0f));
+		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
+		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
+		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		modelaux = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Tronco_M.RenderModel();
+		
+		//Modelo de cabeza//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Cabeza_M.RenderModel();
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
+
+		//Modelo Brazo Der//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BrazoDer_M.RenderModel();
+
+		//Modelo Brazo Izq//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BrazoIzq_M.RenderModel();
+
+		angulo -= 5.0f;
+		//Modelo Pierna Der//
+		model = modelaux; 
+		model = glm::translate(model, glm::vec3(-5.0f, 13.0f, 0.0f));
+		model = glm::rotate(model, (-30+angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiernaDer_M.RenderModel();
+
+		//Modelo Pierna Izq//
+		model = modelaux;
+		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiernaIzq_M.RenderModel();
+
+
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------//
 
 		//Modelo de Alberca//
 		glEnable(GL_BLEND);
@@ -1599,7 +2251,7 @@ int main()
 		Silla_M.RenderModel();
 		glDisable(GL_BLEND);
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
-				//Modelo de Silla//
+		//Modelo de Silla//
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
@@ -1666,7 +2318,7 @@ int main()
 		Silla_M.RenderModel();
 		glDisable(GL_BLEND);
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
-				//Modelo de Silla//
+		//Modelo de Silla//
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
@@ -1881,6 +2533,20 @@ int main()
 		Casas_M.RenderModel();
 		glDisable(GL_BLEND);
 
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
+		*/ 
+		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		 
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
+		/*
+		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+
 		//Modelo de Escenario
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -1891,7 +2557,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Esce_M.RenderModel();
 		glDisable(GL_BLEND);
-
 
 		//Modelo de Luz
 		glEnable(GL_BLEND);
@@ -1937,7 +2602,15 @@ int main()
 		Luz_M.RenderModel();
 		glDisable(GL_BLEND);
 
-		//Modelo de Luz
+
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
+		*/
+		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//Modelo de Pista
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
@@ -1947,6 +2620,18 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Race_M.RenderModel();
 		glDisable(GL_BLEND);
+
+		//Modelo de Rayo MC
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f+posXcoche, 0.1f+posYcoche, -128.0f+posZcoche));
+		model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
+		model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
+		model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		
+		Rayo_M.RenderModel();
 
 		
 
@@ -1991,4 +2676,106 @@ int main()
 	}
 
 	return 0;
+}
+
+void movimientoPiernas() {
+	if (true) {
+		if (iniPierna) {
+			muevePiernaDer += 5.0;
+			muevePiernaIzq -= 5.0;
+			if (muevePiernaDer>90) {
+				iniPierna = false;
+				iniPierna2 = true;
+			}
+		}
+		if (iniPierna2) {
+			muevePiernaDer -= 5.0;
+			muevePiernaIzq += 5.0;
+			if (muevePiernaDer < -90) {
+				iniPierna2 = false;
+				iniPierna = true;
+			}
+		}
+	}
+	
+}
+void inputKeyframes(bool* keys)
+{
+	if (keys[GLFW_KEY_1])//
+	{
+		if (reproduciranimacion < 1)
+		{
+			if (play == false && (FrameIndex > 1))
+			{
+				resetElements();
+				//First Interpolation				
+				interpolation();
+				play = true;
+				playIndex = 0;
+				i_curr_steps = 0;
+				reproduciranimacion++;
+				printf("presiona 0 para habilitar reproducir de nuevo la animación'\n");
+				habilitaranimacion = 0;
+
+			}
+			else
+			{
+				play = false;
+
+			}
+		}
+	}
+	if (keys[GLFW_KEY_2])//
+	{
+		if (habilitaranimacion < 1)
+		{
+			reproduciranimacion = 0;
+			printf("Ya puedes reproducir de nuevo la animación con la tecla de barra espaciadora'\n");
+		}
+	}
+
+	if (keys[GLFW_KEY_3])//
+	{
+		if (guardoFrame < 1)
+		{
+			saveFrame();
+			//printf("movAvion_x es: %f\n", movAvion_x);
+			//printf("movAvion_y es: %f\n", movAvion_y);
+			printf("presiona P para habilitar guardar otro frame'\n");
+			guardoFrame++;
+			reinicioFrame = 0;
+		}
+	}
+	if (keys[GLFW_KEY_4])//
+	{
+		if (reinicioFrame < 1)
+		{
+			guardoFrame = 0;
+			printf("Ya puedes guardar otro frame presionando la tecla L'\n");
+		}
+	}
+
+
+	if (keys[GLFW_KEY_5])
+	{
+		if (ciclo < 1)
+		{
+			//printf("movAvion_x es: %f\n", movAvion_x);
+			movAvion_x += 1.0f;
+			printf("movAvion_x es: %f\n", movAvion_x);
+			ciclo++;
+			ciclo2 = 0;
+			printf("Presiona la tecla 2 para poder habilitar la variable\n");
+		}
+
+	}
+	if (keys[GLFW_KEY_6])
+	{
+		if (ciclo2 < 1)
+		{
+			ciclo = 0;
+			printf("Ya puedes modificar tu variable presionando la tecla 1\n");
+		}
+	}
+
 }

@@ -1,0 +1,46 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl Character_Eyes_TEX.png
+Ns 96.078443
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\source\\repos\\NewRepo\\ProyectoFinal_CompuGrafica\\ProyectoFinal_CompuGrafica\\Textures\\Character_Eyes_TEX.png
+
+newmtl Character_Mcqueen_Body_MAT
+Ns 96.078443
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\lightning-mcqueen-disneys-cars\\source\\Mobile - Cars Lightning League - Lightning McQueen\\Lighting Mcqueen\\Character_Mcqueen_Body_Decal_OpeningRace.png
+
+newmtl Character_Mcqueen_Wheel_MAT
+Ns 96.078443
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\lightning-mcqueen-disneys-cars\\source\\Mobile - Cars Lightning League - Lightning McQueen\\Lighting Mcqueen\\Character_Mcqueen_Tire_Decal_01_TEX.png
+
+newmtl Default-Material
+Ns 96.078443
+Ka 1.000000 1.000000 1.000000
+Kd 0.422175 0.422175 0.422175
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\source\\repos\\NewRepo\\ProyectoFinal_CompuGrafica\\ProyectoFinal_CompuGrafica\\Textures\\Character_Mcqueen_Body_Masks_02_TEX_B.png
