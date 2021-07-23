@@ -1,16 +1,46 @@
-# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 23.07.2021 00:58:58
+# Blender MTL File: 'None'
+# Material Count: 4
 
-newmtl Decoration_20932d136
-	Ns 900.00
-	Ni 1.50
-	d 1.00
-	Tr 0.00
-	Tf 1.00 1.00 1.00 
-	illum 2
-	Ka 1.00 1.00 1.00
-	Kd 1.00 1.00 1.00
-	Ks 0.00 0.00 0.00
-	Ke 0.00 0.00 0.00
-	map_Ka maps\20932d136.png
-	map_Kd maps\20932d136.png
+newmtl Color_140.002
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.039216 0.141176 0.254902
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\tole_\\source\\repos\\NewRepo\\ProyectoFinal_CompuGrafica\\ProyectoFinal_CompuGrafica\\Textures\\azulSpider.png
+
+newmtl Decoration_20926d136.001
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\tole_\\Downloads\\spider-man-homecoming-lego-model\\source\\Spider-Man\\Spider-Man\\textures\\decoration\\20926d136.png
+
+newmtl Decoration_20932d136.002
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\tole_\\Downloads\\spider-man-homecoming-lego-model\\source\\Spider-Man\\Spider-Man\\textures\\decoration\\20932d136.png
+
+newmtl Decoration_3814d469.002
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\tole_\\Downloads\\spider-man-homecoming-lego-model\\textures\\3814d469.png

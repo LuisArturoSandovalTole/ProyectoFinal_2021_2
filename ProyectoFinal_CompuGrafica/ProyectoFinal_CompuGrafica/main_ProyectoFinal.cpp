@@ -70,8 +70,8 @@ Texture pisoTexture;
 Texture pastoTexture;
 Texture Tagave;
 
-
 /////---------------------------------------------- DECLARACION DE MODELOS ----------------------------------------------------------------------////
+Model Pajaro_M;
 Model Kitt_M;
 Model Llanta_M;
 Model Camino_M;
@@ -92,12 +92,27 @@ Model BrazoIzq_M;
 Model PiernaDer_M;
 Model PiernaIzq_M;
 Model Rayo_M;
+Model Remoto_M;
 /////---------------------------------------------- Declaración Variables Personaje ----------------------------------------------------------------------////
+float rotaSpider = 0.0f;
+float movXspider = 0.0f;
+float movYspider = 0.0f;
+float movZspider = 0.0f;
 float muevePiernaDer = 0.0f;
 float muevePiernaIzq = 0.0f;
 bool iniPierna = true;
 bool iniPierna2 = false;
+bool iniBrazo = true;
+bool iniBrazo2 = false;
+float mueveBrazoDer = 0.0f;
+float mueveBrazoIzq = 0.0f;
 float angulo = 0.0f;
+bool estado1 = true;
+bool estado2 = false;
+bool estado3 = false;
+bool estado4 = false;
+bool estado6 = false;
+
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
 
@@ -506,6 +521,72 @@ void animate(void)
 	}
 }
 
+void movimientoPiernas() {
+	if (true) {
+		if (iniPierna) {
+			muevePiernaDer += 1.0;
+			muevePiernaIzq -= 1.0;
+			if (muevePiernaDer > 30) {
+				iniPierna = false;
+				iniPierna2 = true;
+			}
+		}
+		if (iniPierna2) {
+			muevePiernaDer -= 1.0;
+			muevePiernaIzq += 1.0;
+			if (muevePiernaDer < -30) {
+				iniPierna2 = false;
+				iniPierna = true;
+			}
+		}
+	}
+
+}
+
+void movimientoBrazos() {
+	if (true) {
+		if (iniBrazo) {
+			mueveBrazoDer += 1.0;
+			mueveBrazoIzq -= 1.0;
+			if (mueveBrazoDer > 30) {
+				iniBrazo = false;
+				iniBrazo2 = true;
+			}
+		}
+		if (iniBrazo2) {
+			mueveBrazoDer -= 1.0;
+			mueveBrazoIzq += 1.0;
+			if (mueveBrazoDer < -30) {
+				iniBrazo2 = false;
+				iniBrazo = true;
+			}
+		}
+
+		/*
+		if (iniBrazo) {
+
+			
+			mueveBrazoDer -= 1.0;
+			mueveBrazoIzq += 1.0;
+			if (mueveBrazoDer < -30) {
+				iniBrazo = false;
+				iniBrazo2 = true;
+
+			}
+		}
+		if (iniBrazo2) {
+			mueveBrazoDer += 1.0;
+			mueveBrazoIzq -= 1.0;
+			if (muevePiernaDer > 30) {
+				iniBrazo2 = false;
+				iniBrazo = true;
+			}
+		}
+		*/
+	}
+
+}
+
 ///////////////* ---------------------------------------FIN KEYFRAMES*--------------------------------------------------------------------////////////////////////////
 
 /////---------------------------------------------- AQUI EMPIEZA EL MAIN-----------------------------------------------------------------------------------------////
@@ -604,7 +685,11 @@ int main()
 
 	//Modelo Pierna Derecha--6
 	PiernaDer_M = Model();
-	PiernaDer_M.LoadModel("Models/pata.fbx");
+	PiernaDer_M.LoadModel("Models/piernader.obj");
+
+	//Modelo Control Remoto
+	Remoto_M = Model();
+	Remoto_M.LoadModel("Models/controlremoto.obj");
 	//-----------------------------------------------------------------------------------------------------------------------------------------//
 
 	//Modelo Alberca
@@ -647,6 +732,10 @@ int main()
 	Rayo_M = Model();
 	Rayo_M.LoadModel("Models/LightingMcqueen.obj");
 
+
+	//Modelo Pajaro
+	Pajaro_M = Model();
+	Pajaro_M.LoadModel("Models/pajaro.dae");
 
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
 
@@ -1041,6 +1130,7 @@ int main()
 
 		//MODELAUX
 		glm::mat4 modelaux(1.0);
+		glm::mat4 modelaux2(1.0);
 
 		//----------------DIBUJAR PISO------------------------------------------------------------------------------//
 		model = glm::mat4(1.0);
@@ -1690,6 +1780,14 @@ int main()
 
 	
 		}
+		//-------------------------------------------------Animación de Brazos----------------------------------------------------//
+		if (true) {
+			movimientoPiernas();
+			movimientoBrazos();
+			if (estado1) {
+
+			}
+		}
 		/*
 		//MOVIMIENTO DE COCHE//
 
@@ -2122,50 +2220,61 @@ int main()
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		/*
+		
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		 
 		
 		//Modelo Tronco//
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f,0.0f,-100.0f));
+		model = glm::translate(model, glm::vec3(60.0f+movXspider,4.7f+movYspider,-100.0f+movZspider));
 		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
 		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
 		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		model = glm::rotate(model, (0+rotaSpider) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelaux = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Tronco_M.RenderModel();
 		
 		//Modelo de cabeza//
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 11.9253f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Cabeza_M.RenderModel();
 
 		//Modelo Brazo Der//
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-2.08385f, 1.99403f, 0.0f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		//model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, (0+ mueveBrazoDer) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BrazoDer_M.RenderModel();
 
 		//Modelo Brazo Izq//
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(2.79578f, 1.93207f, 0.0f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0+ mueveBrazoIzq) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO IZQ
+		modelaux2 = model;
 		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BrazoIzq_M.RenderModel();
 
-		angulo -= 5.0f;
+		/////////////////////////// Control Remoto
+		model = modelaux2;
+		model = glm::translate(model, glm::vec3(7.09784f, -9.75398f, 6.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//model = glm::rotate(model, (0 + mueveBrazoIzq) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO IZQ
+		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Remoto_M.RenderModel();
+		///////////////////////////
+
 		//Modelo Pierna Der//
 		model = modelaux; 
-		model = glm::translate(model, glm::vec3(-5.0f, 13.0f, 0.0f));
-		model = glm::rotate(model, (-30+angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		model = glm::translate(model, glm::vec3(-4.27498f, -7.65392f, 0.0f));
+		model = glm::rotate(model, (muevePiernaIzq + 0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
 		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		
@@ -2174,17 +2283,22 @@ int main()
 
 		//Modelo Pierna Izq//
 		model = modelaux;
-		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		model = glm::translate(model, glm::vec3(4.04199f, -7.61498f, 0.0f));
+		model = glm::rotate(model, (muevePiernaDer+0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
 		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PiernaIzq_M.RenderModel();
 
 
 
 		//--------------------------------------------------------------------------------------------------------------------------------------------------//
-
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
+		/*
+		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		//Modelo de Alberca//
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -2633,6 +2747,17 @@ int main()
 		
 		Rayo_M.RenderModel();
 
+		//Modelo de Pajaro
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 10.1f, -180.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pajaro_M.RenderModel();
+		glDisable(GL_BLEND);
+
 		
 
 
@@ -2678,12 +2803,13 @@ int main()
 	return 0;
 }
 
+/*
 void movimientoPiernas() {
 	if (true) {
 		if (iniPierna) {
 			muevePiernaDer += 5.0;
 			muevePiernaIzq -= 5.0;
-			if (muevePiernaDer>90) {
+			if (muevePiernaDer>30) {
 				iniPierna = false;
 				iniPierna2 = true;
 			}
@@ -2691,7 +2817,7 @@ void movimientoPiernas() {
 		if (iniPierna2) {
 			muevePiernaDer -= 5.0;
 			muevePiernaIzq += 5.0;
-			if (muevePiernaDer < -90) {
+			if (muevePiernaDer<-30) {
 				iniPierna2 = false;
 				iniPierna = true;
 			}
@@ -2699,6 +2825,7 @@ void movimientoPiernas() {
 	}
 	
 }
+*/
 void inputKeyframes(bool* keys)
 {
 	if (keys[GLFW_KEY_1])//
