@@ -73,7 +73,7 @@ Texture pastoTexture;
 Texture Tagave;
 
 /////---------------------------------------------- DECLARACION DE MODELOS ----------------------------------------------------------------------////
-Model Pajaro_M;
+//Model Pajaro_M;
 Model Kitt_M;
 Model Llanta_M;
 Model Camino_M;
@@ -150,6 +150,32 @@ float muevePataDer = 0.0f;
 float muevePataIzq = 0.0f;
 float mueveAlaDer = 0.0f;
 float mueveAlaIzq = 0.0f;
+bool iniAla = true;
+bool iniAla2 = false;
+bool iniPata = true;
+bool iniPata2 = false;
+bool est1 = true;
+bool est2 = false;
+bool est3 = false;
+bool est4 = false;
+bool est5 = false;
+bool est6 = false;
+bool est7 = false;
+bool est8 = false;
+bool est9 = false;
+bool est10 = false;
+bool est11 = false;
+bool est12 = false;
+bool est13 = false;
+bool est14 = false;
+bool est15 = false;
+bool est16 = false;
+bool est17 = false;
+bool est18 = false;
+bool est19 = false;
+bool est20 = false;
+bool est21 = false;
+bool est22 = false;
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
 
@@ -490,6 +516,7 @@ int FrameIndex = 6;			//introducir datos
 bool play = false;
 int playIndex = 0;
 
+//-------------------------------------------------------FUNCIONES----------------------------------------------------------------------------//
 void saveFrame(void) //tecla L
 {
 
@@ -518,6 +545,8 @@ void interpolation(void)
 	KeyFrame[playIndex].giroAvionInc = (KeyFrame[playIndex + 1].giroAvion - KeyFrame[playIndex].giroAvion) / i_max_steps;
 
 }
+
+
 
 
 void animate(void)
@@ -557,7 +586,7 @@ void animate(void)
 
 	}
 }
-
+//-------------------------------------------------------FUNCION MOV PIERNAS----------------------------------------------------------------------------//
 void movimientoPiernas() {
 	if (true) {
 		if (iniPierna) {
@@ -579,51 +608,71 @@ void movimientoPiernas() {
 	}
 
 }
-
+//-------------------------------------------------------FUNCION MOV BRAZOS----------------------------------------------------------------------------//
 void movimientoBrazos() {
 	if (true) {
-		if (iniBrazo) {
-			mueveBrazoDer += 1.0;
-			mueveBrazoIzq -= 1.0;
-			if (mueveBrazoDer > 30) {
-				iniBrazo = false;
-				iniBrazo2 = true;
+		if (iniAla) {
+			mueveAlaDer += 1.0;
+			mueveAlaIzq -= 1.0;
+			if (mueveAlaDer > 30) {
+				iniPierna = false;
+				iniPierna2 = true;
 			}
 		}
-		if (iniBrazo2) {
-			mueveBrazoDer -= 1.0;
-			mueveBrazoIzq += 1.0;
-			if (mueveBrazoDer < -30) {
-				iniBrazo2 = false;
-				iniBrazo = true;
+		if (iniAla2) {
+			mueveAlaDer -= 1.0;
+			mueveAlaIzq += 1.0;
+			if (mueveAlaDer < -30) {
+				iniAla2 = false;
+				iniAla = true;
 			}
 		}
-
-		/*
-		if (iniBrazo) {
-
-			
-			mueveBrazoDer -= 1.0;
-			mueveBrazoIzq += 1.0;
-			if (mueveBrazoDer < -30) {
-				iniBrazo = false;
-				iniBrazo2 = true;
-
-			}
-		}
-		if (iniBrazo2) {
-			mueveBrazoDer += 1.0;
-			mueveBrazoIzq -= 1.0;
-			if (muevePiernaDer > 30) {
-				iniBrazo2 = false;
-				iniBrazo = true;
-			}
-		}
-		*/
 	}
 
 }
+//-------------------------------------------------------FUNCION PARA ALAS----------------------------------------------------------------------------//
+void movimientoAlas() {
+	if (true) {
+		if (iniAla) {
+			mueveAlaDer += 1.0;
+			mueveAlaIzq -= 1.0;
+			if (mueveAlaDer > 50) {
+				iniAla = false;
+				iniAla2 = true;
+			}
+		}
+		if (iniAla2) {
+			mueveAlaDer -= 1.0;
+			mueveAlaIzq += 1.0;
+			if (mueveAlaDer < -50) {
+				iniAla2 = false;
+				iniAla = true;
+			}
+		}
+	}
 
+}
+void movimientoPatas() {
+	if (true) {
+		if (iniPata) {
+			muevePataDer += 1.0;
+			muevePataIzq -= 1.0;
+			if (muevePataDer > 25) {
+				iniPata = false;
+				iniPata2 = true;
+			}
+		}
+		if (iniPata2) {
+			muevePataDer -= 1.0;
+			muevePataIzq += 1.0;
+			if (muevePataDer < -25) {
+				iniPata2 = false;
+				iniPata = true;
+			}
+		}
+	}
+
+}
 ///////////////* ---------------------------------------FIN KEYFRAMES*--------------------------------------------------------------------////////////////////////////
 
 /////---------------------------------------------- AQUI EMPIEZA EL MAIN-----------------------------------------------------------------------------------------////
@@ -798,8 +847,8 @@ int main()
 
 
 	//Modelo Pajaro
-	Pajaro_M = Model();
-	Pajaro_M.LoadModel("Models/pajaro.dae");
+	//Pajaro_M = Model();
+	//Pajaro_M.LoadModel("Models/pajaro.dae");
 
 	//Modelo Edificio
 	Edificio_M = Model();
@@ -1674,6 +1723,258 @@ int main()
 
 	
 		}
+		//-------------------------------------------------Animación Pajaro--------------------------------------------------------------------------//
+		
+		if (true) {//Principal if
+			
+			if (est1) {//SUBE ROTA  en X=80°
+				movimientoAlas();
+				movYpajaro += 0.1;//Mueve en Y
+				rotaXpajaro += 0.5;//Rota en X
+				if (rotaXpajaro >= 80) {
+					est1 = false;
+					est2 = true;
+				}
+			}
+			if (est2) {//AVANZA EN Z=200
+				movimientoAlas();
+				movZpajaro += 0.5;//Mueve e Z
+				//rotaXpajaro -= 0.4;
+				if (movZpajaro >= 200) {
+					est2 = false;
+					est3 = true;
+				}
+			}
+			if (est3) {//SUBE Y ROTA EN X=-80°
+				movimientoAlas();
+				movYpajaro += 0.1;//Mueve en Y
+				rotaXpajaro -= 0.4;//Rota en X
+				if (rotaXpajaro <= -90) {
+					est3 = false;
+					est4 = true;
+				}
+			}
+
+			if (est4) {
+				movimientoAlas();
+				//movYpajaro += 0.1;
+				//rotaXpajaro += 0.6;
+				rotaYpajaro += 0.6;//Rota en Y
+				if (rotaYpajaro >= 180) {
+					est4 = false;
+					est5 = true;
+				}
+			}
+
+			if (est5) {
+				movimientoAlas();
+				movZpajaro -= 0.3;
+				//rotaXpajaro -= 0.4;
+				if (movZpajaro <= 150) {
+					est5 = false;
+					est6 = true;
+				}
+			}
+
+			if (est6) {
+				movimientoAlas();
+				rotaZpajaro -= 0.5;
+				movXpajaro -= 0.1;
+
+				//rotaXpajaro -= 0.4;
+				if (rotaZpajaro <= -90) {
+					est6 = false;
+					est7 = true;
+				}
+			}
+			if (est7) {
+				movimientoAlas();
+				//rotaZpajaro -= 0.5;
+				movXpajaro -= 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (movXpajaro <= -80) {
+					est7 = false;
+					est8 = true;
+				}
+			}
+
+			if (est8) {
+				movimientoAlas();
+				rotaZpajaro += 0.5;
+				movZpajaro -= 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (rotaZpajaro >= 0) {
+					est8 = false;
+					est9 = true;
+				}
+			}
+
+			if (est9) {
+				movimientoAlas();
+				movZpajaro -= 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (movZpajaro <=-100) {
+					est9 = false;
+					est10 = true;
+				}
+			}
+
+			if (est10) {
+				movimientoAlas();
+				rotaZpajaro += 0.5;
+				movXpajaro += 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (rotaZpajaro >= 90) {
+					est10 = false;
+					est11 = true;
+				}
+			}
+
+			if (est11) {
+				movimientoAlas();
+				movXpajaro += 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (movXpajaro >= 100) {
+					est11 = false;
+					est12 = true;
+				}
+			}
+
+			if (est12) {
+				movimientoAlas();
+				rotaZpajaro += 0.5;
+				movZpajaro += 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (rotaZpajaro >= 180) {
+					est12 = false;
+					est13 = true;
+				}
+			}
+
+			if (est13) {
+				movimientoAlas();
+				//rotaZpajaro += 0.5;
+				movZpajaro += 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (movZpajaro >= 100) {
+					est13 = false;
+					est14 = true;
+				}
+			}
+
+
+			if (est14) {
+				movimientoAlas();
+				rotaZpajaro += 0.5;
+				movXpajaro -= 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (rotaZpajaro >= 270) {
+					est14 = false;
+					est15 = true;
+				}
+			}
+
+			if (est15) {
+				movimientoAlas();
+				//rotaZpajaro += 0.5;
+				movXpajaro -= 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (movXpajaro <= -30) {
+					est15 = false;
+					est16 = true;
+				}
+			}
+
+			if (est16) {
+				movimientoAlas();
+				rotaZpajaro += 0.5;
+				movZpajaro -= 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (rotaZpajaro >= 360) {
+					est16 = false;
+					est17 = true;
+				}
+			}
+
+			if (est17) {
+				movimientoAlas();
+				
+				movZpajaro -= 0.2;
+
+				//rotaXpajaro -= 0.4;
+				if (movZpajaro<=0) {
+					est17 = false;
+					est18 = true;
+				}
+			}
+
+			if (est18) {
+				movimientoAlas();
+				movYpajaro -= 0.1;
+				rotaXpajaro += 0.5;
+
+				//rotaXpajaro -= 0.4;
+				if (rotaXpajaro >= 0) {
+					est18 = false;
+					est19 = true;
+				}
+			}
+			if (est19) {
+				movimientoAlas();
+				movYpajaro -= 0.1;
+			
+
+				//rotaXpajaro -= 0.4;
+				if (movYpajaro <= 0) {
+					est19 = false;
+					est20 = true;
+				}
+			}
+			if (est20) {
+				movimientoPatas();
+				movXpajaro += 0.05;
+				rotaYpajaro -= 0.5;
+				//rotaXpajaro -= 0.4;
+				if (rotaYpajaro <= 90) {
+					est20 = false;
+					est21 = true;
+				}
+			}
+			if (est21) {
+				movimientoPatas();
+				movXpajaro += 0.05;
+				//rotaZpajaro >= 0.5;
+				//rotaXpajaro -= 0.4;
+				if (movXpajaro >= 0) {
+					est21 = false;
+					est22 = true;
+				}
+			}
+			if (est22) {
+				movimientoPatas();
+				rotaYpajaro -= 0.5;
+				//rotaXpajaro -= 0.4;
+				if (rotaYpajaro <= 0) {
+					est22 = false;
+					rotaXpajaro = 0.0f;
+					rotaYpajaro = 0.0f;
+					rotaZpajaro = 0.0f;
+					est1 = true;
+				}
+			}
+
+		}//Final if
+
 		//-------------------------------------------------Animación Spiderman Activa:3 y Reset:4----------------------------------------------------//
 		if (spiderman==1) {
 			activaS = 0;
@@ -2350,7 +2651,7 @@ int main()
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		 
 		//--------------------------------------------------------Dibujar Spiderman------------------------------------------------------//
-		
+		/*
 		//Modelo Tronco//
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(spiderpos.x+movXspider,spiderpos.y+movYspider,spiderpos.z+movZspider));
@@ -2417,11 +2718,62 @@ int main()
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PiernaIzq_M.RenderModel();
-
+		*/
 		//--------------------------------------------------------Termina Spiderman------------------------------------------------------//
 
 		//--------------------------------------------------------Dibujar Pajaro------------------------------------------------------//
+		//////////////////////////////////////////////
+		// ///////////////////////////////////////////
+		 
+		//Tronco de Pajaro//
+model = glm::mat4(1.0);
+model = glm::translate(model, glm::vec3(pospajaro.x, pospajaro.y, pospajaro.z));
+//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
+//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
+//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
+model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+model = glm::rotate(model, (0  ) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+model = glm::rotate(model, (0 ) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+model = glm::rotate(model, (0 ) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+modelaux = model;
+glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+TroncoPa_M.RenderModel();
 
+angulo += 0.5;
+//Modelo Ala derecha//
+model = modelaux;
+model = glm::translate(model, glm::vec3(-13.8f, 12.7f, -2.6f));
+//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+model = glm::rotate(model, (0 ) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//MOVIMIENTO BRAZO DER
+glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+AlaDerPa_M.RenderModel();
+
+//Modelo Ala Izquierda//
+model = modelaux;
+model = glm::translate(model, glm::vec3(14.1, 11.7f, -1.6678f));
+//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+model = glm::rotate(model, (0 ) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//MOVIMIENTO BRAZO DER
+glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+AlaIzqPa_M.RenderModel();
+
+//Modelo Pata Derechha//
+model = modelaux;
+model = glm::translate(model, glm::vec3(-9.4f, -35.1f, -15.5f));
+//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+model = glm::rotate(model, (0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+PataDerPa_M.RenderModel();
+
+//Modelo Pata Izquierda///////////////
+model = modelaux;
+model = glm::translate(model, glm::vec3(10.2f, -35.3f, -13.8f));
+//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+model = glm::rotate(model, (0 ) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+PataIzqPa_M.RenderModel();
+		 
+		//////////////////////////////////////////////
+		// ///////////////////////////////////////////
 		//Tronco de Pajaro//
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(pospajaro.x + movXpajaro, pospajaro.y + movYpajaro, pospajaro.z + movZpajaro));
@@ -2436,11 +2788,12 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		TroncoPa_M.RenderModel();
 
+		angulo += 0.5;
 		//Modelo Ala derecha//
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(-13.8f, 12.7f,- 2.6f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, (0 + mueveAlaDer) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		model = glm::rotate(model, (0 + mueveAlaDer) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//MOVIMIENTO BRAZO DER
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		AlaDerPa_M.RenderModel();
 
@@ -2448,7 +2801,7 @@ int main()
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(14.1, 11.7f, -1.6678f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, (0 + mueveAlaIzq) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		model = glm::rotate(model, (0 + mueveAlaIzq) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//MOVIMIENTO BRAZO DER
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		AlaIzqPa_M.RenderModel();
 
@@ -2464,7 +2817,7 @@ int main()
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(10.2f, -35.3f, -13.8f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, (0 + muevePataDer) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		model = glm::rotate(model, (0 + muevePataIzq) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PataIzqPa_M.RenderModel();
 
@@ -2831,6 +3184,7 @@ int main()
 		*/
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 		//Modelo de Edificio
+		/*
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
@@ -2841,7 +3195,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Edificio_M.RenderModel();
 		glDisable(GL_BLEND);
-
+		*/
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
@@ -2855,7 +3209,7 @@ int main()
 		
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
-
+		
 		//Modelo de Escenario
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -2866,7 +3220,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Esce_M.RenderModel();
 		glDisable(GL_BLEND);
-
+		/*
 		//Modelo de Luz
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -2911,14 +3265,15 @@ int main()
 		Luz_M.RenderModel();
 		glDisable(GL_BLEND);
 
-
+		*/
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
 		
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
-
+		
+		/*
 		//Modelo de Pista
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -2941,54 +3296,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		
 		Rayo_M.RenderModel();
-
-		//Modelo de Pajaro
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 10.1f, -180.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pajaro_M.RenderModel();
-		glDisable(GL_BLEND);
-
-		
-
-
-
-		/*
-		//Modelo de Agave
-		//Agave¿Que sycede si lo renderizan antes del coche y de la pista?
-		//HARA QUE NO SE VEAN LAS DEMAS COSAS, por eso todo lo que tenga blend se debe dibujar hasta el final.
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 10.0f));
-		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//blending: transparencia o translucidez
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		Tagave.UseTexture();
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		meshList[3]->RenderMesh();
-		glDisable(GL_BLEND);
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
 		*/
-		/*
-		//Modelo de Agave 2
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -10.0f));
-		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//blending: transparencia o translucidez
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		Tagave.UseTexture();
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		meshList[3]->RenderMesh();
-		glDisable(GL_BLEND);
-		*/
-		
 
 		glUseProgram(0);
 
