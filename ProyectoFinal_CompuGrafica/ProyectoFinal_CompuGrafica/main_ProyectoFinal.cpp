@@ -42,7 +42,9 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include "PointLight.h"
 #include "Material.h"
 
+//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE SPIDERMAN------------------------------------------//
 
+int spiderman = 0;
 /////---------------------------------------------- VARIABLES PARA KEYFRAME----------------------------------------------------------------------////
 
 float reproduciranimacion, habilitaranimacion, guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
@@ -93,8 +95,11 @@ Model PiernaDer_M;
 Model PiernaIzq_M;
 Model Rayo_M;
 Model Remoto_M;
+Model Edificio_M;
 /////---------------------------------------------- Declaración Variables Personaje ----------------------------------------------------------------------////
-float rotaSpider = 0.0f;
+float rotaXSpider = 0.0f;
+float rotaYSpider = 0.0f;
+float rotaZSpider = 0.0f;
 float movXspider = 0.0f;
 float movYspider = 0.0f;
 float movZspider = 0.0f;
@@ -106,12 +111,27 @@ bool iniBrazo = true;
 bool iniBrazo2 = false;
 float mueveBrazoDer = 0.0f;
 float mueveBrazoIzq = 0.0f;
+float contador2 = 0.0f;
 float angulo = 0.0f;
 bool estado1 = true;
 bool estado2 = false;
 bool estado3 = false;
 bool estado4 = false;
+bool estado5 = false;
 bool estado6 = false;
+bool estado7 = false;
+bool estado8 = false;
+bool estado9 = false;
+bool estado10 = false;
+bool estado11 = false;
+bool estado12 = false;
+bool estado13 = false;
+bool estado14 = false;
+bool estado15 = false;
+bool estado16 = false;
+bool estado17 = false;
+bool estado18 = false;
+bool estado19 = false;
 
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
@@ -592,9 +612,14 @@ void movimientoBrazos() {
 /////---------------------------------------------- AQUI EMPIEZA EL MAIN-----------------------------------------------------------------------------------------////
 int main()
 {
+	//Variables activar spiderman//
+	int activaS = 1;
+	int desactivaS = 1;
+	//---------------------------------------------------//
 	float brightness = 1.0, brightnesslights = 0.2;
 	float brillodir = 1.0;
 	float brillo = 1.0;
+	float red = 1.0;
 	float poSpotX = 0.0;
 	float poSpotY = 0.0;
 	float poSpotZ = 0.0;
@@ -737,6 +762,10 @@ int main()
 	Pajaro_M = Model();
 	Pajaro_M.LoadModel("Models/pajaro.dae");
 
+	//Modelo Edificio
+	Edificio_M = Model();
+	Edificio_M.LoadModel("Models/edificio.obj");
+
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
 
 
@@ -794,6 +823,9 @@ int main()
 	//Posicion inicial del faro
 	glm::vec3 posfaro = glm::vec3(12.0f, -1.0f, 70.6f);
 
+	//Posicion inicial de Spiderman
+	glm::vec3 spiderpos = glm::vec3(75.0f, 4.7f, 60.0f);
+	//75.0f + movXspider, 4.7f + movYspider, 60.0f + movZspider));
 	/////------------------------------------------------------ LUCES DEL MUNDO ----------------------------------------------------------------------////
 
 	
@@ -861,7 +893,7 @@ int main()
 		//--------------------PointlLight-----------------------------------------------------------------------------------------------------------//
 		unsigned int pointLightCount = 0; //Contador de luces puntuales, se tendra más de una
 		//pointLights[0]
-		pointLights[0] = PointLight(1.0f, 1.0f, 0.0f, //RGB
+		pointLights[0] = PointLight(1.0f, red, 0.0f, //RGB
 			brillo, brillo,//Intensidad ambiental y difusa
 			30.0f, 25.0f, -93.0f,//Valor de posición 
 			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
@@ -870,7 +902,7 @@ int main()
 
 		//pointLights[1]
 
-		pointLights[1] = PointLight(1.0f, 1.0f, 0.0f, //RGB
+		pointLights[1] = PointLight(1.0f, red, 0.0f, //RGB
 			brillo, brillo,//Intensidad ambiental y difusa
 			30.0f, 25.0f, 13.0f,//Valor de posición 
 			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
@@ -878,7 +910,7 @@ int main()
 
 		//pointLights[2]
 
-		pointLights[2] = PointLight(1.0f, 1.0f, 0.0f, //RGB
+		pointLights[2] = PointLight(1.0f, red, 0.0f, //RGB
 			brillo, brillo,//Intensidad ambiental y difusa
 			-30.0f, 25.0f, -93.0f,//Valor de posición 
 			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
@@ -887,7 +919,7 @@ int main()
 
 		//pointLights[3]
 
-		pointLights[3] = PointLight(1.0f, 1.0f, 0.0f, //RGB
+		pointLights[3] = PointLight(1.0f, red, 0.0f, //RGB
 			brillo, brillo,//Intensidad ambiental y difusa
 			-30.0f, 25.0f, 13.0f,//Valor de posición 
 			0.3f, 0.2f, 0.1f);//Coeficientes de ecuación de segundo grado
@@ -942,22 +974,22 @@ int main()
 
 		switch (dia) {
 		case 0:
-			brillodir -= 0.0009;
+			brillodir -= 0.0002;
 			brillo = 0.0;
-			skybox.r -= 0.0009;
-			skybox.g -= 0.0009;
-			skybox.b -= 0.0009;
+			skybox.r -= 0.0002;
+			skybox.g -= 0.0002;
+			skybox.b -= 0.0002;
 			if (brillodir <= 0.2) {
 				dia = 1;
 			}
 			break;
 		case 1:
-			brillodir += 0.0009;
-			brightnesslights -= 0.0009;
+			brillodir += 0.0002;
+			brightnesslights -= 0.0002;
 			brillo = 10.0;
-			skybox.r += 0.0009;
-			skybox.g += 0.0009;
-			skybox.b += 0.0009;
+			skybox.r += 0.0002;
+			skybox.g += 0.0002;
+			skybox.b += 0.0002;
 			if (brillodir >= 1.0) {
 				dia = 0;
 			}
@@ -971,7 +1003,7 @@ int main()
 			//if (activa == 1) {
 				activa = 0;
 				desactiva = 0;
-				printf("Aprieto M y activo");
+				//printf("Aprieto M y activo");
 
 				if (star1)
 				{	
@@ -1046,7 +1078,7 @@ int main()
 		}
 		else if (mainWindow.getshow() == 0) {
 			if (desactiva == 0) {
-				printf("Aprieto N y desactivo");
+				//printf("Aprieto N y desactivo");
 				star1 = true;
 				star2 = false;
 				star3 = false;
@@ -1209,186 +1241,6 @@ int main()
 		/////----------------------------------------------------ANIMACIONES COMPLEJAS ----------------------------------------------------------------------////
 
 
-		//MOVIMIENTO DE HELICOPTERO//
-		/*
-		offset += 0.5;
-
-		if (aniHe)
-		{
-
-			if (ida)
-			{
-
-
-				posXavion -= 0.05;
-				dire = 0.0f;
-
-				if (posXavion < -40)
-				{
-
-					ida = false;
-					vuelta1 = true;
-
-				}
-			}
-			////
-
-			if (vuelta1)
-			{
-
-				posXavion -= 0.01;
-				posZavion -= 0.01;
-				movCir -= 0.4;
-
-				if (posZavion < -2) {//-2.1<-2.0
-					vuelta1 = false;
-					vuelta2 = true;
-				}
-
-			}
-
-			//
-
-			if (vuelta2)
-			{
-				posZavion -= 0.02;
-				movCir -= 0.3;
-
-				if (posZavion < -4) {//-4.1<-4.0
-					vuelta2 = false;
-					vuelta3 = true;
-				}
-
-			}
-
-			//
-
-			if (vuelta3)
-			{
-				posZavion -= 0.02;
-				movCir -= 0.3;
-
-				if (posZavion < -6) {//-6.1<-6.0
-					vuelta3 = false;
-					vuelta4 = true;
-				}
-
-			}
-
-			//
-
-			if (vuelta4)
-			{
-
-				//posXavion += 0.01;
-				posZavion -= 0.02;
-				movCir -= 0.4;
-
-				if (posZavion < -8) {//-8.1<-8.0
-					vuelta4 = false;
-					vuelta5 = true;
-				}
-
-			}
-
-			//
-
-			if (vuelta5)
-			{
-				movCir = 180.0;
-
-				if (movCir == 180.0) {
-					vuelta5 = false;
-					regreso = true;
-				}
-
-			}
-
-			//
-			if (regreso)
-			{
-				posXavion += 0.03;
-
-				if (posXavion > 40)
-				{
-					vuelta6 = true;
-					regreso = false;
-				}
-
-			}
-
-			if (vuelta6)
-			{
-
-				posZavion += 0.01;
-				movCir -= 0.4;
-
-				if (posZavion > -6) {
-					vuelta6 = false;
-					vuelta7 = true;
-				}
-
-			}
-
-			//
-
-			if (vuelta7)
-			{
-				posZavion += 0.02;
-				movCir -= 0.3;
-
-				if (posZavion > -4) {
-					vuelta7 = false;
-					vuelta8 = true;
-				}
-
-			}
-
-			//
-
-			if (vuelta8)
-			{
-				posZavion += 0.02;
-				movCir -= 0.3;
-
-				if (posZavion > -2) {
-					vuelta8 = false;
-					vuelta9 = true;
-				}
-
-			}
-
-			//
-
-			if (vuelta9)
-			{
-
-				//posXavion += 0.01;
-				posZavion += 0.02;
-				movCir -= 0.4;
-
-				if (posZavion >= 0) {
-					vuelta9 = false;
-					ida = true;
-				}
-
-			}
-
-			//
-
-			if (vuelta10)
-			{
-				movCir = 0.0;
-
-				if (movCir == 0.0) {
-					vuelta5 = false;
-					regreso = true;
-				}
-
-			}
-		}posYavion = sin(offset*toRadians);
-
-		*/
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 
 		//MOVIMIENTO DE COCHE//
@@ -1780,11 +1632,242 @@ int main()
 
 	
 		}
-		//-------------------------------------------------Animación de Brazos----------------------------------------------------//
-		if (true) {
-			movimientoPiernas();
-			movimientoBrazos();
+		//-------------------------------------------------Animación Spiderman Activa:3 y Reset:4----------------------------------------------------//
+		if (spiderman==1) {
+			activaS = 0;
+			desactivaS = 0;
+			
 			if (estado1) {
+				movimientoPiernas();
+				movimientoBrazos();
+				movZspider += 0.1;
+				if (movZspider > 10) {
+					estado1 = false;
+					estado2 = true;
+				}
+			}
+			if (estado2) {
+				movimientoPiernas();
+				movimientoBrazos();
+				rotaXSpider -= 0.9;
+				movYspider += 0.01;
+				if (rotaXSpider < -90) {
+					estado2 = false;
+					estado3 = true;
+				}
+
+			}
+			if (estado3) {
+				movimientoPiernas();
+				movimientoBrazos();
+				//rotaXSpider -= 0.9;
+				movYspider += 0.1;
+				if (movYspider > 38) {
+					estado3 = false;
+					estado4 = true;
+				}
+
+			}
+
+			if (estado4) {
+				movimientoPiernas();
+				movimientoBrazos();
+				rotaXSpider += 0.9;
+				movYspider += 0.05;
+				movZspider += 0.05;
+				if (rotaXSpider >=0) {
+					estado4 = false;
+					estado5 = true;
+				}
+
+			}
+			if (estado5) {
+				movimientoPiernas();
+				movimientoBrazos();
+				//rotaXSpider += 0.9;
+				//movYspider += 0.05;
+				movZspider += 0.1;
+				if (movZspider >24) {
+					estado5 = false;
+					estado6 = true;
+				}
+
+			}
+			if (estado6) {
+				movimientoPiernas();
+				movimientoBrazos();
+				rotaXSpider += 0.9;
+				movYspider -= 0.05;
+				movZspider += 0.059;
+				if (rotaXSpider > 90) {
+					estado6 = false;
+					estado7 = true;
+				}
+
+			}
+			if (estado7) {
+				movimientoPiernas();
+				movimientoBrazos();
+				//rotaXSpider -= 0.9;
+				movYspider -= 0.1;
+				if (movYspider <=1) {
+					estado7 = false;
+					estado8 = true;
+				}
+
+			}
+			if (estado8) {
+				movimientoPiernas();
+				movimientoBrazos();
+				rotaXSpider -= 0.9;
+				movYspider -= 0.01;
+				if (rotaXSpider <= 0) {
+					estado8 = false;
+					estado9 = true;
+				}
+
+			}
+			if (estado9) {
+				movimientoPiernas();
+				movimientoBrazos();
+				rotaYSpider -= 0.9;
+				movXspider -= 0.1;
+				if (rotaYSpider <= -90) {
+					estado9 = false;
+					estado10 = true;
+				}
+
+			}
+			if (estado10) {
+				movimientoPiernas();
+				movimientoBrazos();
+				//rotaYSpider -= 0.9;
+				movXspider -= 0.1;
+				if (movXspider <= -30) {
+					estado10 = false;
+					estado11 = true;
+				}
+
+			}
+			if (estado11) {
+				movimientoPiernas();
+				movimientoBrazos();
+				rotaYSpider -= 0.9;
+				movZspider -= 0.05;
+				if (rotaYSpider <= -180) {
+					estado11 = false;
+					estado12 = true;
+				}
+
+			}
+
+			if (estado12) {
+				movimientoPiernas();
+				movimientoBrazos();
+				//movZspider -= 0.9;
+				movZspider -= 0.1;
+				if (movZspider <= -20) {
+					estado12 = false;
+					estado13 = true;
+				}
+
+			}
+
+			if (estado13) {
+				movimientoPiernas();
+				movimientoBrazos();
+				rotaYSpider += 0.9;
+				movXspider -= 0.1;
+				if (rotaYSpider> -90) {
+					estado13 = false;
+					estado14 = true;
+				}
+
+			}
+
+			if (estado14) {
+				movimientoPiernas();
+				movimientoBrazos();
+				//rotaYSpider += 0.9;
+				movXspider -= 0.1;
+				if (movXspider < -70) {
+					estado14 = false;
+					estado15 = true;
+				}
+
+			}
+			if (estado15) {
+				movimientoPiernas();
+				movimientoBrazos();
+				rotaYSpider -= 0.9;
+				movZspider -= 0.05;
+				if (rotaYSpider < -180) {
+					estado15 = false;
+					estado16 = true;
+				}
+
+			}
+			if (estado16) {////////////////////COLOR
+				mueveBrazoIzq -= 0.5;
+				if (mueveBrazoIzq < -80) {
+					mueveBrazoIzq = -80;
+					contador2 += 0.01;
+						red = 0.0f;
+						brillo = 10.0f;
+						if (contador2 >= 5) {
+							estado16 = false;
+							estado17 = true;
+						}
+					
+					
+
+				}
+			}
+			if (estado17) {////////////////////COLOR
+				mueveBrazoIzq += 0.5;
+				if (mueveBrazoIzq > 0) {
+					red = 1.0f;
+					brillo = 0.0f;
+					estado17 = false;
+
+				}
+			}
+		}else if (spiderman == 0) 
+		{
+			if (desactivaS == 0) {
+			//printf("Aprieto N y desactivo");
+				//Reseteamos todo
+				movXspider = 0.0f;
+				movZspider = 0.0f;
+				mueveBrazoDer = 0.0f;
+				mueveBrazoIzq = 0.0f;
+				muevePiernaDer = 0.0f;
+				muevePiernaIzq = 0.0f;
+				rotaXSpider = 0.0f;
+				rotaYSpider = 0.0f;
+				rotaZSpider = 0.0f;
+				estado1 = true;
+				estado2 = false;
+				estado3 = false;
+				estado4 = false;
+				estado5 = false;
+				estado6 = false;
+				estado7 = false;
+				estado8 = false;
+				estado9 = false;
+				estado10 = false;
+				estado11 = false;
+				estado12 = false;
+				estado13 = false;
+				estado14 = false;
+				estado15 = false;
+				estado16 = false;
+				estado17 = false;
+			//estado18 = false;
+			//estado19 = false;
+
+			activaS = 1;
+			desactivaS = 1;
 
 			}
 		}
@@ -2227,12 +2310,14 @@ int main()
 		
 		//Modelo Tronco//
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(60.0f+movXspider,4.7f+movYspider,-100.0f+movZspider));
+		model = glm::translate(model, glm::vec3(spiderpos.x+movXspider,spiderpos.y+movYspider,spiderpos.z+movZspider));
 		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
 		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
 		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
 		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
-		model = glm::rotate(model, (0+rotaSpider) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, (0+rotaXSpider) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, (0 + rotaYSpider) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, (0 + rotaZSpider) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		modelaux = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Tronco_M.RenderModel();
@@ -2290,7 +2375,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PiernaIzq_M.RenderModel();
 
-
+		
 
 		//--------------------------------------------------------------------------------------------------------------------------------------------------//
 		/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2621,7 +2706,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Palmera_M.RenderModel();
 		glDisable(GL_BLEND);
-
+		
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 		//Modelo de Casas
 		glEnable(GL_BLEND);
@@ -2640,24 +2725,37 @@ int main()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::translate(model, glm::vec3(75.0f, 3.5f, -50.0f));
+		model = glm::translate(model, glm::vec3(75.0f, 3.5f, -60.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Casas_M.RenderModel();
 		glDisable(GL_BLEND);
+		*/
+		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Modelo de Edificio
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(75.0f, 0.5f, 80.0f));
+		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Edificio_M.RenderModel();
+		glDisable(GL_BLEND);
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		*/ 
+		
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		/*
+		
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2720,7 +2818,7 @@ int main()
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		*/
+		
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2863,6 +2961,16 @@ void inputKeyframes(bool* keys)
 
 	if (keys[GLFW_KEY_3])//
 	{
+		spiderman = 1;
+	}
+
+	if (keys[GLFW_KEY_4])//
+	{
+		spiderman = 0;
+	}
+	/*
+	if (keys[GLFW_KEY_3])//
+	{
 		if (guardoFrame < 1)
 		{
 			saveFrame();
@@ -2904,5 +3012,6 @@ void inputKeyframes(bool* keys)
 			printf("Ya puedes modificar tu variable presionando la tecla 1\n");
 		}
 	}
+	*/
 
 }
