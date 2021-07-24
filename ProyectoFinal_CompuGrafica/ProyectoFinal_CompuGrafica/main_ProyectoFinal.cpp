@@ -2722,58 +2722,7 @@ int main()
 		//--------------------------------------------------------Termina Spiderman------------------------------------------------------//
 
 		//--------------------------------------------------------Dibujar Pajaro------------------------------------------------------//
-		//////////////////////////////////////////////
-		// ///////////////////////////////////////////
-		 
-		//Tronco de Pajaro//
-model = glm::mat4(1.0);
-model = glm::translate(model, glm::vec3(pospajaro.x, pospajaro.y, pospajaro.z));
-//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
-//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
-//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
-model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
-model = glm::rotate(model, (0  ) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-model = glm::rotate(model, (0 ) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-model = glm::rotate(model, (0 ) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-modelaux = model;
-glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-TroncoPa_M.RenderModel();
 
-angulo += 0.5;
-//Modelo Ala derecha//
-model = modelaux;
-model = glm::translate(model, glm::vec3(-13.8f, 12.7f, -2.6f));
-//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-model = glm::rotate(model, (0 ) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//MOVIMIENTO BRAZO DER
-glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-AlaDerPa_M.RenderModel();
-
-//Modelo Ala Izquierda//
-model = modelaux;
-model = glm::translate(model, glm::vec3(14.1, 11.7f, -1.6678f));
-//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-model = glm::rotate(model, (0 ) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//MOVIMIENTO BRAZO DER
-glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-AlaIzqPa_M.RenderModel();
-
-//Modelo Pata Derechha//
-model = modelaux;
-model = glm::translate(model, glm::vec3(-9.4f, -35.1f, -15.5f));
-//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-model = glm::rotate(model, (0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
-glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-PataDerPa_M.RenderModel();
-
-//Modelo Pata Izquierda///////////////
-model = modelaux;
-model = glm::translate(model, glm::vec3(10.2f, -35.3f, -13.8f));
-//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-model = glm::rotate(model, (0 ) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
-glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-PataIzqPa_M.RenderModel();
-		 
-		//////////////////////////////////////////////
-		// ///////////////////////////////////////////
 		//Tronco de Pajaro//
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(pospajaro.x + movXpajaro, pospajaro.y + movYpajaro, pospajaro.z + movZpajaro));
