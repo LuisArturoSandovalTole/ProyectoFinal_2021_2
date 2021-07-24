@@ -96,7 +96,13 @@ Model PiernaIzq_M;
 Model Rayo_M;
 Model Remoto_M;
 Model Edificio_M;
-/////---------------------------------------------- Declaración Variables Personaje ----------------------------------------------------------------------////
+//Pajaro
+Model TroncoPa_M;
+Model AlaIzqPa_M;
+Model AlaDerPa_M;
+Model PataIzqPa_M;
+Model PataDerPa_M;
+/////---------------------------------------------- Declaración Variables Spiderman ----------------------------------------------------------------------////
 float rotaXSpider = 0.0f;
 float rotaYSpider = 0.0f;
 float rotaZSpider = 0.0f;
@@ -133,6 +139,17 @@ bool estado17 = false;
 bool estado18 = false;
 bool estado19 = false;
 
+/////---------------------------------------------- Declaración Variables Pajaro ----------------------------------------------------------------------////
+float rotaXpajaro = 0.0f;
+float rotaYpajaro = 0.0f;
+float rotaZpajaro = 0.0f;
+float movXpajaro = 0.0f;
+float movYpajaro = 0.0f;
+float movZpajaro = 0.0f;
+float muevePataDer = 0.0f;
+float muevePataIzq = 0.0f;
+float mueveAlaDer = 0.0f;
+float mueveAlaIzq = 0.0f;
 /////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
 
@@ -715,8 +732,30 @@ int main()
 	//Modelo Control Remoto
 	Remoto_M = Model();
 	Remoto_M.LoadModel("Models/controlremoto.obj");
-	//-----------------------------------------------------------------------------------------------------------------------------------------//
 
+	//-----------------------------------------------------------------------------------------------------------------------------------------//
+	
+	//Tronco Pajaro
+	TroncoPa_M = Model();
+	TroncoPa_M.LoadModel("Models/troncoPA.obj");
+
+	//Ala izquierda Pajaro
+	AlaIzqPa_M = Model();
+	AlaIzqPa_M.LoadModel("Models/alaizqPA.obj");
+	
+	//Ala derecha Pajaro
+	AlaDerPa_M = Model();
+	AlaDerPa_M.LoadModel("Models/aladerPA.obj");
+
+	//Pata izquierda Pajaro
+	PataIzqPa_M = Model();
+	PataIzqPa_M.LoadModel("Models/pataizqPA.obj");
+
+	//Pata derecha Pajaro
+	PataDerPa_M = Model();
+	PataDerPa_M.LoadModel("Models/pataderPA.obj");
+
+	//-------------------------------------------------------------------------------------------------------------------
 	//Modelo Alberca
 	Alberca_M = Model();
 	Alberca_M.LoadModel("Models/1alb.obj");
@@ -826,6 +865,9 @@ int main()
 	//Posicion inicial de Spiderman
 	glm::vec3 spiderpos = glm::vec3(75.0f, 4.7f, 60.0f);
 	//75.0f + movXspider, 4.7f + movYspider, 60.0f + movZspider));
+	
+	//Posicion inicial del pajaro
+	glm::vec3 pospajaro = glm::vec3(0.0f, 5.0f, -100.0f);
 	/////------------------------------------------------------ LUCES DEL MUNDO ----------------------------------------------------------------------////
 
 	
@@ -2307,6 +2349,7 @@ int main()
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		 
+		//--------------------------------------------------------Dibujar Spiderman------------------------------------------------------//
 		
 		//Modelo Tronco//
 		model = glm::mat4(1.0);
@@ -2375,7 +2418,61 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PiernaIzq_M.RenderModel();
 
+		//--------------------------------------------------------Termina Spiderman------------------------------------------------------//
+
+		//--------------------------------------------------------Dibujar Pajaro------------------------------------------------------//
+
+		//Tronco de Pajaro//
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(pospajaro.x + movXpajaro, pospajaro.y + movYpajaro, pospajaro.z + movZpajaro));
+		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
+		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
+		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		model = glm::rotate(model, (0 + rotaXpajaro) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, (0 + rotaYpajaro) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, (0 + rotaZpajaro) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		TroncoPa_M.RenderModel();
+
+		//Modelo Ala derecha//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-13.8f, 12.7f,- 2.6f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0 + mueveAlaDer) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		AlaDerPa_M.RenderModel();
+
+		//Modelo Ala Izquierda//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(14.1, 11.7f, -1.6678f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0 + mueveAlaIzq) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		AlaIzqPa_M.RenderModel();
+
+		//Modelo Pata Derechha//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-9.4f, -35.1f, -15.5f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0 + muevePataDer) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PataDerPa_M.RenderModel();
+
+		//Modelo Pata Izquierda///////////////
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(10.2f, -35.3f, -13.8f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0 + muevePataDer) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PataIzqPa_M.RenderModel();
+
+
+
+
 		
+		//--------------------------------------------------------Termina Pajaro-----------------------------------------------------//
 
 		//--------------------------------------------------------------------------------------------------------------------------------------------------//
 		/////////////////////////////////////////////////////////////////////////////////////////////////
