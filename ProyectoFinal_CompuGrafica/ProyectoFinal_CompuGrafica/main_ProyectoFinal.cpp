@@ -43,59 +43,63 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include "Material.h"
 
 //float ang;
-//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE BASKET------------------------------------------// 
+//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE BASKET--------------------------------------------------------// 
 int basketball = 0;
-//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE FLOTADOR------------------------------------------//
+//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE FLOTADOR------------------------------------------------------//
 
 int flota = 0;
-//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE SPIDERMAN------------------------------------------//
+//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE SPIDERMAN-----------------------------------------------------//
 
 int spiderman = 0;
-//-------------------------------------------------VARIABLES PARA LAS CAMARAS---------------------------------------------------------------------//
+//-------------------------------------------------VARIABLES PARA LAS CAMARAS------------------------------------------------------------------------//
 int cambioTer=1;
 int cambioArea = 0;
 float mueveXlibre;
 float mueveYoZlibre;
 float mueveCam;
 float mueveCam2;
-/////---------------------------------------------- VARIABLES PARA KEYFRAME----------------------------------------------------------------------////
+/////---------------------------------------------- VARIABLES PARA KEYFRAME-------------------------------------------------------------------------////
 
 float reproduciranimacion, habilitaranimacion, guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
 
-/////---------------------------------------------- VARIABLES PARA MUSICA----------------------------------------------------------------------////
+/////---------------------------------------------- VARIABLES PARA MUSICA----------------------------------------------------------------------------////
 //bool musicFondo = true;
 using namespace irrklang;
 
-/////---------------------------------------------- void my_input(GLFWwindow *window);----------------------------------------------------------------------////
+/////---------------------------------------------- void my_input(GLFWwindow *window);----------------------------------------------------------------////
 void inputKeyframes(bool* keys);
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
-/////---------------------------------------------- ----------DECLARACION DE CAMERA ----------------------------------------------------------------------////
+/////---------------------------------------------- ----------DECLARACION DE CAMERA ------------------------------------------------------------------////
 
 Camera camera;
 
-/////------------------------------------------------------- DECLARACION DE TEXTURAS ----------------------------------------------------------------------////
+/////------------------------------------------------------- DECLARACION DE TEXTURAS -----------------------------------------------------------------////
 
 Texture pisoTexture;
 Texture pastoTexture;
-Texture Tagave;
+
 
 /////-------------------------------------------------------- DECLARACION DE MODELOS ----------------------------------------------------------------------////
 
-Model Kitt_M;
-Model Llanta_M;
-Model Camino_M;
-Model Blackhawk_M;
+//Modelo Cabeza
 Model Cabeza_M;
+//Modelo Alberca
 Model Alberca_M;
+//Modelo ALberca chica
 Model Alberca1_M;
+//Modelo de camastro
 Model Silla_M;
+//Modelo Maceta
 Model Maceta_M;
+//Modelo Palmera
 Model Palmera_M;
+//Modelo Casas
 Model Casas_M;
+//Modelo Escenario
 Model Esce_M;
 //Porteria
 Model Porteria_M;
@@ -105,14 +109,14 @@ Model Balon_M;
 Model Luz_M;
 //Pista de Carreras
 Model Race_M;
-//BlackPanter Hombre
+//-----------------------------------------------------Modelos BlackPanter Hombre----------------------------------------------------------------------//
 Model TroncoHB_M;
 Model BrazoDerHB_M;
 Model BrazoIzqHB_M;
 Model PiernaDerHB_M;
 Model PiernaIzqHB_M;
 Model CabezaHB_M;
-//Spiderman
+//----------------------------------------------------Modelos Spiderman-------------------------------------------------------------------------------//
 Model Tronco_M;
 Model BrazoDer_M;
 Model BrazoIzq_M;
@@ -123,7 +127,7 @@ Model Rayo_M;
 Model Remoto_M;
 //Edificioo
 Model Edificio_M;
-//Pajaro
+//------------------------------------------------------------Modelos Pajaro-----------------------------------------------------------------------------//
 Model TroncoPa_M;
 Model AlaIzqPa_M;
 Model AlaDerPa_M;
@@ -975,9 +979,8 @@ void arribitaT() {
 ///////////////* ---------------------------------------FIN KEYFRAMES*--------------------------------------------------------------------////////////////////////////
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////<<<  INICIO DEL " MAIN " >>>////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//-------------------------------------------------------------INICIA EL MAIN--------------------------------------------------------------------------------------//
+
 int main()
 {
 	//ang += 0.1;
@@ -1046,30 +1049,14 @@ int main()
 	//Textura Piso
 	pisoTexture = Texture("Textures/arena.jpg");
 	pisoTexture.LoadTextureA();
-	//Textura Agave
-	Tagave = Texture("Textures/Agave.tga");
-	Tagave.LoadTextureA();
+
 	//Textura Pasto
 	pastoTexture=Texture("Textures/pasto5.jpg");
 	pastoTexture.LoadTextureA();
 
 	/////---------------------------------------------- CARGA DE MODELOS --------------------------------------------------------------------------////
 
-	//Modelo Kitt
-	Kitt_M = Model();
-	Kitt_M.LoadModel("Models/Coche-Jeep.obj");
 
-	//Modelo Llanta
-	Llanta_M = Model();
-	Llanta_M.LoadModel("Models/llanta.obj");
-
-	//Modelo Helicoptero
-	Blackhawk_M = Model();
-	Blackhawk_M.LoadModel("Models/uh60.obj");
-
-	//Modelo Camino
-	Camino_M = Model();
-	Camino_M.LoadModel("Models/pista.obj");
 	//-----------------------------------------------Personaje BlackPanter Hombre----------------------------------------------------------------//
 	//Modelo Tronco--1
 	TroncoHB_M = Model();
@@ -1095,8 +1082,6 @@ int main()
 	PiernaDerHB_M = Model();
 	PiernaDerHB_M.LoadModel("Models/hpiernaDer.obj");
 
-
-	//-----------------------------------------------------------------------------------------------------------------------------------------//
 	//-----------------------------------------------Personaje Spiderman----------------------------------------------------------------//
 	//Modelo Tronco--1
 	Tronco_M = Model();
@@ -1126,7 +1111,7 @@ int main()
 	Remoto_M = Model();
 	Remoto_M.LoadModel("Models/controlremoto.obj");
 
-	//-----------------------------------------------------------------------------------------------------------------------------------------//
+	//--------------------------------------------------------Personaje Pajaro-----------------------------------------------------------------------------//
 	
 	//Tronco Pajaro
 	TroncoPa_M = Model();
@@ -1148,7 +1133,7 @@ int main()
 	PataDerPa_M = Model();
 	PataDerPa_M.LoadModel("Models/pataderPA.obj");
 
-	//-------------------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------Mas modelos----------------------------------------------------------------------------//
 	//Modelo Alberca
 	Alberca_M = Model();
 	Alberca_M.LoadModel("Models/1alb.obj");
@@ -1198,10 +1183,6 @@ int main()
 	Balon_M.LoadModel("Models/balonobj.obj");
 
 
-	//Modelo Pajaro
-	//Pajaro_M = Model();
-	//Pajaro_M.LoadModel("Models/pajaro.dae");
-
 	//Modelo Edificio
 	Edificio_M = Model();
 	Edificio_M.LoadModel("Models/edificio.obj");
@@ -1219,17 +1200,6 @@ int main()
 
 	int sec;
 
-		/*
-		std::vector<std::string> skyboxFaces;
-		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
-		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_lf.tga");
-		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_dn.tga");
-		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_up.tga");
-		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_bk.tga");
-		skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
-		skybox = Skybox(skyboxFaces);
-		printf("Hello Sky1");
-		*/
 	
 		std::vector<std::string> skyboxFaces2;
 		skyboxFaces2.push_back("Textures/Skybox/posx1.jpg");//RIGHT
@@ -1239,7 +1209,7 @@ int main()
 		skyboxFaces2.push_back("Textures/Skybox/posz1.jpg");//FRONT
 		skyboxFaces2.push_back("Textures/Skybox/negz1.jpg");//BACK
 		skybox = Skybox(skyboxFaces2);
-		//printf("Hello Sky2");
+
 	
 	
 	/////---------------------------------------------- VALORES MATERIALES BRILLANTE Y OPACO -------------------------------------------------------------////
@@ -1273,7 +1243,7 @@ int main()
 
 	//Posicion inicial de Spiderman
 	glm::vec3 spiderpos = glm::vec3(75.0f, 4.7f, 60.0f);
-	//75.0f + movXspider, 4.7f + movYspider, 60.0f + movZspider));
+
 
 	//Posicion inicial de BlackPanter
 	glm::vec3 blackpos = glm::vec3(160.0f, 4.7f, -100.0f);
@@ -1283,12 +1253,6 @@ int main()
 	
 	//Posicion inicial del pajaro
 	glm::vec3 pospajaro = glm::vec3(0.0f, 5.0f, -100.0f);
-	/////------------------------------------------------------ LUCES DEL MUNDO ----------------------------------------------------------------------////
-
-	
-
-
-
 
 
 	/////---------------------------------------------- LO QUE SE PODRA VISUALIZAR CON CAMARA -------------------------------------------------------------////
@@ -1299,7 +1263,7 @@ int main()
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 
 	
-	//Utilizadas para cambiar la luz de escenario
+	//--------------------------------------------Variables Utilizadas para cambiar la luz de escenario-----------------------------------------------------//
 	GLint activa = 1;
 	GLint desactiva = 1;
 
@@ -1356,25 +1320,7 @@ int main()
 				
 			}
 		}
-		/*
-			if (keys[GLFW_KEY_T])//==J
-	{
-		mueveCam += 1.0;
-	}
-	if (keys[GLFW_KEY_G])//==L
-	{
-		mueveCam -= 1.0;
-	}
-
-	if (keys[GLFW_KEY_F])//==K
-	{
-		mueveCam2-= 1.0;
-	}
-	if (keys[GLFW_KEY_H])//==I
-	{
-		mueveCam2 += 1.0;
-	}
-		*/
+		//----------------------------------------DECLARACION DE LAS LUCES DE NUESTRO MUNDO----------------------------------------------------------------//
 		
 		//---------------------DirectionalLight-----------------------------------------------------------------------------------------------------------// 
 		//Madre de todas las luces, es como el sol. Solo existe una.
@@ -1463,6 +1409,7 @@ int main()
 			10.0f);
 		spotLightCount++;
 
+		//----------------------------------------------------Switch para cambiar entre el día y la noche----------------------------------------------------------------// 
 
 		switch (dia) {
 		case 0:
@@ -1487,8 +1434,8 @@ int main()
 			}
 			break;
 		}
-		//
-
+		
+		//----------------------------Condicion para enceder y apagar las luces del escenario, y activar el show------------------------------------------------------------// 
 		
 		if (mainWindow.getshow() == 1)
 		{
@@ -1587,7 +1534,7 @@ int main()
 
 
 		}
-	
+		//------------------------------------------------------------------Fin de la condicion------------------------------------------------------------//
 	
 		GLfloat now = glfwGetTime();
 		
@@ -1640,7 +1587,7 @@ int main()
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
-
+		//------------------------------------CONDICION PARA APAGAR LAS LUCES SPOTLIGHT DEL SHOW------------------------------------------------------------------------------//
 		if (mainWindow.getshow()) {
 			shaderList[0].SetSpotLights(spotLights, spotLightCount);
 		}
@@ -1733,9 +1680,8 @@ int main()
 		/////----------------------------------------------------ANIMACIONES COMPLEJAS ----------------------------------------------------------------------////
 
 
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
 
-		//MOVIMIENTO DE COCHE//
+		//--------------------------------------------------------------MOVIMIENTO DE COCHE---------------------------------------------------------------------//
 		if(true)
 		{
 			if (idaCo) //AVANZA
@@ -2374,7 +2320,7 @@ int main()
 				}
 			}
 
-		}//Final if
+		}
 		//-------------------------------------------------------------Animación de Flotador---------------------------------------------------------//
 		if (flota==1) {
 			if (es1) {
@@ -2934,43 +2880,6 @@ int main()
 				bake14 = false;
 				
 			}
-			/*
-						if (estado16) {////////////////////COLOR
-				mueveBrazoIzq -= 0.5;
-				if (mueveBrazoIzq < -80) {
-					mueveBrazoIzq = -80;
-					contador2 += 0.01;
-						red = 0.0f;
-						brillo = 10.0f;
-						if (contador2 >= 5) {
-							estado16 = false;
-							estado17 = true;
-						}
-					
-					
-
-				}
-			}
-			*/
-			/*
-			if (estado6black) {
-				movXbalon = 0.0;
-				movYbalon = 0.0;
-				movZbalon = 0.0;
-				muevePiernaDerblack2 = 0.0;
-				muevePiernaIzqblack2 = 0.0;
-				movZblack2 = 0.0f;
-				mueveBrazoDerblack2 = 0.0;
-				mueveBrazoIzqblack2 = 0.0;
-
-
-				count5 += 0.5;
-				if (count5 >= 1) {
-					estado6black = false;
-					estado1black = true;
-				}
-			}
-			*/
 
 		}
 
@@ -3728,41 +3637,11 @@ int main()
 
 	return 0;
 }
+//---------------------------------------------------- FUNCION PARA CARGAR LAS TECLAS-------------------------------------------------------------------//
 
 void inputKeyframes(bool* keys)
 {
-	if (keys[GLFW_KEY_1])//
-	{
-		if (reproduciranimacion < 1)
-		{
-			if (play == false && (FrameIndex > 1))
-			{
-				resetElements();
-				//First Interpolation				
-				interpolation();
-				play = true;
-				playIndex = 0;
-				i_curr_steps = 0;
-				reproduciranimacion++;
-				printf("presiona 0 para habilitar reproducir de nuevo la animación'\n");
-				habilitaranimacion = 0;
 
-			}
-			else
-			{
-				play = false;
-
-			}
-		}
-	}
-	if (keys[GLFW_KEY_2])//
-	{
-		if (habilitaranimacion < 1)
-		{
-			reproduciranimacion = 0;
-			printf("Ya puedes reproducir de nuevo la animación con la tecla de barra espaciadora'\n");
-		}
-	}
 	//-------------------------------------------------------------------------ACTIVA SPIDERMAN [3]----------------------------------------------------------------------------//
 	if (keys[GLFW_KEY_3])//
 	{
