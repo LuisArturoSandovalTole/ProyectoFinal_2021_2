@@ -1010,12 +1010,12 @@ int main()
 	int dia = 0.0;
 	int day_state=0.0;
 	/////---------------------------------------------- LLAMAR CANCION --------------------------------------------------------------------------////
-	/*
+	
 	ISoundEngine* engine = createIrrKlangDevice();
 	if (!engine)
 		return 0;
 	ISound* ambiental = engine->play2D("canciones/Stellar Wind - Unicorn Heads.mp3", true);
-	*/
+	
 	/////---------------------------------------------- INICIAR WINDOW --------------------------------------------------------------------------////
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
@@ -2972,311 +2972,7 @@ int main()
 			*/
 
 		}
-		/*
-		//MOVIMIENTO DE COCHE//
 
-		if (mainWindow.getmuevetrue())
-
-
-		{
-			////////////////ADELANTE///////////
-			if (idaCo) {
-				posXcoche -= 0.1;
-				movX = 0.0f;
-
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					-0.1, 0.0f, 0.0f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-				if (posXcoche < -60)
-				{
-					idaCo = false;
-					vueltaCo1 = true;
-				}
-			}
-			////////////////VUELTA DERECHA///////////
-			if (vueltaCo1)
-			{
-				posXcoche -= 0.07;
-				posZcoche -= 0.05;
-				movCoc -= 0.4;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					-0.1, 0.0f, -0.1f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-				if (posZcoche < -12) {//-2.1<-2.0
-
-
-					vueltaCo1 = false;
-					vueltaCo2 = true;
-
-				}
-
-			}
-			/////////////////////ADELANTE///////////////
-			if (vueltaCo2)
-			{
-
-				movCoc = -90.0;
-				posZcoche -= 0.1;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.0, 0.0f, -0.1f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-
-
-				if (posZcoche < -75) {//-2.1<-2.0
-
-					vueltaCo2 = false;
-					vueltaCo3 = true;
-				}
-
-
-			}
-			////////////////VUELTA BRUSCA///////////
-			if (vueltaCo3)
-			{
-
-				posXcoche += 0.1;
-				movCoc -= 0.3;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.1, 0.0f, -0.1f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-
-
-				if (posXcoche > -55) {//-2.1<-2.0
-					vueltaCo3 = false;
-					vueltaCo4 = true;
-				}
-			}
-			////////////////VUELTA RECTA AVANCE///////////
-			if (vueltaCo4)
-			{
-				movCoc = -180.0;
-				posXcoche += 0.1;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.1, 0.0f, 0.0f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-
-
-				if (posXcoche > -48) {//-2.1<-2.0
-					vueltaCo4 = false;
-					vueltaCo5 = true;
-				}
-			}
-			////////////////ADELANTE///////////
-			if (vueltaCo5)
-			{
-				posXcoche += 0.1;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.1, 0.0f, 0.0f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-
-
-				if (posXcoche > -40) {//-2.1<-2.0
-					vueltaCo5 = false;
-					vueltaCo6 = true;
-				}
-			}
-			////////////////RAMPA HACIA ARRIBA///////////
-			if (vueltaCo6)
-			{
-				movZ = -15.0;
-				posXcoche += 0.07;
-				posYcoche += 0.022;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.1, 0.01, 0.0f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-
-
-				if (posYcoche > 8.3) {//-2.1<-2.0
-					movZ = 0.0f;
-					vueltaCo6 = false;
-					vueltaCo7 = true;
-				}
-			}
-
-			///////////////ADELANTE////////////////////////
-			if (vueltaCo7)
-			{
-				posXcoche += 0.1;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.1, 0.0, 0.0f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-				if (posXcoche > 32.0) {//posXcoche > -1.0
-					vueltaCo7 = false;
-					vueltaCo8 = true;
-				}
-			}
-			///////////////RAMPA HACIA ABAJO////////////////////////
-			if (vueltaCo8)
-			{
-				movZ = 15.0;
-				posXcoche += 0.075;
-				posYcoche -= 0.025;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.1, 0.0, 0.0f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-
-
-				if (posYcoche < 0.01) {//-2.1<-2.0
-					movZ = 0.0f;
-					vueltaCo8 = false;
-					vueltaCo9 = true;
-				}
-			}
-
-			///////////////ADELANTE////////////////////////
-			if (vueltaCo9)
-			{
-				posXcoche += 0.05;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.1, 0.0, 0.0f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-				if (posXcoche > 84.0) {//posXcoche > -1.0
-					vueltaCo9 = false;
-					vueltaCo10 = true;
-				}
-			}
-
-			///////////////VUELTA DERECHA////////////////////////
-			if (vueltaCo10)
-			{
-
-				posZcoche += 0.1;
-				movCoc -= 0.36;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.1, 0.0, 0.1f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-
-
-
-				if (posZcoche > -50) {//-2.1<-2.0
-					movCoc = 90.0;
-					vueltaCo10 = false;
-					vueltaCo11 = true;
-				}
-			}
-			///////////////ADELANTE////////////////////////
-			if (vueltaCo11)
-			{
-
-				posZcoche += 0.1;
-				//////////////////////////////////////////////
-				//luz de faro
-				spotLights[2] = SpotLight(1.0f, 0.0f, 1.0f,//luz blanca(RGB)
-					2.0f, 2.0f,//Coeficiente ambiental y difuso
-					1.0f, -2.2f, -4.6f, //Posición x,y,z
-					0.0, 0.0, 1.0f,//Vector de dirección
-					1.0f, 0.0f, 0.0f,
-					5.0f);
-				spotLightCount++;
-				spotLights[2].SetPos(poscoche + desplazamiento);
-				///////////////////////////////////////////////
-				if (posZcoche > -10) {//-2.1<-2.0
-
-					vueltaCo11 = false;
-
-
-				}
-			}
-
-		}*/
 
 		/////----------------------------------------------------VARIABLES DE DESPLAZAMIENTO ----------------------------------------------------------------////
 
@@ -3288,133 +2984,13 @@ int main()
 
 		/////---------------------------------------------------DIBUJAR OBJETOS EN ESCENARIO ----------------------------------------------------------------////
 
-		/*
-		//MODELO DEL HELICOPTERO//
-
-		//agregar incremento en X con teclado
-		model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-20.0f+mainWindow.getmuevex(), 6.0f, -1.0));
-		model = glm::translate(model, glm::vec3(posblackhawk.x + posXavion, posblackhawk.y + posYavion, posblackhawk.z + posZavion));
-		//model = glm::translate(model, posblackhawk+desplazamiento);
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, dire * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));//Cambia de dirección el helicoptero
-
-		model = glm::rotate(model, glm::radians(movCir), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR
-
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//agregar material al helicóptero
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Blackhawk_M.RenderModel();
-
-		model = glm::mat4(1.0);
-		posblackhawk = glm::vec3(posXavion + movAvion_x, posYavion + movAvion_y, posZavion);
-		model = glm::translate(model, posblackhawk);
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, (-90 + giroAvion) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Blackhawk_M.RenderModel();
-		spotLights[3].SetPos(posblackhawk);
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
-		*/
-
-		/*
-		//MODELO DEL COCHE//
-
-		model = glm::mat4(1.0);
-		//model = glm::translate(model, poscoche + desplazamiento);
-		model = glm::translate(model, glm::vec3(poscoche.x + posXcoche, poscoche.y + posYcoche, poscoche.z + posZcoche));
-		model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
-		model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
-		model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
-		modelaux = model;
-		//model = glm::translate(model, glm::vec3(0.0f + desplazamiento.x, 0.5f, -1.5f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
-		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
-		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
-		//modelaux1 = model;
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Kitt_M.RenderModel();
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-		//LLanta 1 izquierda delantera//
 
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(5.0f, -0.5f, 5.5f));
-		//model = glm::translate(model, glm::vec3(posXcoche, posYcoche,posZcoche));
-		model = glm::scale(model, glm::vec3(0.48f, 0.48f, 0.48f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
-		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
-		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
-
-		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR
-		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR
-		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Llanta_M.RenderModel();
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
-
-		//LLanta 2 derecha delantera//
-
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(5.0f, -0.5f, -0.5f));
-		model = glm::scale(model, glm::vec3(0.48f, 0.48f, 0.48f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR
-		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR
-		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Llanta_M.RenderModel();
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
-
-		//LLanta 3 izquierda trasera//
-
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(13.5f, -0.5f, 5.5f));
-		model = glm::scale(model, glm::vec3(0.48f, 0.48f, 0.48f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR
-		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR
-		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Llanta_M.RenderModel();
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
-
-		//LLanta 4 derecha trasera//
-
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(13.5f, -0.5f, -0.5f));
-		model = glm::scale(model, glm::vec3(0.48f, 0.48f, 0.48f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR
-		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR
-		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Llanta_M.RenderModel();
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
-		*/
-		//----------------------------------------------------------------------------------------------------------------------------------------------------//
-		
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		
-		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-
-		//------------------------------------------------------------------DIBUJAR HOMBRE BLACK PANTER 1-------------------------------------------------------------------//
+		//----------------------------------------------------DIBUJAR HOMBRE BLACK PANTER 1-------------------------------------------------------------------//
 		//Modelo Tronco//
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(blackpos.x+movXblack+ -0.012439f,blackpos.y+movYblack+ -0.060164f,blackpos.z+movZblack+ -0.073148f));
-		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
-		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
-		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		model = glm::rotate(model, (0+rotaXblack) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, (0 + rotaYblack) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -3687,7 +3263,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Basket_M.RenderModel();
 		
-		/*
+		
 		//-------------------------------------------------------------DIBUJAR FLOTADOR--------------------------------------------------------------------------------//
 		
 		//Modelo Flotador//
@@ -3709,11 +3285,11 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Alberca_M.RenderModel();
 
-		*/
+		
 		//--------------------------------------------------------------------------------------------------------------------------------------------------//
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		/*
+		
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -4055,7 +3631,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Casas_M.RenderModel();
 		glDisable(GL_BLEND);
-		*/
+		
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 		//Modelo de Edificio
 		
@@ -4071,19 +3647,6 @@ int main()
 		glDisable(GL_BLEND);
 		
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		
-		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-		 
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		
-		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-		
 		//Modelo de Escenario
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -4094,7 +3657,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Esce_M.RenderModel();
 		glDisable(GL_BLEND);
-		/*
+		
 		//Modelo de Luz
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -4139,7 +3702,7 @@ int main()
 		Luz_M.RenderModel();
 		glDisable(GL_BLEND);
 
-		*/
+		
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
@@ -4147,7 +3710,7 @@ int main()
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		/*
+		
 		//Modelo de Pista
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -4170,7 +3733,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		
 		Rayo_M.RenderModel();
-		*/
+		
 	
 		glUseProgram(0);
 
