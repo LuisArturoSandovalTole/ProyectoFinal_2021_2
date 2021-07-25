@@ -730,16 +730,16 @@ void animate(void)
 void movimientoPiernas() {
 	if (true) {
 		if (iniPierna) {
-			muevePiernaDer += 1.0;
-			muevePiernaIzq -= 1.0;
+			muevePiernaDer += 2.0;
+			muevePiernaIzq -= 2.0;
 			if (muevePiernaDer > 30) {
 				iniPierna = false;
 				iniPierna2 = true;
 			}
 		}
 		if (iniPierna2) {
-			muevePiernaDer -= 1.0;
-			muevePiernaIzq += 1.0;
+			muevePiernaDer -= 2.0;
+			muevePiernaIzq += 2.0;
 			if (muevePiernaDer < -30) {
 				iniPierna2 = false;
 				iniPierna = true;
@@ -752,16 +752,16 @@ void movimientoPiernas() {
 void movimientoBrazos() {
 	if (true) {
 		if (iniBrazo) {
-			mueveBrazoDer += 1.0;
-			mueveBrazoIzq -= 1.0;
+			mueveBrazoDer += 2.0;
+			mueveBrazoIzq -= 2.0;
 			if (mueveBrazoDer > 30) {
 				iniBrazo = false;
 				iniBrazo2 = true;
 			}
 		}
 		if (iniBrazo2) {
-			mueveBrazoDer -= 1.0;
-			mueveBrazoIzq += 1.0;
+			mueveBrazoDer -= 2.0;
+			mueveBrazoIzq += 2.0;
 			if (mueveBrazoDer < -30) {
 				iniBrazo2 = false;
 				iniBrazo = true;
@@ -774,16 +774,16 @@ void movimientoBrazos() {
 void movimientoAlas() {
 	if (true) {
 		if (iniAla) {
-			mueveAlaDer += 1.0;
-			mueveAlaIzq -= 1.0;
+			mueveAlaDer += 2.0;
+			mueveAlaIzq -= 2.0;
 			if (mueveAlaDer > 50) {
 				iniAla = false;
 				iniAla2 = true;
 			}
 		}
 		if (iniAla2) {
-			mueveAlaDer -= 1.0;
-			mueveAlaIzq += 1.0;
+			mueveAlaDer -= 2.0;
+			mueveAlaIzq += 2.0;
 			if (mueveAlaDer < -50) {
 				iniAla2 = false;
 				iniAla = true;
@@ -796,16 +796,16 @@ void movimientoAlas() {
 void movimientoPatas() {
 	if (true) {
 		if (iniPata) {
-			muevePataDer += 1.0;
-			muevePataIzq -= 1.0;
+			muevePataDer += 2.0;
+			muevePataIzq -= 2.0;
 			if (muevePataDer > 25) {
 				iniPata = false;
 				iniPata2 = true;
 			}
 		}
 		if (iniPata2) {
-			muevePataDer -= 1.0;
-			muevePataIzq += 1.0;
+			muevePataDer -= 2.0;
+			muevePataIzq += 2.0;
 			if (muevePataDer < -25) {
 				iniPata2 = false;
 				iniPata = true;
@@ -820,16 +820,16 @@ void movimientoPatas() {
 void movimientoBraB1() {
 	if (true) {
 		if (iniBrazoblack1) {
-			mueveBrazoDerblack -= 1.3;
-			mueveBrazoIzqblack -= 1.3;
+			mueveBrazoDerblack -= 5.3;
+			mueveBrazoIzqblack -= 5.3;
 			if (mueveBrazoDerblack < -180) {
 				iniBrazoblack1 = false;
 				iniBrazo2black1 = true;
 			}
 		}
 		if (iniBrazo2black1) {
-			mueveBrazoDerblack += 1.3;
-			mueveBrazoIzqblack += 1.3;
+			mueveBrazoDerblack += 5.3;
+			mueveBrazoIzqblack += 5.3;
 			if (mueveBrazoDerblack >=0) {
 				iniBrazo2black1 = false;
 				iniBrazoblack1 = true;
@@ -842,16 +842,16 @@ void movimientoBraB1() {
 void movimientoPiernasB1() {
 	if (true) {
 		if (iniPiernablack) {
-			muevePiernaDerblack += 0.7;
-			muevePiernaIzqblack -= 0.7;
+			muevePiernaDerblack += 4.3;
+			muevePiernaIzqblack -= 4.3;
 			if (muevePiernaDerblack > 15) {
 				iniPiernablack = false;
 				iniPierna2black = true;
 			}
 		}
 		if (iniPierna2black) {
-			muevePiernaDerblack -= 0.7;
-			muevePiernaIzqblack += 0.7;
+			muevePiernaDerblack -= 4.3;
+			muevePiernaIzqblack += 4.3;
 			if (muevePiernaDerblack <= 0) {
 				iniPierna2black = false;
 				iniPiernablack = true;
@@ -865,14 +865,14 @@ void movimientoPiernasB1() {
 void movimientoB1() {
 	if (true) {
 		if (movB1) {
-			movXblack += 0.1;
+			movXblack += 0.5;
 			if (movXblack > 10) {
 				movB1 = false;
 				mov2B1 = true;
 			}
 		}
 		if (mov2B1) {
-			movXblack -= 0.1;
+			movXblack -= 0.5;
 			if (movXblack <=-10) {
 				mov2B1 = false;
 				movB1 = true;
@@ -886,16 +886,16 @@ void brazosB2() {
 	if (true) {
 		if (inib2bra) {
 			//mueveAlaDer += 1.0;
-			mueveBrazoDerblack2 += 1.0;
-			mueveBrazoIzqblack2 -= 1.0;
+			mueveBrazoDerblack2 += 8.0;
+			mueveBrazoIzqblack2 -= 8.0;
 			if (mueveBrazoDerblack2 > 30) {
 				inib2bra = false;
 				inib2bra2 = true;
 			}
 		}
 		if (inib2bra2) {
-			mueveBrazoDerblack2 -= 1.0;
-			mueveBrazoIzqblack2 += 1.0;
+			mueveBrazoDerblack2 -= 8.0;
+			mueveBrazoIzqblack2 += 8.0;
 			if (mueveBrazoDerblack2 < -30) {
 				inib2bra2 = false;
 				inib2bra = true;
@@ -909,16 +909,16 @@ void brazosB2() {
 void piernasB2() {
 	if (true) {
 		if (inib2pie) {
-			muevePiernaDerblack2 += 0.4;
-			muevePiernaIzqblack2 -= 0.4;
+			muevePiernaDerblack2 += 5.0;
+			muevePiernaIzqblack2 -= 5.0;
 			if (muevePiernaDerblack2 > 45) {
 				inib2pie = false;
 				inib2pie2 = true;
 			}
 		}
 		if (inib2pie2) {
-			muevePiernaDerblack2 -= 0.4;
-			muevePiernaIzqblack2 += 0.4;
+			muevePiernaDerblack2 -= 5.0;
+			muevePiernaIzqblack2 += 5.0;
 			if (muevePiernaDerblack2 < -45) {
 				inib2pie2 = false;
 				inib2pie = true;
@@ -933,14 +933,14 @@ void piernasB2() {
 void brincoB2() {
 	if (true) {
 		if (inib2brinco) {
-			movYblack2 += 0.1;
+			movYblack2 += 0.4;
 			if (movYblack2 >= 5) {
 				inib2brinco = false;
 				inib2brinco2 = true;
 			}
 		}
 		if (inib2brinco2) {
-			movYblack2 -= 0.1;
+			movYblack2 -= 0.4;
 			if (movYblack2 <= 0) {
 				inib2brinco2 = false;
 				inib2brinco = true;
@@ -953,16 +953,16 @@ void arribitaT() {
 	{
 		if (true) {
 			if (arribita) {
-				mueveBrazoDerblack2 -= 1.0;
-				mueveBrazoIzqblack2 -= 1.0;
+				mueveBrazoDerblack2 -= 4.0;
+				mueveBrazoIzqblack2 -= 4.0;
 				if (mueveBrazoDerblack2 < -180) {
 					arribita = false;
 					arribita2 = true;
 				}
 			}
 			if (arribita2) {
-				mueveBrazoDerblack2 += 1.0;
-				mueveBrazoIzqblack2 += 1.0;
+				mueveBrazoDerblack2 += 4.0;
+				mueveBrazoIzqblack2 += 4.0;
 				if (mueveBrazoDerblack2 >= 0) {
 					arribita2 = false;
 					arribita = true;
@@ -1466,22 +1466,22 @@ int main()
 
 		switch (dia) {
 		case 0:
-			brillodir -= 0.0002;
+			brillodir -= 0.0009;
 			brillo = 0.0;
-			skybox.r -= 0.0002;
-			skybox.g -= 0.0002;
-			skybox.b -= 0.0002;
+			skybox.r -= 0.0009;
+			skybox.g -= 0.0009;
+			skybox.b -= 0.0009;
 			if (brillodir <= 0.2) {
 				dia = 1;
 			}
 			break;
 		case 1:
-			brillodir += 0.0002;
-			brightnesslights -= 0.0002;
+			brillodir += 0.0009;
+			brightnesslights -= 0.0009;
 			brillo = 10.0;
-			skybox.r += 0.0002;
-			skybox.g += 0.0002;
-			skybox.b += 0.0002;
+			skybox.r += 0.0009;
+			skybox.g += 0.0009;
+			skybox.b += 0.0009;
 			if (brillodir >= 1.0) {
 				dia = 0;
 			}
@@ -2378,16 +2378,16 @@ int main()
 		//-------------------------------------------------------------Animación de Flotador---------------------------------------------------------//
 		if (flota==1) {
 			if (es1) {
-				movXflotador -= 0.05;
-				movZflotador += 0.05;
+				movXflotador -= 0.1;
+				movZflotador += 0.1;
 				if (movXflotador<=-5) {
 					es1 = false;
 					es2 = true;
 				}
 			}
 			if (es2) {
-				movXflotador += 0.05;
-				movZflotador += 0.05;
+				movXflotador += 0.1;
+				movZflotador += 0.1;
 				if (movXflotador >= 0) {
 					es2 = false;
 					es3 = true;
@@ -2395,8 +2395,8 @@ int main()
 			}
 
 			if (es3) {
-				movXflotador -= 0.05;
-				movZflotador += 0.05;
+				movXflotador -= 0.1;
+				movZflotador += 0.1;
 				if (movXflotador <= -5) {
 					es3 = false;
 					es4 = true;
@@ -2404,8 +2404,8 @@ int main()
 			}
 
 			if (es4) {
-				movXflotador += 0.05;
-				movZflotador += 0.05;
+				movXflotador += 0.1;
+				movZflotador += 0.1;
 				if (movXflotador >= 0) {
 					es4 = false;
 					es5 = true;
@@ -2413,41 +2413,42 @@ int main()
 			}
 
 			if (es5) {
-				movXflotador -= 0.05;
-				movZflotador += 0.05;
+				movXflotador -= 0.1;
+				movZflotador += 0.1;
 				if (movXflotador <= -5) {
 					es5 = false;
 					es6 = true;
 				}
 			}
 			if (es6) {
-				movXflotador += 0.05;
-				movZflotador += 0.05;
+				movXflotador += 0.1;
+				movZflotador += 0.1;
 				if (movXflotador >= 0) {
 					es6 = false;
 					es7 = true;
 				}
 			}
 			if (es7) {
-				movXflotador -= 0.05;
-				movZflotador += 0.05;
+				movXflotador -= 0.1;
+				movZflotador += 0.1;
 				if (movXflotador <= -5) {
 					es7 = false;
-					es8 = true;
+					//es8 = true;
 				}
 			}
-			if (es8) {
-				movXflotador += 0.05;
-				movZflotador += 0.05;
-				if (movXflotador >= 0) {
-					es8 = false;
-					es9 = true;
-				}
-			}
+
 		}
 		else if (flota == 0) {
 			movXflotador = 0.0;
 			movZflotador = 0.0f;
+			es1 = true;
+			es2 = false;
+			es3 = false;
+			es4 = false;
+			es5 = false;
+			es6 = false;
+			es7 = false;
+
 		}
 
 		//-------------------------------------------------Animación Spiderman Activa:3 y Reset:4----------------------------------------------------//
@@ -2629,7 +2630,7 @@ int main()
 				mueveBrazoIzq -= 0.5;
 				if (mueveBrazoIzq < -80) {
 					mueveBrazoIzq = -80;
-					contador2 += 0.01;
+					contador2 += 0.5;
 						red = 0.0f;
 						brillo = 10.0f;
 						if (contador2 >= 5) {
@@ -2698,7 +2699,7 @@ int main()
 				movimientoB1();
 				brazosB2();
 				piernasB2();
-				movZblack2 -= 0.09;
+				movZblack2 -= 0.45;
 				if (movZblack2 <= -39) {
 					estado1black = false;
 					estado2black = true;
@@ -2713,7 +2714,7 @@ int main()
 				//brazosB2();
 				//piernasB2();
 				//movZblack2 -= 0.05;
-				muevePiernaDerblack2 -= 1.0;
+				muevePiernaDerblack2 -= 3.0;
 				if (muevePiernaDerblack2 <= -40) {
 					estado2black = false;
 					estado3black = true;
@@ -2724,10 +2725,10 @@ int main()
 				movimientoBraB1();
 				movimientoPiernasB1();
 				movimientoB1();
-				movZbalon -= 0.3;
-				movXbalon -= 0.02;
-				movYbalon += 0.015;
-				angulo += 3.0;
+				movZbalon -= 0.9;
+				movXbalon -= 0.04;
+				movYbalon += 0.025;
+				angulo += 6.0;
 				if (movZbalon <= -60) {
 					estado3black = false;
 					estado4black = true;
@@ -2739,8 +2740,8 @@ int main()
 				//movimientoPiernasB1();
 				//movimientoB1();
 	
-				movYbalon -= 0.1;
-				angulo += 2.0;
+				movYbalon -= 0.8;
+				angulo += 6.0;
 				if (movYbalon <= 0) {
 					angulo = 0;
 					estado4black = false;
@@ -2787,17 +2788,17 @@ int main()
 			//-------------------------------------------------------------Animación de Basket---------------------------------------------------------//
 			if (basketball == 1) {
 				if (bake1) {
-					angub += 1.5;
-					movXbasket -= 0.6;
-					movYbasket -= 0.1;
+					angub += 6.5;
+					movXbasket -= 0.9;
+					movYbasket -= 0.3;
 					if (movXbasket <= -10) {
 						bake1 = false;
 						bake2 = true;
 					}
 				}
 				if (bake2) {//BAJA
-					angub += 3.0;
-					movYbasket -= 0.6;
+					angub += 6.0;
+					movYbasket -= 1.0;//0.6
 					if (movYbasket <=-50) {
 						bake2 = false;
 						bake3 = true;
@@ -2805,8 +2806,8 @@ int main()
 				}
 
 				if (bake3) {//SUBE
-					angub -= 3.0;
-					movYbasket += 0.5;
+					angub -= 6.0;
+					movYbasket += 0.9;
 					if (movYbasket >= 0) {
 						bake3 = false;
 						bake4 = true;
@@ -2814,8 +2815,8 @@ int main()
 				}
 
 				if (bake4) {//BAJA
-					angub += 3.0;
-					movYbasket -= 0.4;
+					angub += 6.0;
+					movYbasket -= 0.8;
 					if (movYbasket <= -50) {
 						bake4 = false;
 						bake5 = true;
@@ -2823,8 +2824,8 @@ int main()
 				}
 
 				if (bake5) {//SUBE
-					angub -= 3.0;
-					movYbasket += 0.4;
+					angub -= 6.0;
+					movYbasket += 0.8;
 					if (movYbasket >= -10) {
 						bake5 = false;
 						bake6 = true;
@@ -2832,8 +2833,8 @@ int main()
 				}
 
 				if (bake6) {//BAJA
-					angub += 3.0;
-					movYbasket -= 0.4;
+					angub += 6.0;
+					movYbasket -= 0.8;
 					if (movYbasket <= -50) {
 						bake6 = false;
 						bake7 = true;
@@ -2841,8 +2842,8 @@ int main()
 				}
 				
 				if (bake7) {//SUBE
-					angub -= 3.0;
-					movYbasket += 0.4;
+					angub -= 6.0;
+					movYbasket += 0.8;
 					if (movYbasket >= -20) {
 						bake7 = false;
 						bake8 = true;
@@ -2850,8 +2851,8 @@ int main()
 				}
 
 				if (bake8) {//BAJA
-					angub += 3.0;
-					movYbasket -= 0.4;
+					angub += 6.0;
+					movYbasket -= 0.8;
 					if (movYbasket <= -50) {
 						bake8 = false;
 						bake9 = true;
@@ -2859,8 +2860,8 @@ int main()
 				}
 
 				if (bake9) {//SUBE
-					angub -= 3.0;
-					movYbasket += 0.3;
+					angub -= 6.0;
+					movYbasket += 0.7;
 					if (movYbasket >= -30) {
 						bake9 = false;
 						bake10 = true;
@@ -2868,8 +2869,8 @@ int main()
 				}
 
 				if (bake10) {//BAJA
-					angub += 3.0;
-					movYbasket -= 0.3;
+					angub += 6.0;
+					movYbasket -= 0.7;
 					if (movYbasket <= -50) {
 						bake10 = false;
 						bake11 = true;
@@ -2877,8 +2878,8 @@ int main()
 				}
 
 				if (bake11) {//SUBE
-					angub -= 3.0;
-					movYbasket += 0.3;
+					angub -= 6.0;
+					movYbasket += 0.7;
 					if (movYbasket >= -40) {
 						bake11 = false;
 						bake12 = true;
@@ -2886,8 +2887,8 @@ int main()
 				}
 
 				if (bake12) {//BAJA
-					angub += 3.0;
-					movYbasket -= 0.3;
+					angub += 6.0;
+					movYbasket -= 0.7;
 					if (movYbasket <= -50) {
 						bake12 = false;
 						bake13 = true;
@@ -2895,8 +2896,8 @@ int main()
 				}
 
 				if (bake13) {//SUBE
-					angub -= 3.0;
-					movYbasket += 0.3;
+					angub -= 6.0;
+					movYbasket += 0.7;
 					if (movYbasket >= -45) {
 						bake13 = false;
 						bake14 = true;
@@ -2904,8 +2905,8 @@ int main()
 				}
 
 				if (bake14) {//BAJA
-					angub += 3.0;
-					movYbasket -= 0.3;
+					angub += 6.0;
+					movYbasket -= 0.7;
 					if (movYbasket <= -50) {
 						bake14 = false;
 						//bake15 = true;
@@ -3268,9 +3269,9 @@ int main()
 		
 		//Modelo Flotador//
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(2.7f + movXflotador, 3.5f + movYflotador, -36.2f + movZflotador));
+		model = glm::translate(model, glm::vec3(2.7f + movXflotador, 3.5f + movYflotador, -45.0f + movZflotador));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, 0  * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 180  * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelaux = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Flotador_M.RenderModel();
@@ -3285,13 +3286,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Alberca_M.RenderModel();
 
-		
-		//--------------------------------------------------------------------------------------------------------------------------------------------------//
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		
-		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
 
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3702,14 +3696,6 @@ int main()
 		Luz_M.RenderModel();
 		glDisable(GL_BLEND);
 
-		
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
-		
-		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-		
 		
 		//Modelo de Pista
 		glEnable(GL_BLEND);
