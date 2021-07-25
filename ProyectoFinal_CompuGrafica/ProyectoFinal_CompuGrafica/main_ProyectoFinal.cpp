@@ -43,11 +43,13 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include "Material.h"
 
 //float ang;
+//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE FLOTADOR------------------------------------------//
 
+int flota = 0;
 //-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE SPIDERMAN------------------------------------------//
 
 int spiderman = 0;
-//-------------------------------------------------VARIABLES PARA LAS CAMARAS-----------------------------------------//
+//-------------------------------------------------VARIABLES PARA LAS CAMARAS---------------------------------------------------------------------//
 int cambioTer=1;
 int cambioArea = 0;
 float mueveXlibre;
@@ -69,20 +71,18 @@ Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
-/////---------------------------------------------- DECLARACION DE CAMERA ----------------------------------------------------------------------////
+/////---------------------------------------------- ----------DECLARACION DE CAMERA ----------------------------------------------------------------------////
 
 Camera camera;
 
-/////---------------------------------------------- DECLARACION DE TEXTURAS ----------------------------------------------------------------------////
-
-
+/////------------------------------------------------------- DECLARACION DE TEXTURAS ----------------------------------------------------------------------////
 
 Texture pisoTexture;
 Texture pastoTexture;
 Texture Tagave;
 
-/////---------------------------------------------- DECLARACION DE MODELOS ----------------------------------------------------------------------////
-//Model Pajaro_M;
+/////-------------------------------------------------------- DECLARACION DE MODELOS ----------------------------------------------------------------------////
+
 Model Kitt_M;
 Model Llanta_M;
 Model Camino_M;
@@ -95,15 +95,20 @@ Model Maceta_M;
 Model Palmera_M;
 Model Casas_M;
 Model Esce_M;
+//Luz de los faros
 Model Luz_M;
+//Pista de Carreras
 Model Race_M;
+//Spiderman
 Model Tronco_M;
 Model BrazoDer_M;
 Model BrazoIzq_M;
 Model PiernaDer_M;
 Model PiernaIzq_M;
 Model Rayo_M;
+//Control Remoto
 Model Remoto_M;
+//Edificioo
 Model Edificio_M;
 //Pajaro
 Model TroncoPa_M;
@@ -111,7 +116,11 @@ Model AlaIzqPa_M;
 Model AlaDerPa_M;
 Model PataIzqPa_M;
 Model PataDerPa_M;
-/////---------------------------------------------- Declaración Variables Spiderman ----------------------------------------------------------------------////
+//Flotador
+Model Flotador_M;
+
+
+/////-----------------------------------------------------Declaración Variables Spiderman ----------------------------------------------------------------------////
 float rotaXSpider = 0.0f;
 float rotaYSpider = 0.0f;
 float rotaZSpider = 0.0f;
@@ -148,7 +157,22 @@ bool estado17 = false;
 bool estado18 = false;
 bool estado19 = false;
 
-/////---------------------------------------------- Declaración Variables Pajaro ----------------------------------------------------------------------////
+/////---------------------------------------------- Declaración Variables Flotador -------------------------------------------------------------------------////
+float movXflotador = 0.0f;
+float movYflotador = 0.0f;
+float movZflotador = 0.0f;
+bool es1 = true;
+bool es2 = false;
+bool es3 = false;
+bool es4 = false;
+bool es5 = false;
+bool es6 = false;
+bool es7 = false;
+bool es8 = false;
+bool es9 = false;
+bool es10 = false;
+bool es11 = false;
+/////---------------------------------------------- Declaración Variables Pajaro -------------------------------------------------------------------------////
 float rotaXpajaro = 0.0f;
 float rotaYpajaro = 0.0f;
 float rotaZpajaro = 0.0f;
@@ -185,10 +209,10 @@ bool est19 = false;
 bool est20 = false;
 bool est21 = false;
 bool est22 = false;
-/////---------------------------------------------- DECLARACION DE SKYBOX ----------------------------------------------------------------------////
+/////-------------------------------------------------------------DECLARACION DE SKYBOX ----------------------------------------------------------------------////
 Skybox skybox;
 
-/////---------------------------------------------- DECLARACION DE MATERIALES ----------------------------------------------------------------------////
+/////---------------------------------------------- DECLARACION DE MATERIALES ---------------------------------------------------------------------------------////
 Material Material_brillante;
 Material Material_opaco;
 
@@ -224,13 +248,11 @@ const float toRadians = 3.14159265f / 180.0f;
 //GLfloat posYavion = 0.0f;
 //GLfloat posZavion = 0.0f;
 float offset = 0.0f;
-//Variables de movimiento de coche
+
+//----------------------------------------------------------------Declaracion de Variables para el coche------------------------------------------------------------//
 float posXcoche = 0.0f;
 float posYcoche = 0.0f;
 float posZcoche = 0.0f;
-
-//Variables booleanas para las condiciones de estados
-//Coche
 bool	aniCo = false;
 bool	idaCo = true;
 bool	vueltaCo1 = false;
@@ -267,7 +289,7 @@ bool	vueltaCo31 = false;
 bool	vueltaCo32 = false;
 bool	regresoCo = false;
 bool	regreso = false;
-//Show de luces
+//----------------------------------------------------------------Declaracion de Variables Show de luces------------------------------------------------------------//
 bool	aniShow = true;
 bool	star1 = true;
 bool	star2 = false;
@@ -684,7 +706,10 @@ void movimientoPatas() {
 }
 ///////////////* ---------------------------------------FIN KEYFRAMES*--------------------------------------------------------------------////////////////////////////
 
-/////---------------------------------------------- AQUI EMPIEZA EL MAIN-----------------------------------------------------------------------------------------////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////<<<  INICIO DEL " MAIN " >>>////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
 	//ang += 0.1;
@@ -877,6 +902,10 @@ int main()
 	//Modelo Edificio
 	Edificio_M = Model();
 	Edificio_M.LoadModel("Models/edificio.obj");
+
+	//Modelo Flotador
+	Flotador_M = Model();
+	Flotador_M.LoadModel("Models/flotador.obj");
 
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
 
@@ -2033,6 +2062,80 @@ int main()
 			}
 
 		}//Final if
+		//-------------------------------------------------------------Animación de Flotador---------------------------------------------------------//
+		if (flota==1) {
+			if (es1) {
+				movXflotador -= 0.05;
+				movZflotador += 0.05;
+				if (movXflotador<=-5) {
+					es1 = false;
+					es2 = true;
+				}
+			}
+			if (es2) {
+				movXflotador += 0.05;
+				movZflotador += 0.05;
+				if (movXflotador >= 0) {
+					es2 = false;
+					es3 = true;
+				}
+			}
+
+			if (es3) {
+				movXflotador -= 0.05;
+				movZflotador += 0.05;
+				if (movXflotador <= -5) {
+					es3 = false;
+					es4 = true;
+				}
+			}
+
+			if (es4) {
+				movXflotador += 0.05;
+				movZflotador += 0.05;
+				if (movXflotador >= 0) {
+					es4 = false;
+					es5 = true;
+				}
+			}
+
+			if (es5) {
+				movXflotador -= 0.05;
+				movZflotador += 0.05;
+				if (movXflotador <= -5) {
+					es5 = false;
+					es6 = true;
+				}
+			}
+			if (es6) {
+				movXflotador += 0.05;
+				movZflotador += 0.05;
+				if (movXflotador >= 0) {
+					es6 = false;
+					es7 = true;
+				}
+			}
+			if (es7) {
+				movXflotador -= 0.05;
+				movZflotador += 0.05;
+				if (movXflotador <= -5) {
+					es7 = false;
+					es8 = true;
+				}
+			}
+			if (es8) {
+				movXflotador += 0.05;
+				movZflotador += 0.05;
+				if (movXflotador >= 0) {
+					es8 = false;
+					es9 = true;
+				}
+			}
+		}
+		else if (flota == 0) {
+			movXflotador = 0.0;
+			movZflotador = 0.0f;
+		}
 
 		//-------------------------------------------------Animación Spiderman Activa:3 y Reset:4----------------------------------------------------//
 		if (spiderman==1) {
@@ -2709,7 +2812,7 @@ int main()
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		 
-		//--------------------------------------------------------Dibujar Spiderman------------------------------------------------------//
+		//------------------------------------------------------------------DIBUJAR SPIDERMAN----------------------------------------------------------------------------//
 		
 		//Modelo Tronco//
 		model = glm::mat4(1.0);
@@ -2778,9 +2881,8 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PiernaIzq_M.RenderModel();
 		
-		//--------------------------------------------------------Termina Spiderman------------------------------------------------------//
 
-		//--------------------------------------------------------Dibujar Pajaro------------------------------------------------------//
+		//--------------------------------------------------------DIBUJAR PAJARO--------------------------------------------------------------------------------------//
 
 		//Tronco de Pajaro//
 		model = glm::mat4(1.0);
@@ -2829,11 +2931,26 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PataIzqPa_M.RenderModel();
 
-
-
-
+		//-------------------------------------------------------------DIBUJAR FLOTADOR--------------------------------------------------------------------------------//
 		
-		//--------------------------------------------------------Termina Pajaro-----------------------------------------------------//
+		//Modelo Flotador//
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(2.7f + movXflotador, 3.5f + movYflotador, -36.2f + movZflotador));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, 0  * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		modelaux = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flotador_M.RenderModel();
+
+		//-------------------------------------------------------------DIBUJAR ALBERCA LARGA-----------------------------------------------------------------------------//
+
+		//Modelo de Alberca//
+		model = glm::mat4(1.0);
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.11f, -25.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Alberca_M.RenderModel();
 
 		//--------------------------------------------------------------------------------------------------------------------------------------------------//
 		/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2842,16 +2959,7 @@ int main()
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		//Modelo de Alberca//
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		model = glm::mat4(1.0);
-		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::translate(model, glm::vec3(0.0f, 0.11f, -25.0f));
-		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Alberca_M.RenderModel();
-		glDisable(GL_BLEND);
+
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 		//Modelo de Alberca1//
 		glEnable(GL_BLEND);
@@ -3314,29 +3422,6 @@ int main()
 	return 0;
 }
 
-/*
-void movimientoPiernas() {
-	if (true) {
-		if (iniPierna) {
-			muevePiernaDer += 5.0;
-			muevePiernaIzq -= 5.0;
-			if (muevePiernaDer>30) {
-				iniPierna = false;
-				iniPierna2 = true;
-			}
-		}
-		if (iniPierna2) {
-			muevePiernaDer -= 5.0;
-			muevePiernaIzq += 5.0;
-			if (muevePiernaDer<-30) {
-				iniPierna2 = false;
-				iniPierna = true;
-			}
-		}
-	}
-	
-}
-*/
 void inputKeyframes(bool* keys)
 {
 	if (keys[GLFW_KEY_1])//
@@ -3371,45 +3456,45 @@ void inputKeyframes(bool* keys)
 			printf("Ya puedes reproducir de nuevo la animación con la tecla de barra espaciadora'\n");
 		}
 	}
-	//----------------------------------------ACTIVA SPIDERMAN [3]---------------------------------------------------------//
+	//-------------------------------------------------------------------------ACTIVA SPIDERMAN [3]----------------------------------------------------------------------------//
 	if (keys[GLFW_KEY_3])//
 	{
 		spiderman = 1;
 	}
-	//----------------------------------------RESET SPIDERMAN [4]---------------------------------------------------------//
+	//-------------------------------------------------------------------------RESET SPIDERMAN [4]----------------------------------------------------------------------------//
 	if (keys[GLFW_KEY_4])//
 	{
 		spiderman = 0;
 	}
-	//----------------------------------------ACTIVA CAMARA 3RA PERSONA [5]---------------------------------------------------------//
+	//---------------------------------------------------------------------ACTIVAR CAMARAS 3RA PERSONA Y AREA [5]--------------------------------------------------------------//
 	if (keys[GLFW_KEY_5])//
 	{
 		cambioArea = 1;///
 	}
-	//----------------------------------------ACTIVA CAMARA [6]---------------------------------------------------------//
+	//---------------------------------------------------------------------------ACTIVA CAMARA 3RA PERSONA [6]-----------------------------------------------------------------//
 	if (keys[GLFW_KEY_6])//
 	{
 		cambioTer = 1;//
 		
 	}
-	//----------------------------------------ACTIVA CAMARAS EXTRAS[7]---------------------------------------------------------//
+	//-----------------------------------------------------------------------------ACTIVA CAMARA AREA[7]----------------------------------------------------------------------//
 	if (keys[GLFW_KEY_7])//
 	{
 		cambioTer = 0;///
 				
 	}
-	//---------------------------------------DESACTIVA CAMARAS [8]-----------------------------------------------------------//
+	//---------------------------------------------------------------------------------DESACTIVA CAMARAS [8]--------------------------------------------------------------------//
 	if (keys[GLFW_KEY_8])//
 	{
 		cambioArea = 0;
 	
 	}
 	//--------------------------------------------------------------------MOVIMIENTOS CAMARA 3RA PERSONA-------------------------------------------------------------------//
-	if (keys[GLFW_KEY_I])
+	if (keys[GLFW_KEY_I])//+Z se entiende por arriba
 	{
 		mueveYoZlibre += 1.0;
 	}
-	if (keys[GLFW_KEY_K])
+	if (keys[GLFW_KEY_K])//-Z se entiende por abajo
 	{
 		mueveYoZlibre -= 1.0;
 	}
@@ -3423,69 +3508,32 @@ void inputKeyframes(bool* keys)
 		mueveXlibre -= 1.0;
 	}
 
-	//--------------------------------------------------------------------MOVIMIENTOS CAMARA AREA-------------------------------------------------------------------//
-	if (keys[GLFW_KEY_T])//==J
+	//--------------------------------------------------------------------MOVIMIENTOS CAMARA AREA-------------------------------------------------------------------------//
+	if (keys[GLFW_KEY_T])//-X se entiende por arriba
 	{
 		mueveCam += 1.0;
 	}
-	if (keys[GLFW_KEY_G])//==L
+	if (keys[GLFW_KEY_G])//+X se entiende por abajo
 	{
 		mueveCam -= 1.0;
 	}
 
-	if (keys[GLFW_KEY_F])//==K
+	if (keys[GLFW_KEY_F])//-Z se entiende por izquierda
 	{
 		mueveCam2-= 1.0;
 	}
-	if (keys[GLFW_KEY_H])//==I
+	if (keys[GLFW_KEY_H])//+Z se entiende por derecha
 	{
 		mueveCam2 += 1.0;
 	}
-	////////////////
-	/*
-	if (keys[GLFW_KEY_3])//
+	//--------------------------------------------------------------------ANIMACION FLOTADOR-------------------------------------------------------------------------//
+	if (keys[GLFW_KEY_C])//Activa
 	{
-		if (guardoFrame < 1)
-		{
-			saveFrame();
-			//printf("movAvion_x es: %f\n", movAvion_x);
-			//printf("movAvion_y es: %f\n", movAvion_y);
-			printf("presiona P para habilitar guardar otro frame'\n");
-			guardoFrame++;
-			reinicioFrame = 0;
-		}
+		flota = 1;
 	}
-	if (keys[GLFW_KEY_4])//
+	if (keys[GLFW_KEY_V])//Desactiva
 	{
-		if (reinicioFrame < 1)
-		{
-			guardoFrame = 0;
-			printf("Ya puedes guardar otro frame presionando la tecla L'\n");
-		}
+		flota = 0;
 	}
-
-
-	if (keys[GLFW_KEY_5])
-	{
-		if (ciclo < 1)
-		{
-			//printf("movAvion_x es: %f\n", movAvion_x);
-			movAvion_x += 1.0f;
-			printf("movAvion_x es: %f\n", movAvion_x);
-			ciclo++;
-			ciclo2 = 0;
-			printf("Presiona la tecla 2 para poder habilitar la variable\n");
-		}
-
-	}
-	if (keys[GLFW_KEY_6])
-	{
-		if (ciclo2 < 1)
-		{
-			ciclo = 0;
-			printf("Ya puedes modificar tu variable presionando la tecla 1\n");
-		}
-	}
-	*/
 
 }
