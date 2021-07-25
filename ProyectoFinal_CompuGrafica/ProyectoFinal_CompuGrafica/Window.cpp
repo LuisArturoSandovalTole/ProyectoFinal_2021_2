@@ -112,6 +112,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
+	/*
 	if (key == GLFW_KEY_Y)
 	{
 		theWindow->muevex += 1.0;
@@ -134,14 +135,14 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 
 	if (key == GLFW_KEY_P)
 	{
-		theWindow->muevez += 1.0;
+		theWindow->muevez += 1.0;//I
 	}
 
 	if (key == GLFW_KEY_L)
 	{
 		theWindow->muevez -= 1.0;
 	}
-
+	*/
 	if (key == GLFW_KEY_M && action == GLFW_PRESS)
 	{
 		//printf("Aprieto M y desactivo");

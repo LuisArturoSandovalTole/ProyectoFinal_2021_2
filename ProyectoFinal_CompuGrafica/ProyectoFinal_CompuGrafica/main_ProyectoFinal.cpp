@@ -42,9 +42,18 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include "PointLight.h"
 #include "Material.h"
 
+//float ang;
+
 //-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE SPIDERMAN------------------------------------------//
 
 int spiderman = 0;
+//-------------------------------------------------VARIABLES PARA LAS CAMARAS-----------------------------------------//
+int cambioTer=1;
+int cambioArea = 0;
+float mueveXlibre;
+float mueveYoZlibre;
+float mueveCam;
+float mueveCam2;
 /////---------------------------------------------- VARIABLES PARA KEYFRAME----------------------------------------------------------------------////
 
 float reproduciranimacion, habilitaranimacion, guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
@@ -678,9 +687,22 @@ void movimientoPatas() {
 /////---------------------------------------------- AQUI EMPIEZA EL MAIN-----------------------------------------------------------------------------------------////
 int main()
 {
+	//ang += 0.1;
 	//Variables activar spiderman//
 	int activaS = 1;
 	int desactivaS = 1;
+	//Variables activas y desactivar camaras//
+	int activaTer = 1;
+	int desactivaTer = 1;
+	//
+	int activaArea = 1;
+	int desactivaArea = 1;
+	//Variables de Movimiento Camara
+	mueveXlibre = 0.0f;
+	mueveYoZlibre = 0.0f;
+	mueveCam = 0.0f;
+	mueveCam2 = 0.0f;
+	
 	//---------------------------------------------------//
 	float brightness = 1.0, brightnesslights = 0.2;
 	float brillodir = 1.0;
@@ -717,8 +739,10 @@ int main()
 	CreateShaders();
 
 	/////---------------------------------------------- VALORES DE CAMARA --------------------------------------------------------------------------////
-
-	camera = Camera(glm::vec3(0.0f, 25.0f, -170.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, 0.0f, 1.0f, 0.5f);
+	//SE ACTIVA CON 6
+	if (cambioArea == 0) {
+		camera = Camera(glm::vec3(0.0f, 25.0f, -170.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, 0.0f, 1.0f, 0.5f);
+	}
 	//----------------------Posicion de la camera------Sobre que eje esta-------angulo---//----//------//
 
 
@@ -971,10 +995,45 @@ int main()
 		KeyFrame[5].giroAvion = 0;
 
 	/////------------------------------------------FIN DECLARACION DE KEYFRAMES ----------------------------------------------------------------////
-
+		
+		
 	/////------------------------------------------------------WHILE ----------------------------------------------------------------////
 	while (!mainWindow.getShouldClose())
 	{
+		//------------------------------------------ CONDICION PARA CAMBIAR DE CAMARAS-------------------------------------------------------------------------------------//
+		if (cambioArea == 1) {
+			
+			if (cambioTer == 1) {
+
+				camera = Camera(glm::vec3(spiderpos.x + movXspider+ mueveXlibre, spiderpos.y + movYspider, spiderpos.z + mueveYoZlibre + movZspider - 50.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90, 0.0f, 1.0f, 0.5f);
+
+			}
+			else if (cambioTer == 0) {
+				
+				camera = Camera(glm::vec3(0.0f + mueveCam, 200.0f, mueveCam2+0.0f), glm::vec3(1.0f, 0.0f, 0.0f),180, -180.0f, 1.0f, 0.5f);
+				
+			}
+		}
+		/*
+			if (keys[GLFW_KEY_T])//==J
+	{
+		mueveCam += 1.0;
+	}
+	if (keys[GLFW_KEY_G])//==L
+	{
+		mueveCam -= 1.0;
+	}
+
+	if (keys[GLFW_KEY_F])//==K
+	{
+		mueveCam2-= 1.0;
+	}
+	if (keys[GLFW_KEY_H])//==I
+	{
+		mueveCam2 += 1.0;
+	}
+		*/
+		
 		//---------------------DirectionalLight-----------------------------------------------------------------------------------------------------------// 
 		//Madre de todas las luces, es como el sol. Solo existe una.
 		mainLight = DirectionalLight(1.0f, 1.0f, 1.0f, //RGB - Color blanco- se usa este para qye se vean todos los colores
@@ -2651,7 +2710,7 @@ int main()
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		 
 		//--------------------------------------------------------Dibujar Spiderman------------------------------------------------------//
-		/*
+		
 		//Modelo Tronco//
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(spiderpos.x+movXspider,spiderpos.y+movYspider,spiderpos.z+movZspider));
@@ -2718,7 +2777,7 @@ int main()
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PiernaIzq_M.RenderModel();
-		*/
+		
 		//--------------------------------------------------------Termina Spiderman------------------------------------------------------//
 
 		//--------------------------------------------------------Dibujar Pajaro------------------------------------------------------//
@@ -3246,7 +3305,7 @@ int main()
 		
 		Rayo_M.RenderModel();
 		*/
-
+	
 		glUseProgram(0);
 
 		mainWindow.swapBuffers();
@@ -3312,16 +3371,77 @@ void inputKeyframes(bool* keys)
 			printf("Ya puedes reproducir de nuevo la animación con la tecla de barra espaciadora'\n");
 		}
 	}
-
+	//----------------------------------------ACTIVA SPIDERMAN [3]---------------------------------------------------------//
 	if (keys[GLFW_KEY_3])//
 	{
 		spiderman = 1;
 	}
-
+	//----------------------------------------RESET SPIDERMAN [4]---------------------------------------------------------//
 	if (keys[GLFW_KEY_4])//
 	{
 		spiderman = 0;
 	}
+	//----------------------------------------ACTIVA CAMARA 3RA PERSONA [5]---------------------------------------------------------//
+	if (keys[GLFW_KEY_5])//
+	{
+		cambioArea = 1;///
+	}
+	//----------------------------------------ACTIVA CAMARA [6]---------------------------------------------------------//
+	if (keys[GLFW_KEY_6])//
+	{
+		cambioTer = 1;//
+		
+	}
+	//----------------------------------------ACTIVA CAMARAS EXTRAS[7]---------------------------------------------------------//
+	if (keys[GLFW_KEY_7])//
+	{
+		cambioTer = 0;///
+				
+	}
+	//---------------------------------------DESACTIVA CAMARAS [8]-----------------------------------------------------------//
+	if (keys[GLFW_KEY_8])//
+	{
+		cambioArea = 0;
+	
+	}
+	//--------------------------------------------------------------------MOVIMIENTOS CAMARA 3RA PERSONA-------------------------------------------------------------------//
+	if (keys[GLFW_KEY_I])
+	{
+		mueveYoZlibre += 1.0;
+	}
+	if (keys[GLFW_KEY_K])
+	{
+		mueveYoZlibre -= 1.0;
+	}
+ 
+	if (keys[GLFW_KEY_J])
+	{
+		mueveXlibre += 1.0;
+	}
+	if (keys[GLFW_KEY_L])
+	{
+		mueveXlibre -= 1.0;
+	}
+
+	//--------------------------------------------------------------------MOVIMIENTOS CAMARA AREA-------------------------------------------------------------------//
+	if (keys[GLFW_KEY_T])//==J
+	{
+		mueveCam += 1.0;
+	}
+	if (keys[GLFW_KEY_G])//==L
+	{
+		mueveCam -= 1.0;
+	}
+
+	if (keys[GLFW_KEY_F])//==K
+	{
+		mueveCam2-= 1.0;
+	}
+	if (keys[GLFW_KEY_H])//==I
+	{
+		mueveCam2 += 1.0;
+	}
+	////////////////
 	/*
 	if (keys[GLFW_KEY_3])//
 	{
