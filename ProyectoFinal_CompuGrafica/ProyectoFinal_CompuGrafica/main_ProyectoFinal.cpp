@@ -144,8 +144,10 @@ float muevePiernaDerblack = 0.0f;
 float muevePiernaIzqblack = 0.0f;
 bool iniPiernablack = true;
 bool iniPierna2black = false;
-bool iniBrazoblack = true;
-bool iniBrazo2black = false;
+bool iniBrazoblack1 = true;
+bool iniBrazo2black1 = false;
+bool movB1 = true;
+bool mov2B1 = false;
 float mueveBrazoDerblack = 0.0f;
 float mueveBrazoIzqblack = 0.0f;
 float contador2black = 0.0f;
@@ -170,6 +172,11 @@ bool estado17black = false;
 bool estado18black = false;
 bool estado19black = false;
 /////-----------------------------------------------------Declaración Variables Blackpanter2 ----------------------------------------------------------------------////
+float inib2bra = true;
+float inib2bra2 = false;
+float inib2pie = true;
+float inib2pie2 = false;
+
 float rotaXblack2 = 0.0f;
 float rotaYblack2 = 0.0f;
 float rotaZblack2 = 0.0f;
@@ -186,25 +193,7 @@ float mueveBrazoDerblack2 = 0.0f;
 float mueveBrazoIzqblack2 = 0.0f;
 float contador2black2 = 0.0f;
 float anguloblack2 = 0.0f;
-bool estado1black2 = true;
-bool estado2black2 = false;
-bool estado3black2 = false;
-bool estado4black2 = false;
-bool estado5black2 = false;
-bool estado6black2 = false;
-bool estado7black2 = false;
-bool estado8black2 = false;
-bool estado9black2 = false;
-bool estado10black2 = false;
-bool estado11black2 = false;
-bool estado12black2 = false;
-bool estado13black2 = false;
-bool estado14black2 = false;
-bool estado15black2 = false;
-bool estado16black2 = false;
-bool estado17black2 = false;
-bool estado18black2 = false;
-bool estado19black2 = false;
+
 /////-----------------------------------------------------Declaración Variables Spiderman ----------------------------------------------------------------------////
 float rotaXSpider = 0.0f;
 float rotaYSpider = 0.0f;
@@ -727,20 +716,20 @@ void movimientoPiernas() {
 //-------------------------------------------------------FUNCION MOV BRAZOS----------------------------------------------------------------------------//
 void movimientoBrazos() {
 	if (true) {
-		if (iniAla) {
-			mueveAlaDer += 1.0;
-			mueveAlaIzq -= 1.0;
-			if (mueveAlaDer > 30) {
-				iniPierna = false;
-				iniPierna2 = true;
+		if (iniBrazo) {
+			mueveBrazoDer += 1.0;
+			mueveBrazoIzq -= 1.0;
+			if (mueveBrazoDer > 30) {
+				iniBrazo = false;
+				iniBrazo2 = true;
 			}
 		}
-		if (iniAla2) {
-			mueveAlaDer -= 1.0;
-			mueveAlaIzq += 1.0;
-			if (mueveAlaDer < -30) {
-				iniAla2 = false;
-				iniAla = true;
+		if (iniBrazo2) {
+			mueveBrazoDer -= 1.0;
+			mueveBrazoIzq += 1.0;
+			if (mueveBrazoDer < -30) {
+				iniBrazo2 = false;
+				iniBrazo = true;
 			}
 		}
 	}
@@ -768,6 +757,7 @@ void movimientoAlas() {
 	}
 
 }
+//-------------------------------------------------------FUNCION PARA PATAS----------------------------------------------------------------------------//
 void movimientoPatas() {
 	if (true) {
 		if (iniPata) {
@@ -789,6 +779,96 @@ void movimientoPatas() {
 	}
 
 }
+
+
+//-------------------------------------------------------FUNCION PARA BRAZOS PANTERA 1----------------------------------------------------------------------------//
+void movimientoBraB1() {
+	if (true) {
+		if (iniBrazoblack1) {
+			mueveBrazoDerblack -= 1.3;
+			mueveBrazoIzqblack -= 1.3;
+			if (mueveBrazoDerblack < -180) {
+				iniBrazoblack1 = false;
+				iniBrazo2black1 = true;
+			}
+		}
+		if (iniBrazo2black1) {
+			mueveBrazoDerblack += 1.3;
+			mueveBrazoIzqblack += 1.3;
+			if (mueveBrazoDerblack >=0) {
+				iniBrazo2black1 = false;
+				iniBrazoblack1 = true;
+			}
+		}
+	}
+
+}
+void movimientoPiernasB1() {
+	if (true) {
+		if (iniPiernablack) {
+			muevePiernaDerblack += 0.7;
+			muevePiernaIzqblack -= 0.7;
+			if (muevePiernaDerblack > 15) {
+				iniPiernablack = false;
+				iniPierna2black = true;
+			}
+		}
+		if (iniPierna2black) {
+			muevePiernaDerblack -= 0.7;
+			muevePiernaIzqblack += 0.7;
+			if (muevePiernaDerblack <= 0) {
+				iniPierna2black = false;
+				iniPiernablack = true;
+			}
+		}
+	}
+
+}
+
+//movZblack
+void movimientoB1() {
+	if (true) {
+		if (movB1) {
+			movXblack += 0.1;
+			if (movXblack > 10) {
+				movB1 = false;
+				mov2B1 = true;
+			}
+		}
+		if (mov2B1) {
+			movXblack -= 0.1;
+			if (movXblack <=-10) {
+				mov2B1 = false;
+				movB1 = true;
+			}
+		}
+	}
+
+}
+
+void brazosB2() {
+	if (true) {
+		if (inib2bra) {
+			//mueveAlaDer += 1.0;
+			mueveBrazoDerblack2 += 1.0;
+			mueveBrazoIzqblack2 += 1.0;
+			if (mueveBrazoDerblack2 > 30) {
+				inib2bra = false;
+				inib2bra2 = true;
+			}
+		}
+		if (inib2bra2) {
+			mueveBrazoDerblack2 -= 1.0;
+			mueveBrazoIzqblack2 += 1.0;
+			if (mueveBrazoDerblack2 < -30) {
+				inib2bra2 = false;
+				inib2bra = true;
+			}
+		}
+	}
+
+}
+
 ///////////////* ---------------------------------------FIN KEYFRAMES*--------------------------------------------------------------------////////////////////////////
 
 
@@ -2502,6 +2582,12 @@ int main()
 
 			}
 		}
+		//------------------------------------------------------------Animacion Futbol--------------------------------------------------------//
+		if (true) {
+			movimientoBraB1();
+			movimientoPiernasB1();
+			movimientoB1();
+		}
 		/*
 		//MOVIMIENTO DE COCHE//
 
@@ -2981,7 +3067,7 @@ int main()
 		//Modelo Pierna Der//
 		model = modelaux; 
 		model = glm::translate(model, glm::vec3(-0.364119f, -0.708628f, 0.008785f));
-		model = glm::rotate(model, (muevePiernaIzqblack + 0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		model = glm::rotate(model, (muevePiernaIzqblack + 0) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));//Movimiento de PIERNA DERECHA 
 		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		
@@ -2991,7 +3077,7 @@ int main()
 		//Modelo Pierna Izq//
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.371392f, -0.675755f, 0.027448f));
-		model = glm::rotate(model, (muevePiernaDerblack +0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		model = glm::rotate(model, (muevePiernaDerblack +0) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));//Movimiento de PIERNA DERECHA 
 		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -3048,7 +3134,7 @@ int main()
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.450342f, 0.441965f, 0.026008f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, (0 + mueveBrazoIzqblack2) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO IZQ
+		model = glm::rotate(model, (0 + mueveBrazoIzqblack2) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//MOVIMIENTO BRAZO IZQ
 		modelaux2 = model;
 		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -3058,7 +3144,7 @@ int main()
 		//Modelo Pierna Der//
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(-0.364119f, -0.708628f, 0.008785f));
-		model = glm::rotate(model, (muevePiernaIzqblack2 + 0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		model = glm::rotate(model, (muevePiernaIzqblack2 + 0) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//Movimiento de PIERNA DERECHA 
 		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
@@ -3084,7 +3170,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Porteria_M.RenderModel();
 
-		/*
+		
 		//------------------------------------------------------------------DIBUJAR SPIDERMAN----------------------------------------------------------------------------//
 		
 		//Modelo Tronco//
@@ -3154,8 +3240,8 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PiernaIzq_M.RenderModel();
 		
-		*/
-		/*
+		
+		
 		//--------------------------------------------------------DIBUJAR PAJARO--------------------------------------------------------------------------------------//
 
 		//Tronco de Pajaro//
@@ -3204,7 +3290,8 @@ int main()
 		model = glm::rotate(model, (0 + muevePataIzq) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PataIzqPa_M.RenderModel();
-
+		
+		/*
 		//-------------------------------------------------------------DIBUJAR FLOTADOR--------------------------------------------------------------------------------//
 		
 		//Modelo Flotador//
