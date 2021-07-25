@@ -95,10 +95,21 @@ Model Maceta_M;
 Model Palmera_M;
 Model Casas_M;
 Model Esce_M;
+//Porteria
+Model Porteria_M;
+// Balon
+Model Balon_M;
 //Luz de los faros
 Model Luz_M;
 //Pista de Carreras
 Model Race_M;
+//BlackPanter Hombre
+Model TroncoHB_M;
+Model BrazoDerHB_M;
+Model BrazoIzqHB_M;
+Model PiernaDerHB_M;
+Model PiernaIzqHB_M;
+Model CabezaHB_M;
 //Spiderman
 Model Tronco_M;
 Model BrazoDer_M;
@@ -118,8 +129,82 @@ Model PataIzqPa_M;
 Model PataDerPa_M;
 //Flotador
 Model Flotador_M;
-
-
+/////-----------------------------------------------------Declaración Variables Balon ----------------------------------------------------------------------////
+float movXbalon = 0.0f;
+float movYbalon = 0.0f;
+float movZbalon = 0.0f;
+/////-----------------------------------------------------Declaración Variables Blackpanter ----------------------------------------------------------------------////
+float rotaXblack = 0.0f;
+float rotaYblack = 0.0f;
+float rotaZblack = 0.0f;
+float movXblack = 0.0f;
+float movYblack = 0.0f;
+float movZblack = 0.0f;
+float muevePiernaDerblack = 0.0f;
+float muevePiernaIzqblack = 0.0f;
+bool iniPiernablack = true;
+bool iniPierna2black = false;
+bool iniBrazoblack = true;
+bool iniBrazo2black = false;
+float mueveBrazoDerblack = 0.0f;
+float mueveBrazoIzqblack = 0.0f;
+float contador2black = 0.0f;
+float anguloblack = 0.0f;
+bool estado1black = true;
+bool estado2black = false;
+bool estado3black = false;
+bool estado4black = false;
+bool estado5black = false;
+bool estado6black = false;
+bool estado7black = false;
+bool estado8black = false;
+bool estado9black = false;
+bool estado10black = false;
+bool estado11black = false;
+bool estado12black = false;
+bool estado13black = false;
+bool estado14black = false;
+bool estado15black = false;
+bool estado16black = false;
+bool estado17black = false;
+bool estado18black = false;
+bool estado19black = false;
+/////-----------------------------------------------------Declaración Variables Blackpanter2 ----------------------------------------------------------------------////
+float rotaXblack2 = 0.0f;
+float rotaYblack2 = 0.0f;
+float rotaZblack2 = 0.0f;
+float movXblack2 = 0.0f;
+float movYblack2 = 0.0f;
+float movZblack2 = 0.0f;
+float muevePiernaDerblack2 = 0.0f;
+float muevePiernaIzqblack2 = 0.0f;
+bool iniPiernablack2 = true;
+bool iniPierna2black2 = false;
+bool iniBrazoblack2 = true;
+bool iniBrazo2black2 = false;
+float mueveBrazoDerblack2 = 0.0f;
+float mueveBrazoIzqblack2 = 0.0f;
+float contador2black2 = 0.0f;
+float anguloblack2 = 0.0f;
+bool estado1black2 = true;
+bool estado2black2 = false;
+bool estado3black2 = false;
+bool estado4black2 = false;
+bool estado5black2 = false;
+bool estado6black2 = false;
+bool estado7black2 = false;
+bool estado8black2 = false;
+bool estado9black2 = false;
+bool estado10black2 = false;
+bool estado11black2 = false;
+bool estado12black2 = false;
+bool estado13black2 = false;
+bool estado14black2 = false;
+bool estado15black2 = false;
+bool estado16black2 = false;
+bool estado17black2 = false;
+bool estado18black2 = false;
+bool estado19black2 = false;
 /////-----------------------------------------------------Declaración Variables Spiderman ----------------------------------------------------------------------////
 float rotaXSpider = 0.0f;
 float rotaYSpider = 0.0f;
@@ -776,13 +861,13 @@ int main()
 
 	
 	//Textura Piso
-	pisoTexture = Texture("Textures/pisoPiedra.png");
+	pisoTexture = Texture("Textures/arena.jpg");
 	pisoTexture.LoadTextureA();
 	//Textura Agave
 	Tagave = Texture("Textures/Agave.tga");
 	Tagave.LoadTextureA();
 	//Textura Pasto
-	pastoTexture=Texture("Textures/arena.jpg");
+	pastoTexture=Texture("Textures/pasto5.jpg");
 	pastoTexture.LoadTextureA();
 
 	/////---------------------------------------------- CARGA DE MODELOS --------------------------------------------------------------------------////
@@ -802,7 +887,34 @@ int main()
 	//Modelo Camino
 	Camino_M = Model();
 	Camino_M.LoadModel("Models/pista.obj");
-	//-----------------------------------------------Personaje----------------------------------------------------------------//
+	//-----------------------------------------------Personaje BlackPanter Hombre----------------------------------------------------------------//
+	//Modelo Tronco--1
+	TroncoHB_M = Model();
+	TroncoHB_M.LoadModel("Models/htronco.obj");
+
+	//Modelo Cabeza--2
+	CabezaHB_M = Model();
+	CabezaHB_M.LoadModel("Models/hcabeza.obj");
+
+	//Modelo Mano Derecha--3
+	BrazoDerHB_M = Model();
+	BrazoDerHB_M.LoadModel("Models/hbrazoDer.obj");
+
+	//Modelo Mano Izquierda--4
+	BrazoIzqHB_M = Model();
+	BrazoIzqHB_M.LoadModel("Models/hbrazoIzq.obj");
+
+	//Modelo Pierna Izquierda--5
+	PiernaIzqHB_M = Model();
+	PiernaIzqHB_M.LoadModel("Models/hpiernaIzq.obj");
+
+	//Modelo Pierna Derecha--6
+	PiernaDerHB_M = Model();
+	PiernaDerHB_M.LoadModel("Models/hpiernaDer.obj");
+
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------//
+	//-----------------------------------------------Personaje Spiderman----------------------------------------------------------------//
 	//Modelo Tronco--1
 	Tronco_M = Model();
 	Tronco_M.LoadModel("Models/tronco.obj");
@@ -894,6 +1006,14 @@ int main()
 	Rayo_M = Model();
 	Rayo_M.LoadModel("Models/LightingMcqueen.obj");
 
+	//Modelo Porteia
+	Porteria_M = Model();
+	Porteria_M.LoadModel("Models/porteria.obj");
+
+	//Modelo Balon
+	Balon_M = Model();
+	Balon_M.LoadModel("Models/balonobj.obj");
+
 
 	//Modelo Pajaro
 	//Pajaro_M = Model();
@@ -967,6 +1087,12 @@ int main()
 	//Posicion inicial de Spiderman
 	glm::vec3 spiderpos = glm::vec3(75.0f, 4.7f, 60.0f);
 	//75.0f + movXspider, 4.7f + movYspider, 60.0f + movZspider));
+
+	//Posicion inicial de BlackPanter
+	glm::vec3 blackpos = glm::vec3(160.0f, 4.7f, -100.0f);
+
+	//Posicion inicial de BlackPanter2
+	glm::vec3 blackpos2 = glm::vec3(160.0f, 4.7f, -10.0f);
 	
 	//Posicion inicial del pajaro
 	glm::vec3 pospajaro = glm::vec3(0.0f, 5.0f, -100.0f);
@@ -2811,7 +2937,154 @@ int main()
 		
 		///////////////// QUITAALOOOOOOOOOOOO////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////
-		 
+
+		//------------------------------------------------------------------DIBUJAR HOMBRE BLACK PANTER 1-------------------------------------------------------------------//
+		//Modelo Tronco//
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(blackpos.x+movXblack+ -0.012439f,blackpos.y+movYblack+ -0.060164f,blackpos.z+movZblack+ -0.073148f));
+		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
+		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
+		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		model = glm::rotate(model, (0+rotaXblack) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, (0 + rotaYblack) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, (0 + rotaZblack) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		TroncoHB_M.RenderModel();
+		
+		//Modelo de cabeza//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.0f, 0.634567f, -0.036493f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CabezaHB_M.RenderModel();
+
+		//Modelo Brazo Der//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-0.446364f, 0.380999f, 0.034415f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0+ mueveBrazoDerblack) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BrazoDerHB_M.RenderModel();
+
+		//Modelo Brazo Izq//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.450342f, 0.441965f, 0.026008f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0+ mueveBrazoIzqblack) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO IZQ
+		modelaux2 = model;
+		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BrazoIzqHB_M.RenderModel();
+
+
+		//Modelo Pierna Der//
+		model = modelaux; 
+		model = glm::translate(model, glm::vec3(-0.364119f, -0.708628f, 0.008785f));
+		model = glm::rotate(model, (muevePiernaIzqblack + 0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiernaDerHB_M.RenderModel();
+
+		//Modelo Pierna Izq//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.371392f, -0.675755f, 0.027448f));
+		model = glm::rotate(model, (muevePiernaDerblack +0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiernaIzqHB_M.RenderModel();
+		
+		//------------------------------------------------------------------DIBUJAR PORTERIA 1----------------------------------------------------------------------------//
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(180.0f, 0.35f, -110.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Porteria_M.RenderModel();
+
+		//------------------------------------------------------------------DIBUJAR UNICO BALON----------------------------------------------------------------------------//
+		angulo += 3.0;
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(160.0f + movXbalon, 0.11f + movYbalon, -50.0f + movZbalon));
+		model = glm::rotate(model, (0+angulo) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Balon_M.RenderModel();
+
+
+		//------------------------------------------------------------------DIBUJAR BlackPanter 2----------------------------------------------------------------------------//
+		//Modelo Tronco//
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(blackpos2.x + movXblack2 + -0.012439f, blackpos2.y + movYblack2 + -0.060164f, blackpos2.z + movZblack2 + -0.073148f));
+		//model = glm::rotate(model, glm::radians(movCoc), glm::vec3(0.0f, 1.0f, 0.0f));////MOVIMIENTO CIRCULAR Y
+		//model = glm::rotate(model, glm::radians(movZ), glm::vec3(0.0f, 0.0f, 1.0f));////MOVIMIENTO CIRCULAR Z
+		//model = glm::rotate(model, glm::radians(movX), glm::vec3(1.0f, 0.0f, 0.0f));////MOVIMIENTO CIRCULAR X
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		model = glm::rotate(model, (0 + rotaXblack2) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, (-180 + rotaYblack2) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, (0 + rotaZblack2) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		TroncoHB_M.RenderModel();
+
+		//Modelo de cabeza//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.0f, 0.634567f, -0.036493f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CabezaHB_M.RenderModel();
+
+		//Modelo Brazo Der//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-0.446364f, 0.380999f, 0.034415f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0 + mueveBrazoDerblack2) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BrazoDerHB_M.RenderModel();
+
+		//Modelo Brazo Izq//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.450342f, 0.441965f, 0.026008f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, (0 + mueveBrazoIzqblack2) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO IZQ
+		modelaux2 = model;
+		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BrazoIzqHB_M.RenderModel();
+
+
+		//Modelo Pierna Der//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-0.364119f, -0.708628f, 0.008785f));
+		model = glm::rotate(model, (muevePiernaIzqblack2 + 0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiernaDerHB_M.RenderModel();
+
+		//Modelo Pierna Izq//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.371392f, -0.675755f, 0.027448f));
+		model = glm::rotate(model, (muevePiernaDerblack2 + 0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiernaIzqHB_M.RenderModel();
+
+
+
+		//------------------------------------------------------------------DIBUJAR PORTERIA 2----------------------------------------------------------------------------//
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(140.0f, 0.35f, 0.0f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Porteria_M.RenderModel();
+
+		/*
 		//------------------------------------------------------------------DIBUJAR SPIDERMAN----------------------------------------------------------------------------//
 		
 		//Modelo Tronco//
@@ -2881,7 +3154,8 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PiernaIzq_M.RenderModel();
 		
-
+		*/
+		/*
 		//--------------------------------------------------------DIBUJAR PAJARO--------------------------------------------------------------------------------------//
 
 		//Tronco de Pajaro//
@@ -2952,6 +3226,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Alberca_M.RenderModel();
 
+		*/
 		//--------------------------------------------------------------------------------------------------------------------------------------------------//
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
