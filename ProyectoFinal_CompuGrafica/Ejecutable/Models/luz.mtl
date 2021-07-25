@@ -1,0 +1,46 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl Glass
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.517000
+d 0.000000
+illum 1
+map_Kd C:\\Users\\tole_\\source\\repos\\NewRepo\\ProyectoFinal_CompuGrafica\\ProyectoFinal_CompuGrafica\\Textures\\amarillo.png
+
+newmtl Metal
+Ns 96.999983
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\tole_\\source\\repos\\NewRepo\\ProyectoFinal_CompuGrafica\\ProyectoFinal_CompuGrafica\\Textures\\azulfuerte.png
+
+newmtl Plastic_Matte
+Ns 40.000007
+Ka 1.000000 1.000000 1.000000
+Kd 0.950000 0.950000 0.950000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\tole_\\source\\repos\\NewRepo\\ProyectoFinal_CompuGrafica\\ProyectoFinal_CompuGrafica\\Textures\\gris.png
+
+newmtl default
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\tole_\\source\\repos\\NewRepo\\ProyectoFinal_CompuGrafica\\ProyectoFinal_CompuGrafica\\Textures\\gris.png

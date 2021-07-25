@@ -1,0 +1,160 @@
+# Blender MTL File: 'None'
+# Material Count: 15
+
+newmtl Aluminum
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.701961 0.701961 0.701961
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\uploads_files_872209_House\\House\\obj\\House\\Aluminum.jpg
+
+newmtl Brick_Colored_Blue
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.564706 0.560784 0.572549
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\uploads_files_872209_House\\House\\obj\\House\\Brick_Colored_Blue.jpg
+
+newmtl Color_E02
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 0.600000
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Color_M06
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.337255 0.337255 0.337255
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Concrete_Block_8x8_Gray
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.615686 0.619608 0.603922
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\uploads_files_872209_House\\House\\obj\\House\\Concrete_Block_8x8_Gray.jpg
+
+newmtl FrontColor
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl M_0025_Coral
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 0.498039 0.313725
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl M_0043_SaddleBrown
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.545098 0.270588 0.074510
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Roofing_Shingles_GAF_Estates
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.317647 0.301961 0.290196
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\uploads_files_872209_House\\House\\obj\\House\\Roofing_Shingles_GAF_Estates.jpg
+
+newmtl Tile_Travertine_2_inch
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.709804 0.698039 0.674510
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\uploads_files_872209_House\\House\\obj\\House\\Tile_Travertine_2_inch.jpg
+
+newmtl Tile_Various_Tan
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.839216 0.768627 0.662745
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\uploads_files_872209_House\\House\\obj\\House\\Tile_Various_Tan.jpg
+
+newmtl Translucent_Glass_Gray
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.207843 0.207843 0.207843
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.500000
+illum 9
+
+newmtl Vegetation_Grass_Artificial
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.384314 0.549020 0.290196
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\uploads_files_872209_House\\House\\obj\\House\\Vegetation_Grass_Artificial.jpg
+
+newmtl Wood_Cherry_Original
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.596078 0.337255 0.164706
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\tole_\\Downloads\\uploads_files_872209_House\\House\\obj\\House\\Wood_Cherry_Original.jpg
+
+newmtl _Translucent_Glass_Gray_1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.168627 0.168627 0.168627
+Ks 0.330000 0.330000 0.330000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.500000
+illum 9

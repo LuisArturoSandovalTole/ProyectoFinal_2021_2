@@ -1,0 +1,101 @@
+# Blender MTL File: 'None'
+# Material Count: 9
+
+newmtl BARK2
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13brk2.png
+
+newmtl BARK3
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13brk3.png
+
+newmtl BARK4
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13brk4.png
+
+newmtl BARK5
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13brk5.png
+
+newmtl BARK6
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13brk6.png
+
+newmtl BARK7
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13brk7.png
+
+newmtl LEAF1
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13lef1.png
+
+newmtl LEAF2
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13lef2.png
+
+newmtl LEAF3
+Ns 2.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\Users\tole_\source\repos\NewRepo\ProyectoFinal_CompuGrafica\ProyectoFinal_CompuGrafica\Textures\\OC13lef3.png
