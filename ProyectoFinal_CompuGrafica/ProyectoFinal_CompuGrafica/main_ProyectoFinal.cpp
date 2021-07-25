@@ -43,6 +43,8 @@ Alumno: Sandoval Juárez Luis Arturo 3
 #include "Material.h"
 
 //float ang;
+//-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE BASKET------------------------------------------// 
+int basketball = 0;
 //-------------------------------------------------VARIABLES PARA ACTIVAR ANIMACION DE FLOTADOR------------------------------------------//
 
 int flota = 0;
@@ -129,6 +131,32 @@ Model PataIzqPa_M;
 Model PataDerPa_M;
 //Flotador
 Model Flotador_M;
+//Basket
+Model Basket_M;
+
+/////-----------------------------------------------------Declaración Variables Basket ----------------------------------------------------------------------////
+float movXbasket = 0.0f;
+float movYbasket = 0.0f;
+float movZbasket = 0.0f;
+float angub = 0.0f;
+bool bake1 = true;
+bool bake2 = false;
+bool bake3 = false;
+bool bake4 = false;
+bool bake5 = false;
+bool bake6 = false;
+bool bake7 = false;
+bool bake8 = false;
+bool bake9 = false;
+bool bake10 = false;
+bool bake11= false;
+bool bake12 = false;
+bool bake13 = false;
+bool bake14 = false;
+bool bake15 = false;
+bool bake16 = false;
+bool bake17 = false;
+bool bake18 = false;
 /////-----------------------------------------------------Declaración Variables Balon ----------------------------------------------------------------------////
 float movXbalon = 0.0f;
 float movYbalon = 0.0f;
@@ -1181,6 +1209,10 @@ int main()
 	//Modelo Flotador
 	Flotador_M = Model();
 	Flotador_M.LoadModel("Models/flotador.obj");
+
+	//Modelo Basket
+	Basket_M = Model();
+	Basket_M.LoadModel("Models/basket.obj");
 
 	/////---------------------------------------------- CARGA DE CARAS DEL SKYBOX -----------------------------------------------------------------------////
 
@@ -2752,7 +2784,155 @@ int main()
 					contador3 = 0;
 				}
 			}
+			//-------------------------------------------------------------Animación de Basket---------------------------------------------------------//
+			if (basketball == 1) {
+				if (bake1) {
+					angub += 1.5;
+					movXbasket -= 0.6;
+					movYbasket -= 0.1;
+					if (movXbasket <= -10) {
+						bake1 = false;
+						bake2 = true;
+					}
+				}
+				if (bake2) {//BAJA
+					angub += 3.0;
+					movYbasket -= 0.6;
+					if (movYbasket <=-50) {
+						bake2 = false;
+						bake3 = true;
+					}
+				}
 
+				if (bake3) {//SUBE
+					angub -= 3.0;
+					movYbasket += 0.5;
+					if (movYbasket >= 0) {
+						bake3 = false;
+						bake4 = true;
+					}
+				}
+
+				if (bake4) {//BAJA
+					angub += 3.0;
+					movYbasket -= 0.4;
+					if (movYbasket <= -50) {
+						bake4 = false;
+						bake5 = true;
+					}
+				}
+
+				if (bake5) {//SUBE
+					angub -= 3.0;
+					movYbasket += 0.4;
+					if (movYbasket >= -10) {
+						bake5 = false;
+						bake6 = true;
+					}
+				}
+
+				if (bake6) {//BAJA
+					angub += 3.0;
+					movYbasket -= 0.4;
+					if (movYbasket <= -50) {
+						bake6 = false;
+						bake7 = true;
+					}
+				}
+				
+				if (bake7) {//SUBE
+					angub -= 3.0;
+					movYbasket += 0.4;
+					if (movYbasket >= -20) {
+						bake7 = false;
+						bake8 = true;
+					}
+				}
+
+				if (bake8) {//BAJA
+					angub += 3.0;
+					movYbasket -= 0.4;
+					if (movYbasket <= -50) {
+						bake8 = false;
+						bake9 = true;
+					}
+				}
+
+				if (bake9) {//SUBE
+					angub -= 3.0;
+					movYbasket += 0.3;
+					if (movYbasket >= -30) {
+						bake9 = false;
+						bake10 = true;
+					}
+				}
+
+				if (bake10) {//BAJA
+					angub += 3.0;
+					movYbasket -= 0.3;
+					if (movYbasket <= -50) {
+						bake10 = false;
+						bake11 = true;
+					}
+				}
+
+				if (bake11) {//SUBE
+					angub -= 3.0;
+					movYbasket += 0.3;
+					if (movYbasket >= -40) {
+						bake11 = false;
+						bake12 = true;
+					}
+				}
+
+				if (bake12) {//BAJA
+					angub += 3.0;
+					movYbasket -= 0.3;
+					if (movYbasket <= -50) {
+						bake12 = false;
+						bake13 = true;
+					}
+				}
+
+				if (bake13) {//SUBE
+					angub -= 3.0;
+					movYbasket += 0.3;
+					if (movYbasket >= -45) {
+						bake13 = false;
+						bake14 = true;
+					}
+				}
+
+				if (bake14) {//BAJA
+					angub += 3.0;
+					movYbasket -= 0.3;
+					if (movYbasket <= -50) {
+						bake14 = false;
+						//bake15 = true;
+					}
+				}
+
+				
+			}else if (basketball == 0) {
+				movXbasket = 0.0;
+				movYbasket = 0.0f;
+				movZbasket = 0.0f;
+				bake1 = true;
+				bake2 = false;
+				bake3 = false;
+				bake4 = false;
+				bake5 = false;
+				bake6 = false;
+				bake7 = false;
+				bake8 = false;
+				bake9 = false;
+				bake10 = false;
+				bake11 = false;
+				bake12 = false;
+				bake13 = false;
+				bake14 = false;
+				
+			}
 			/*
 						if (estado16) {////////////////////COLOR
 				mueveBrazoIzq -= 0.5;
@@ -3494,6 +3674,18 @@ int main()
 		model = glm::rotate(model, (0 + muevePataIzq) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO DER
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PataIzqPa_M.RenderModel();
+
+
+		//-------------------------------------------------------------DIBUJAR PELOTA BASKET----------------------------------------------------------------------------//
+
+		//Modelo  Basket//
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-38.0f + movXbasket, 52.5f + movYbasket, 53.5f + movZbasket));//model = glm::translate(model, glm::vec3(75.0f, 0.5f, 80.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::rotate(model, angub * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		modelaux = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Basket_M.RenderModel();
 		
 		/*
 		//-------------------------------------------------------------DIBUJAR FLOTADOR--------------------------------------------------------------------------------//
@@ -3866,7 +4058,7 @@ int main()
 		*/
 		//--------------------------------------------------------------------------------------------------------------------------------------------------
 		//Modelo de Edificio
-		/*
+		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		model = glm::mat4(1.0);
@@ -3877,7 +4069,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Edificio_M.RenderModel();
 		glDisable(GL_BLEND);
-		*/
+		
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////// HASTA AQUI LLEGA ///////////////////////////////////////////////////////////7
@@ -4100,6 +4292,16 @@ void inputKeyframes(bool* keys)
 	if (keys[GLFW_KEY_V])//Desactiva
 	{
 		flota = 0;
+	}
+
+	//--------------------------------------------------------------------ANIMACION BASKETBALL----------------------------------------------------------------------//
+	if (keys[GLFW_KEY_E])//Activa
+	{
+		basketball = 1;
+	}
+	if (keys[GLFW_KEY_R])//Desactiva
+	{
+		basketball = 0;
 	}
 
 }
