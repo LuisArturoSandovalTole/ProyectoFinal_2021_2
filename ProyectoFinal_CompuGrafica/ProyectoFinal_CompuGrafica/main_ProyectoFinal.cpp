@@ -172,10 +172,16 @@ bool estado17black = false;
 bool estado18black = false;
 bool estado19black = false;
 /////-----------------------------------------------------Declaración Variables Blackpanter2 ----------------------------------------------------------------------////
-float inib2bra = true;
-float inib2bra2 = false;
-float inib2pie = true;
-float inib2pie2 = false;
+bool inib2bra = true;
+bool inib2bra2 = false;
+bool inib2pie = true;
+bool inib2pie2 = false;
+bool inib2brinco = true;
+bool inib2brinco2 = false;
+bool brazos = true;
+bool brazos2=false;
+bool arribita = true;
+bool arribita2 = false;
 
 float rotaXblack2 = 0.0f;
 float rotaYblack2 = 0.0f;
@@ -210,6 +216,7 @@ bool iniBrazo2 = false;
 float mueveBrazoDer = 0.0f;
 float mueveBrazoIzq = 0.0f;
 float contador2 = 0.0f;
+float contador3 = 0.0f;
 float angulo = 0.0f;
 bool estado1 = true;
 bool estado2 = false;
@@ -781,7 +788,7 @@ void movimientoPatas() {
 }
 
 
-//-------------------------------------------------------FUNCION PARA BRAZOS PANTERA 1----------------------------------------------------------------------------//
+//-------------------------------------------------------MOVIMIENTO BRAZOS PANTERA 1----------------------------------------------------------------------------//
 void movimientoBraB1() {
 	if (true) {
 		if (iniBrazoblack1) {
@@ -803,6 +810,7 @@ void movimientoBraB1() {
 	}
 
 }
+//-------------------------------------------------------MOVIMIENTO PIERNAS PANTERA 1----------------------------------------------------------------------------//
 void movimientoPiernasB1() {
 	if (true) {
 		if (iniPiernablack) {
@@ -825,7 +833,7 @@ void movimientoPiernasB1() {
 
 }
 
-//movZblack
+//-------------------------------------------------------MOVIMIENTO DESPLAZAMIENTO PANTERA 1----------------------------------------------------------------------------//
 void movimientoB1() {
 	if (true) {
 		if (movB1) {
@@ -845,13 +853,13 @@ void movimientoB1() {
 	}
 
 }
-
+//-------------------------------------------------------MOVIMIENTO BRAZOS PARA TIRAR PANTERA 2----------------------------------------------------------------------------//
 void brazosB2() {
 	if (true) {
 		if (inib2bra) {
 			//mueveAlaDer += 1.0;
 			mueveBrazoDerblack2 += 1.0;
-			mueveBrazoIzqblack2 += 1.0;
+			mueveBrazoIzqblack2 -= 1.0;
 			if (mueveBrazoDerblack2 > 30) {
 				inib2bra = false;
 				inib2bra2 = true;
@@ -868,7 +876,74 @@ void brazosB2() {
 	}
 
 }
+//-------------------------------------------------------MOVIMIENTO PIERNAS PARA TIRAR PANTERA 2----------------------------------------------------------------------------//
 
+void piernasB2() {
+	if (true) {
+		if (inib2pie) {
+			muevePiernaDerblack2 += 0.4;
+			muevePiernaIzqblack2 -= 0.4;
+			if (muevePiernaDerblack2 > 45) {
+				inib2pie = false;
+				inib2pie2 = true;
+			}
+		}
+		if (inib2pie2) {
+			muevePiernaDerblack2 -= 0.4;
+			muevePiernaIzqblack2 += 0.4;
+			if (muevePiernaDerblack2 < -45) {
+				inib2pie2 = false;
+				inib2pie = true;
+			}
+		}
+	}
+
+}
+
+//-------------------------------------------------------MOVIMIENTO BRINCO PANTERA 2----------------------------------------------------------------------------//
+
+void brincoB2() {
+	if (true) {
+		if (inib2brinco) {
+			movYblack2 += 0.1;
+			if (movYblack2 >= 5) {
+				inib2brinco = false;
+				inib2brinco2 = true;
+			}
+		}
+		if (inib2brinco2) {
+			movYblack2 -= 0.1;
+			if (movYblack2 <= 0) {
+				inib2brinco2 = false;
+				inib2brinco = true;
+			}
+		}
+	}
+
+}
+void arribitaT() {
+	{
+		if (true) {
+			if (arribita) {
+				mueveBrazoDerblack2 -= 1.0;
+				mueveBrazoIzqblack2 -= 1.0;
+				if (mueveBrazoDerblack2 < -180) {
+					arribita = false;
+					arribita2 = true;
+				}
+			}
+			if (arribita2) {
+				mueveBrazoDerblack2 += 1.0;
+				mueveBrazoIzqblack2 += 1.0;
+				if (mueveBrazoDerblack2 >= 0) {
+					arribita2 = false;
+					arribita = true;
+				}
+			}
+		}
+
+	}
+}
 ///////////////* ---------------------------------------FIN KEYFRAMES*--------------------------------------------------------------------////////////////////////////
 
 
@@ -2583,10 +2658,139 @@ int main()
 			}
 		}
 		//------------------------------------------------------------Animacion Futbol--------------------------------------------------------//
+		float count5 = 0.0;
 		if (true) {
-			movimientoBraB1();
-			movimientoPiernasB1();
-			movimientoB1();
+			if (estado1black) {
+				movimientoBraB1();
+				movimientoPiernasB1();
+				movimientoB1();
+				brazosB2();
+				piernasB2();
+				movZblack2 -= 0.09;
+				if (movZblack2 <= -39) {
+					estado1black = false;
+					estado2black = true;
+				}
+				//angulo += 3.0;
+			}
+
+			if (estado2black) {
+				movimientoBraB1();
+				movimientoPiernasB1();
+				movimientoB1();
+				//brazosB2();
+				//piernasB2();
+				//movZblack2 -= 0.05;
+				muevePiernaDerblack2 -= 1.0;
+				if (muevePiernaDerblack2 <= -40) {
+					estado2black = false;
+					estado3black = true;
+				}
+				//angulo += 3.0;
+			}
+			if (estado3black) {
+				movimientoBraB1();
+				movimientoPiernasB1();
+				movimientoB1();
+				movZbalon -= 0.3;
+				movXbalon -= 0.02;
+				movYbalon += 0.015;
+				angulo += 3.0;
+				if (movZbalon <= -60) {
+					estado3black = false;
+					estado4black = true;
+				}
+				//angulo += 3.0;
+			}
+			if (estado4black) {
+				//movimientoBraB1();
+				//movimientoPiernasB1();
+				//movimientoB1();
+	
+				movYbalon -= 0.1;
+				angulo += 2.0;
+				if (movYbalon <= 0) {
+					angulo = 0;
+					estado4black = false;
+					estado5black = true;
+				}
+			}
+
+			if (estado5black) {
+				contador3 += 0.01;
+				arribitaT();
+				brincoB2();
+				
+				if (contador3>= 4) {
+					estado5black = false;
+					estado6black = true;
+					contador3 = 0;
+				}
+			}
+
+			if (estado6black) {
+				contador3 += 0.01;
+				movXbalon = 0.0;
+				movYbalon = 0.0;
+				movZbalon = 0.0;
+				muevePiernaDerblack2 = 0.0;
+				muevePiernaIzqblack2 = 0.0;
+				movZblack2 = 0.0f;
+				mueveBrazoDerblack2 = 0.0;
+				mueveBrazoIzqblack2 = 0.0;
+				angulo = 0.0;
+				movXblack = 0.0;
+				muevePiernaDerblack = 0.0;
+				muevePiernaIzqblack = 0.0;
+				mueveBrazoDerblack = 0.0;
+				mueveBrazoIzqblack = 0.0;
+
+
+				if (contador3 >= 2) {
+					estado6black = false;
+					estado1black = true;
+					contador3 = 0;
+				}
+			}
+
+			/*
+						if (estado16) {////////////////////COLOR
+				mueveBrazoIzq -= 0.5;
+				if (mueveBrazoIzq < -80) {
+					mueveBrazoIzq = -80;
+					contador2 += 0.01;
+						red = 0.0f;
+						brillo = 10.0f;
+						if (contador2 >= 5) {
+							estado16 = false;
+							estado17 = true;
+						}
+					
+					
+
+				}
+			}
+			*/
+			/*
+			if (estado6black) {
+				movXbalon = 0.0;
+				movYbalon = 0.0;
+				movZbalon = 0.0;
+				muevePiernaDerblack2 = 0.0;
+				muevePiernaIzqblack2 = 0.0;
+				movZblack2 = 0.0f;
+				mueveBrazoDerblack2 = 0.0;
+				mueveBrazoIzqblack2 = 0.0;
+
+
+				count5 += 0.5;
+				if (count5 >= 1) {
+					estado6black = false;
+					estado1black = true;
+				}
+			}
+			*/
+
 		}
 		/*
 		//MOVIMIENTO DE COCHE//
@@ -3092,7 +3296,7 @@ int main()
 		Porteria_M.RenderModel();
 
 		//------------------------------------------------------------------DIBUJAR UNICO BALON----------------------------------------------------------------------------//
-		angulo += 3.0;
+		
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(160.0f + movXbalon, 0.11f + movYbalon, -50.0f + movZbalon));
 		model = glm::rotate(model, (0+angulo) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -3134,7 +3338,7 @@ int main()
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.450342f, 0.441965f, 0.026008f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, (0 + mueveBrazoIzqblack2) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//MOVIMIENTO BRAZO IZQ
+		model = glm::rotate(model, (0 + mueveBrazoIzqblack2) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//MOVIMIENTO BRAZO IZQ
 		modelaux2 = model;
 		//model = glm::rotate(model, (-30 + angulo) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -3144,7 +3348,7 @@ int main()
 		//Modelo Pierna Der//
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(-0.364119f, -0.708628f, 0.008785f));
-		model = glm::rotate(model, (muevePiernaIzqblack2 + 0) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));//Movimiento de PIERNA DERECHA 
+		model = glm::rotate(model, (muevePiernaIzqblack2 + 0) * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));//Movimiento de PIERNA DERECHA 
 		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
